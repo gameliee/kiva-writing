@@ -1,13 +1,23 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper]{report}
+
 \begin{document}
 
-This is my first sentence.
-This is the second one.
+\input{frontmatter/frontmatter.tex}
+\tableofcontents
+\listoffigures
+\listoftables
 
-\cite{belleflamme2015}.
+\chapter{Introduction}
+\input{chap1/chap1.tex}
+\chapter{Literature Review}
+\input{chap2/chap2.tex}
+\chapter{Data}
+\input{chap3/chap3.tex}
+\chapter{Hypothesis testing}
+\input{chap4/chap4.tex}
+\chapter{Conclusions and future works}
+\input{chap5/chap5.tex}
 
-
-\bibliographystyle{plain} % Choose a style that suits your requirements
-\bibliography{kiva-writing}  % Without the .bib extension
+\input{backmatter/backmatter.tex}
 
 \end{document}
