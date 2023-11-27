@@ -1,6 +1,33 @@
 \documentclass[a4paper]{report}
+\usepackage{amsmath, amssymb}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{booktabs} % For formal tables
+\usepackage{tikz}
+\usepackage[margin=1in]{geometry} % For page margins
+\usepackage{eso-pic} % Needed for AddToShipoutPicture
+\usetikzlibrary{calc}
+\usepackage[
+backend=bibtex,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{kiva-writing.bib}
+
 
 \begin{document}
+
+% Draw a border on every page
+\AddToShipoutPicture{%
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw [line width=1pt]
+		($ (current page.north west) + (0.5cm,-0.5cm) $) rectangle
+		($ (current page.south east) + (-0.5cm,0.5cm) $);
+	\end{tikzpicture}%
+}
 
 \input{frontmatter/frontmatter.tex}
 \tableofcontents
