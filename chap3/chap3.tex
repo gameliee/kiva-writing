@@ -127,7 +127,9 @@ We use the interface to introspection the data schema and to try out some querie
 	\label{fig:grapqli}
 \end{figure}
 
-For example, we could try the query for getting basic stats of kiva like following Figure.
+For example, we could try the query for getting basic stats of kiva like following Figure \ref{fig:graphqli-example}.
+One can use the Docs side bar (the right side bar) to discover what is the data that the API offer.
+A basic knowledge about GraphQL would be helpful to discover the data schema more easily.
 
 \begin{figure}[H]
 	\centering
@@ -137,12 +139,275 @@ For example, we could try the query for getting basic stats of kiva like followi
 \end{figure}
 
 
-
-
 Before begining to query the data, we have to understand the data schema to know what data that we can get.
 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/graphuml/dataschema.png}
+	\caption{Data schema}
+	\label{fig:data-schema}
+\end{figure}
 
+The relationship beteen Lender and Project is many-to-many.
+Each Project in Kiva can be funded by many Lenders.
+And each Lender can fund many Projects.
+The relationship between Project and Tag is also many-to-many.
+The fields that we could get from each Project is described in Table \ref{tab:fields-meaning}.
+We have to note that, in the APIs, kiva use the term "Loan" to indicate a single project.
+We found it rather misunderstanding to use "Loan", so we try our best to use "Project" to avoid those misleading.
+In this thesis, if a "Loan" appear (with the letter L in capital), one can understand the meaning is a "Project".
+
+
+\begin{longtable}{|p{0.33\textwidth}|p{0.67\textwidth}|}
+	\toprule\noalign{}
+	\caption{Fields of Projects}
+	\label{tab:fields-meaning}                                                                               \\
+
+	\hline
+	\multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                             \\
+	\hline
+	\endfirsthead
+
+	\multicolumn{2}{c}%
+	{{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                    \\
+	\hline
+	\multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                             \\
+	\hline
+	\endhead
+
+	\hline
+	\multicolumn{2}{|r|}{{Continued on next page}}                                                           \\ \hline
+	\endfoot
+
+	\hline \hline
+	\endlastfoot
+
+	activity                             & The activity is a structured categorization of the loan
+	use                                                                                                      \\
+	anonymizationLevel                   & The level of borrower privacy                                     \\
+	borrowerCount                        & The number of borrowers participating in the loan                 \\
+	borrowers                            & The one or more borrowers that are receiving this loan. If
+	there is more than one, the primary borrower is first                                                    \\
+	dafEligible                          & Whether or not the loan is eligible for donor-advised
+	funds.                                                                                                   \\
+	delinquent                           & Whether or not the loan is delinquent. This defaults to
+	false if the user is not privileged to this loan                                                         \\
+	description                          & The description of the loan profile in English.                   \\
+	descriptionInOriginalLanguage        & The description of the loan profile in
+	the original language of its posting                                                                     \\
+	disbursalDate                        & The date on which the loan was/will actually be
+	disbursed to the borrower                                                                                \\
+	distributionModel                    & How the loan is distributed to the borrower,
+	e.g.~`field\_partner' or `direct'                                                                        \\
+	endorser                             & The user who endorsed the loan. Only shown on fundRaising
+	loans, null for all other statuses.                                                                      \\
+	fundraisingDate                      & When the loan started fundraising on Kiva. Same as
+	posted\_date in v1.                                                                                      \\
+	gender                               & The gender of the primary borrower OR majority gender if
+	group                                                                                                    \\
+	geocode                              & The physical location of the borrower and/or business             \\
+	hasCurrencyExchangeLossLenders       & Whether or not the loan has currency
+	loss to lenders. Only usable after the loan has moved into the ``ended''
+	state.                                                                                                   \\
+	id                                   & Unique identifier for a Kiva loan                                 \\
+	image                                & The picture for this loan profile.                                \\
+	isMatchable                          & Is this Kiva loan matchable? e.g.~is there a source of
+	funds to provide matching if a share is purchased?                                                       \\
+	inPfp                                & If true, this loan is in a Private Fundraising Period             \\
+	loanAmount                           & The amount of this loan, as shown to lenders                      \\
+	loanFundraisingInfo                  & Information about this loan during its fundraising
+	period                                                                                                   \\
+	lenderRepaymentTerm                  & The number of months it will take the borrower to
+	repay the loan                                                                                           \\
+	matcherAccountId                     & The id of the loan matcher                                        \\
+	matcherName                          & The name of the loan matcher                                      \\
+	matchRatio                           & The loan match ratio                                              \\
+	matchingText                         & Text that is displayed if loan matching is turned on for
+	this loan.                                                                                               \\
+	name                                 & The name of the borrower or group receiving the loan              \\
+	originalLanguage                     & The original language on the loan                                 \\
+	minNoteSize                          & The minimum amount to lend for this loan                          \\
+	paidAmount                           & The amount of settled repayments for a loan that has
+	started paying back                                                                                      \\
+	pfpMinLenders                        & The minimum number of lenders that this loan needs to
+	exit its private fundraising period (PFP).                                                               \\
+	plannedExpirationDate                & When the loan will expire if it is not fully
+	funded                                                                                                   \\
+	previousLoanId                       & ID of the loan linked as previous to this one.                    \\
+	raisedDate                           & When the loan became raised, e.g.~fully funded. Same as
+	funded\_date in v1                                                                                       \\
+	researchScore                        & The research score of the loan theme instance of the
+	loan                                                                                                     \\
+	repaymentInterval                    & The repayment interval of the loan: ``monthly'',
+	``irregularly'',``at\_end''                                                                              \\
+	sector                               & The sector is a more general classification of the loan than
+	activity                                                                                                 \\
+	status                               & The status of a loan                                              \\
+	tags                                 & A list of tags on this loan                                       \\
+	terms                                & The financial terms of this loan                                  \\
+	use                                  & Text describing what the loan is to be used for; a logical subset
+	of description e.g.~``To buy a cow''                                                                     \\
+	userProperties                       & Properties that apply to the logged in user in relation
+	to a loan.                                                                                               \\
+	video                                & Video for this loan                                               \\
+	whySpecial                           & Why this loan is considered special.                              \\
+	comments                             & List of A user comment made on a Kiva loan.                       \\
+	lenders                              & List of Representation of a Kiva lender                           \\
+	lendingActions                       & List of Representation of a lending action                        \\
+	teams                                & List of Representation of a Kiva lending team                     \\
+\end{longtable}
+
+The example data that we get from the API is shown in Figure \ref{fig:example-data}.
+
+\begin{longtable}{|p{0.36\textwidth}|p{0.64\textwidth}|}
+	\toprule\noalign{}
+	\caption{An Example Project}
+	\label{fig:example-data}                                                                                   \\
+
+	\hline
+	\multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                               \\
+	\hline
+	\endfirsthead
+
+	\multicolumn{2}{c}%
+	{{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                      \\
+	\hline
+	\multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                               \\
+	\hline
+	\endhead
+
+	\hline
+	\multicolumn{2}{|r|}{{Continued on next page}}                                                             \\ \hline
+	\endfoot
+
+	\hline \hline
+	\endlastfoot
+
+	anonymizationLevel                   & none                                                                \\
+	borrowerCount                        & 1                                                                   \\
+	borrowers                            & {[}\{`id': 2843387, `borrowedAmount': `440.80', `firstName':
+	`Jessenia Elizabeth', `gender': `female', `isPrimary': True, `pictured':
+	True\}{]}                                                                                                  \\
+	dafEligible                          & False                                                               \\
+	delinquent                           & False                                                               \\
+	disbursalDate                        & 2013-09-25T07:00:00Z                                                \\
+	distributionModel                    & fieldPartner                                                        \\
+	endorser                             &                                                                     \\
+	fundraisingDate                      & 2013-10-23T22:40:01Z                                                \\
+	gender                               & female                                                              \\
+	hasCurrencyExchangeLossLenders       & False                                                               \\
+	id                                   & 623042                                                              \\
+	isMatchable                          & False                                                               \\
+	inPfp                                & False                                                               \\
+	loanAmount                           & 450.00                                                              \\
+	lenderRepaymentTerm                  & 8                                                                   \\
+	matcherAccountId                     &                                                                     \\
+	matcherName                          &                                                                     \\
+	matchRatio                           &                                                                     \\
+	matchingText                         &                                                                     \\
+	name                                 & Jessenia Elizabeth                                                  \\
+	minNoteSize                          & 25.00                                                               \\
+	paidAmount                           & 0.00                                                                \\
+	pfpMinLenders                        &                                                                     \\
+	plannedExpirationDate                & 2013-11-22T22:40:01Z                                                \\
+	previousLoanId                       &                                                                     \\
+	raisedDate                           & 2013-10-24T13:38:51Z                                                \\
+	researchScore                        & 9                                                                   \\
+	repaymentInterval                    & monthly                                                             \\
+	status                               & funded                                                              \\
+	tags                                 & {[}{]}                                                              \\
+	use                                  & purchase school supplies and other stationery items for her
+	store.                                                                                                     \\
+	video                                &                                                                     \\
+	whySpecial                           &                                                                     \\
+	activity.id                          & 103                                                                 \\
+	activity.name                        & Paper Sales                                                         \\
+	geocode.city                         & Pichincha                                                           \\
+	geocode.state                        & Pichincha                                                           \\
+	geocode.country.name                 & Ecuador                                                             \\
+	geocode.country.isoCode              & EC                                                                  \\
+	geocode.country.region               & South America                                                       \\
+	geocode.country.ppp                  & \$10,600                                                            \\
+	geocode.country.numLoansFundraising  & 553                                                                 \\
+	geocode.country.fundsLentInCountry   & 87573245                                                            \\
+	geocode.postalCode                   &                                                                     \\
+	geocode.latitude                     & -0.1464847                                                          \\
+	geocode.longitude                    & -78.4751945                                                         \\
+	image.id                             & 1456025                                                             \\
+	image.url                            &
+	https://www-kiva-org-0.freetls.fastly.net/img/s100/5cf86ba6c72db94f0721b934a57ca889.jpg                    \\
+	loanFundraisingInfo.fundedAmount     & 450.00                                                              \\
+	loanFundraisingInfo.isExpiringSoon   & False                                                               \\
+	loanFundraisingInfo.reservedAmount   & 0.00                                                                \\
+	originalLanguage.id                  & 2                                                                   \\
+	originalLanguage.isActive            & True                                                                \\
+	originalLanguage.isoCode             & ES                                                                  \\
+	originalLanguage.name                & Spanish                                                             \\
+	sector.id                            & 7                                                                   \\
+	sector.name                          & Retail                                                              \\
+	terms.currency                       & USD                                                                 \\
+	terms.currencyFullName               & United States Dollars                                               \\
+	terms.disbursalAmount                & 440.80                                                              \\
+	terms.disbursalDate                  & 2013-09-25T07:00:00Z                                                \\
+	terms.expectedPayments               & {[}{]}                                                              \\
+	terms.loanAmount                     & 450.00                                                              \\
+	terms.lenderRepaymentTerm            & 8                                                                   \\
+	terms.lossLiabilityCurrencyExchange  & none                                                                \\
+	terms.lossLiabilityNonpayment        & lender                                                              \\
+	terms.flexibleFundraisingEnabled     & False                                                               \\
+	userProperties.favorited             &                                                                     \\
+	userProperties.lentTo                &                                                                     \\
+	userProperties.subscribed            &                                                                     \\
+	userProperties.promoEligible         & False                                                               \\
+	userProperties.amountInBasket        &                                                                     \\
+	lendingActions.totalCount            & 14                                                                  \\
+	lendingActions.values                & {[}\{`lender': \{`id': 32817, `name': `Nate',
+	`publicId': `nateinaction'\}, `shareAmount': `25.00', `teams': {[}`(A+)
+	Atheists'{]}, `latestSharePurchaseDate': `2013-10-24T11:50:07Z'\},
+	\{`lender': \{`id': 55596, `name': `Dirk L.', `publicId': `DirkLebe'\},
+	`shareAmount': `25.00', `teams': {[}{]}, `latestSharePurchaseDate':
+	`2013-10-24T02:40:53Z'\}{]}                                                                                \\
+	description                          & Every fifteen days, the members of the Community Bank of
+	Pichincha meet in their home region of Pichincha. This area is well
+	known as a vibrant place, where the majority of the people are farmers
+	or ranchers. It's a highly vegetated area, cut by a great river that
+	nurtures the crops.                                                                                        \\
+	                                     & This is where Jessenia, 27 years old, lives with her common-law
+	husband and their three children, aged 9, 4, and 2 years. The eldest is
+	a student, and her husband is a shopkeeper.Jessenia is a woman with
+	spirit who likes to work to get ahead. For the last six years, she has
+	run a shop out of her home that functions as a stationery shop and a
+	bookstore. Day by day, the store has improved. Currently, apart from
+	books and supplies, she also sells trinkets and other school/office
+	supplies. With these products, her earnings have greatly increased, and
+	thanks to the loans she has received, she has been able to expand her
+	business.                                                                                                  \\
+	                                     & This loan will be used to buy school supplies and other stationery
+	products. She has been in the Community Bank for eight years and she
+	likes it because the loans have helped her improve her business. She
+	dreams of expanding it further still.                                                                      \\
+	descriptionInOriginalLanguage        & En el cantón Pichincha cada quince días
+	se reúne el Banco Comunal Pichincha, este lugar se lo conoce por ser muy
+	dinámico donde la mayoría de sus habitantes se dedican a la agricultura
+	y a la cría de animales, por ser una zona con gran vegetación surcada
+	por un gran rio lo cual lo hace propicia para los cultivos.                                                \\
+	                                     & En este lugar vive la señora Jessenia, tiene 27 años de edad y
+	mantiene una relación de unión libre de la cual tiene tres hijos de 9, 4
+	y 2 años de edad, el mayor estudia en escuela. El marido es
+	comerciante.                                                                                               \\
+	                                     & Doña Jessenia es una mujer muy luchadora que le gusta trabajar para
+	salir adelante, ella hace mas de 6 años adecuo un local en su casa y en
+	el mismo instaló una papelería y librería, la misma que con el paso de
+	los días ha ido mejorando, actualmente además de libros y útiles también
+	vende bisutería y artículos de bazar con esto sus ganancias han mejorado
+	mucho y esto gracias a los créditos que ha recibido ya que con ellos
+	cada vez aumenta más su negocio.                                                                           \\
+	                                     & Este crédito es para comprar útiles escolares y artículos de bazar.
+	Esta desde hace 8 años en el Banco Comunal y le gusta porque los
+	créditos le han ayudado a mejora su negocio. Sus sueños son aumentar más
+	su negocio.                                                                                                \\
+\end{longtable}
 
 \section{Basic data statistics}
 
