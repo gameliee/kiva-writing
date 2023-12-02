@@ -1,0 +1,26 @@
+@startuml preprocessing
+start
+:Load crawl data (.jsonl format);  <<input>>
+:Convert to DataFrame format; <<task>>
+:Save in .parquet format; <<output>>
+:Drop null; <<task>>
+:Drop duplicated; <<task>>
+:Explode Lender for each Project; <<task>>
+:Explode Tag for each Project; <<task>>
+:Assign column data type; <<task>>
+:Remove unwanted Tags; <<task>>
+:Remove anonymous Lenders; <<task>>
+:Save preprocessed data; <<output>>
+end
+@enduml
+
+' start
+' :SDL Shape;
+' :input; <<input>>
+' :output; <<output>>
+' :pro90-=\edure; <<procedure>>
+' :load; <<load>>
+' :save; <<save>>
+' :continuous; <<continuous>>
+' :task; <<task>>
+' end
