@@ -1,28 +1,89 @@
 \section{Review on Crowdfunding problem}
 
-Contents from the following references:
+\subsection{plan}
+
+Expectation: 2 pages is more than enough
+
+\begin{itemize}
+	\item Definition of crowdfunding (CF)
+	      \begin{itemize}
+		      \item Quote dictionary \cite{2023}
+		      \item List some popular website
+	      \end{itemize}
+	\item Some type of crowdfunding, or business model of CF
+	      \begin{itemize}
+		      \item Two board class: investment-based and reward-based \cite{belleflamme2015}
+		      \item A paragraph describe investment-based
+		      \item A paragraph describe reward-based
+	      \end{itemize}
+	\item Type of literatures on CF \cite{xie2019}
+	      \begin{itemize}
+		      \item A pargraph describe the type of literatures, including
+		            \begin{itemize}
+			            \item Foundation and Concepts
+			            \item Significance of CF
+			            \item Risks of CF
+			            \item CF success factors:
+			                  \cite{lindasalahaldin2022} ultilize game theory to show that there exists pivotal moments in CF campaigns.
+			                  In that moments, if funders donate more money to the campagins, then the campagins will much likely to be successful.
+			                  Otherwise, the campaigns will much likely to be failed.
+			                  The authors also shows that the pivotal moments are different for each campaigns.
+			                  \cite{salahaldin2019} To the best of our knowledge, this article is the first to use a theoretical model to address the dynamics of a funder’s choice that depend on the remaining project duration and the first that produces theoretical results that fit empirical observations.
+			                  We have proposed a decision framework that highlights the impact of CF project duration.
+			            \item Gaps in literatures:
+			                  Quote "However, the dynamics of how these factors lead to crowdfunding success are not well articulated.
+			                  While it is possible to infer from existing studies about the dynamics, empirical validation is lacking, particularly large-scale ones.
+			                  To address the gaps, we develop a model next."
+		            \end{itemize}
+	      \end{itemize}
+\end{itemize}
 
 \cite{belleflamme2015}
 \cite{mollick2014}
-\cite{lindasalahaldin2022}
 \cite{salahaldin2019}
 
 Translation to the next section:
-Because the dynamic of crowdfunding is rather complex and not well-understood, we would like to find a community-driven motivation or dynamic of succesful crowdfunding campaigns.
+Because the dynamic of crowdfunding is rather complex and not well-understood.
+Few works on CF dynamics from the approach of empricial data analysis on large-scale dataset.
+We would like to find a community-driven motivation or dynamic of succesful crowdfunding campaigns.
+In the next chapter, we will introduce the community detection problem and how it can be applied to the crowdfunding problem.
 
 \section{Review on Community Detecting problem}
 
 \begin{itemize}
-    \item Definition of community finding on a graph
-    \begin{itemize}
-        \item Most of the works focus on develop algorithms to find community, benchmark on supervised datasets
-    \end{itemize}
-    \item Review community finding on
-    \begin{itemize}
-        \item unipartite graph (most of literatures): annotations, algorithms, metrics
-        \item bipartite graph: annotations, algorithms, metrics, projection methods
-        \item Very rate 3-partite graph: just listing the works
-    \end{itemize}
+	\item Definition of community finding on a graph
+	      Perhap the most famous literature on community finding is \cite{fortunato2010}
+	      But a quote from the paper
+	      This problem is very hard and not yet satisfactorily solved, despite the huge effort of a large interdisciplinary community of scientists working on it over the past few years.
+	\item In real networks, the usually exist a group of vertex that have high density of connection between them,
+	      but lower density of connection with the rest of the network.
+	      This group of vertex is called community structure or clustering.
+	      The community finding problem is to find these group of vertex.
+	\item Community finding is a very important problem in network science.
+	      Because vertex in community usually share similar properties, or play a similiar role in the graph
+
+	\item Community finding is a hard problem
+	      \cite{fortunato2010} show that it is a NP-hard problem
+	\item Community finding on dynamic graph
+	      \begin{itemize}
+		      \item The static graph community analysis is already contreversial
+		            Hence not much work on dynamic graph
+	      \end{itemize}
+	\item Testing algorithms
+	      \begin{itemize}
+		      \item *planted l-partition model* \cite{fortunato2010}
+		      \item
+	      \end{itemize}
+	      \begin{itemize}
+		      \item Most of the works focus on develop algorithms to find community, benchmark on supervised datasets
+	      \end{itemize}
+	\item Review community finding on
+	      \begin{itemize}
+		      \item unipartite graph (most of literatures): annotations, algorithms, metrics
+		      \item bipartite graph: annotations, algorithms, metrics, projection methods
+		      \item Very rate 3-partite graph: just listing the works
+	      \end{itemize}
+
 \end{itemize}
 
 \cite{fortunato2010}
