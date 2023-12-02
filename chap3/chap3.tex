@@ -421,15 +421,15 @@ From the API documentation, we have the definition of Sector as, quoted:
 We take a step further to get all the possible Sectors that the platform support,
 this can be done using the following GraphQL query:
 
-\begin{lstlisting}[language=GraphQL]
-	{
-		lend {
-			sector {
-				id
-				name
-		  	}
-		}
-	}
+\begin{lstlisting}
+    {
+        lend {
+            sector {
+                id
+                name
+            }
+        }
+    }
 \end{lstlisting}
 
 The result is shown in Table \ref{tab:sector-definition}.
@@ -469,14 +469,14 @@ Quoted from the API documentation.
 All the possible Activities can be found using the following GraphQL query:
 
 \begin{lstlisting}
-	{
-  		lend {
-    		activity {
-				id
-      			name
-			}	
-  		}
-	}
+    {
+        lend {
+            activity {
+                id
+                name
+                }	
+        }
+    }
 \end{lstlisting}
 
 The result is show in Table \ref{tab:activity-definition}.
@@ -570,6 +570,100 @@ The result is show in Table \ref{tab:activity-definition}.
 	81                                & Hardware                           & 146                               & Hotel                              & 225                               & Mobile Transactions                \\
 	                                  &                                    &                                   &                                    & 226                               & Event Planning                     \\
 \end{longtable}
+
+\textbf{Tag}
+
+The API give the definition of Tag as,
+quoted: "Loan properties which are attributed by lenders"
+With the following GraphQL query, we can get all the possible Tags that the platform support.
+
+\begin{lstlisting}
+    {
+        lend {
+            tag {
+                id, # Unique identifier for this tag
+                name, # The name of the tag
+                vocabularyId # Vocabulary id for the tag type
+            }
+        }
+    }
+\end{lstlisting}
+
+The result is shown in Table \ref{tab:tag-definition}.
+
+\begin{longtable}{|r|l|l|r|l|l|}
+	\toprule\noalign{}
+	\caption{Definition of tags}
+	\label{tab:tag-definition}                                                                                                                                                                                                                        \\
+
+	\hline
+	\multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{name}} & \multicolumn{1}{|c|}{\small \textbf{vocabularyId}} & \multicolumn{1}{c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{name}} & \multicolumn{1}{c|}{\textbf{vocabularyId}} \\
+	\hline
+	\endfirsthead
+
+	\multicolumn{6}{c}%
+	{{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                                                                                                                                                             \\
+	\hline
+	\multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{name}} & \multicolumn{1}{|c|}{\textbf{vocabularyId}}        & \multicolumn{1}{c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{name}} & \multicolumn{1}{c|}{\textbf{vocabularyId}} \\
+	\hline
+	\endhead
+
+	\hline
+	\multicolumn{6}{|r|}{{Continued on next page}}                                                                                                                                                                                                    \\
+	\hline
+	\endfoot
+
+	\hline \hline
+	\endlastfoot
+	1                                 & volunteer\_pick                    & 1                                                  & 20                               & \#Post-disbursed                    & 2                                          \\
+	2                                 & volunteer\_like                    & 1                                                  & 21                               & \#Inspiring Story                   & 2                                          \\
+	3                                 & user\_like                         & 1                                                  & 14                               & \#Single                            & 2                                          \\
+	4                                 & user\_favorite                     & 1                                                  & 23                               & \#Interesting Photo                 & 2                                          \\
+	26                                & \#Fabrics                          & 2                                                  & 66                               & \#TangibleProducts                  & 3                                          \\
+	27                                & \#Health and Sanitation            & 2                                                  & 61                               & \#Agriculture                       & 3                                          \\
+	28                                & \#Repeat Borrower                  & 2                                                  & 62                               & \#NewBusiness                       & 3                                          \\
+	29                                & \#Refugee                          & 2                                                  & 63                               & \#Values                            & 3                                          \\
+	30                                & \#Job Creator                      & 2                                                  & 64                               & \#PersonalImpact                    & 3                                          \\
+	31                                & \#Supporting Family                & 2                                                  & 65                               & \#QualityPhotos                     & 3                                          \\
+	32                                & \#Orphan                           & 2                                                  & 73                               & LGBTQ                               & 3                                          \\
+	33                                & \#Low-profit FP                    & 2                                                  & 68                               & \#StandoutBackstory                 & 3                                          \\
+	35                                & \#Biz Durable Asset                & 2                                                  & 69                               & \#UniqueLoanUse                     & 3                                          \\
+	25                                & \#Team Guys Holding Fish           & 2                                                  & 70                               & MUFG                                & 3                                          \\
+	36                                & \#Trees                            & 2                                                  & 71                               & LISCChicago                         & 3                                          \\
+	37                                & \#Female Education                 & 2                                                  & 72                               & \#Kaiser                            & 3                                          \\
+	39                                & \#Repair Renew Replace             & 2                                                  & 60                               & \#Refugees                          & 3                                          \\
+	40                                & \#US immigrant                     & 2                                                  & 74                               & US Refugee                          & 3                                          \\
+	43                                & \#US Black-Owned Business          & 2                                                  & 67                               & \#HighDetail                        & 3                                          \\
+	45                                & \#Latinx/Hispanic-Owned Business   & 2                                                  & 59                               & \#COVID-19                          & 3                                          \\
+	34                                & \#Hidden Gem                       & 2                                                  & 50                               & GoDaddy                             & 3                                          \\
+	24                                & \#Powerful Story                   & 2                                                  & 57                               & \#GenderEquity                      & 3                                          \\
+	38                                & \#Technology                       & 2                                                  & 75                               & Viral                               & 3                                          \\
+	22                                & \#Unique                           & 2                                                  & 41                               & reserved\_disaster\_relief\_covid   & 3                                          \\
+	5                                 & \#First Loan                       & 2                                                  & 42                               & reserved\_crisis\_support\_loan     & 3                                          \\
+	6                                 & \#Woman-Owned Business             & 2                                                  & 44                               &                                     & 3                                          \\
+	7                                 & \#Tourism                          & 2                                                  & 46                               & cow                                 & 3                                          \\
+	8                                 & \#Sustainable Ag                   & 2                                                  & 47                               & IT Cosmetics                        & 3                                          \\
+	9                                 & \#Eco-friendly                     & 2                                                  & 58                               & \#Education                         & 3                                          \\
+	11                                & \#Animals                          & 2                                                  & 48                               & beauty                              & 3                                          \\
+	12                                & \#Widowed                          & 2                                                  & 51                               & \#BIPOC-owned Business              & 3                                          \\
+	13                                & \#Elderly                          & 2                                                  & 52                               & \#Umpqua                            & 3                                          \\
+	10                                & \#Vegan                            & 2                                                  & 53                               & \#US Environmental Loan             & 3                                          \\
+	15                                & \#Married                          & 2                                                  & 54                               & \#CommunityImpact                   & 3                                          \\
+	16                                & \#Parent                           & 2                                                  & 55                               & \#FamilyImpact                      & 3                                          \\
+	17                                & \#Single Parent                    & 2                                                  & 56                               & \#EcoFriendly                       & 3                                          \\
+	18                                & \#Schooling                        & 2                                                  & 49                               & Turo                                & 3                                          \\
+	19                                & \#Pre-disbursed                    & 2                                                  & 76                               & Salesforce                          & 3                                          \\
+\end{longtable}
+
+
+Kiva did not provide any documentation about the meaning of the name of Tags,
+as well as the meaning of \lstinline|vocabularyId|.
+When browsing Project in the website, one could found \textit{Attribute}.
+When explore the API, one could also found \textit{Theme}.
+There is no documentation on what is Attribute and Theme.
+We suppose that Attribute and Theme are the same thing.
+But since the meaning of the Attribute and Theme is not clear,
+we decided to not use them in our analysis.
 
 \section{Basic data statistics}
 
