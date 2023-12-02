@@ -36,5 +36,7 @@
     "pasteImage.prefix": "\\begin{figure}[H]\n\t\\centering\n\t\\includegraphics[width=0.8\\textwidth]{",
     "pasteImage.suffix": "}\n\t\\caption{}\n\t\\label{fig:${imageFileNameWithoutExt}}\n\\end{figure}",
     "pasteImage.filePathConfirmInputBoxMode": "onlyName",
-    "pasteImage.path": "${projectRoot}/images"
+    "pasteImage.path": "${projectRoot}/images",
+    "plantuml.exportSubFolder": false,
+    "plantuml.exportOutDir": "images"
 }
