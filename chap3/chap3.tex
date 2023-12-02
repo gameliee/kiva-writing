@@ -771,8 +771,28 @@ We found that these tags are correspond to the \lstinline|vocabularyId = 1|,
 they are \lstinline|volunteer_pick|, \lstinline|volunteer_like|, \lstinline|user_like|, \lstinline|user_favorite|.
 We decide to get rid of these tags.
 
+\todo{Add statistic about the tags and number of Anonymous Lender}
 
+We explore the data, we also found that some Lenders is anonymous.
+Though kiva do not provide any documentation about who is anonymous Lender and how they interact with the platform,
+we would like to find those Lenders to see if they are minority or majority.
 
+\todo{Add statistic about the tags and number of Anonymous Lender}
+
+The only way to find out if a Lender is anonymous is to look at the \lstinline|lender_name|,
+or \lstinline|lender_publicId| fields.
+If the lower case of \lstinline|lender_name| is begin with "anonymous",
+or the lower case of \lstinline|lender_publicId| is begin with "anon",
+then we consider that Lender is anonymous.
+
+\todo{Add comment about remove those Lenders}
+
+After all the above steps, we store the data again in a \lstinline|.parquet| file.
+We always keep track of the date of the data, so different version of the data can be easily identify.
+We will consider this \lstinline|.parquet| file is a single source of truth for all the analysis.
+
+Well-understanding the data is a crucial step for subsequent analysis.
+In the next section, we will provide some statistic about the data.
 
 \section{Basic data statistics}
 
@@ -791,3 +811,37 @@ We decide to get rid of these tags.
 		      \item \dots
 	      \end{itemize}
 \end{itemize}
+
+\todo{tags analysis (the presentation slide)}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/map-number-project-by-country.png}
+	\caption{Number of Projects by country}
+	\label{fig:map-number-project-by-country}
+\end{figure}
+
+\subsection{How long that users stay on the platform}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/active-pairwise.png}
+	\caption{}
+	\label{fig:active-pairwise}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/active-fromto.png}
+	\caption{}
+	\label{fig:active-fromto}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/active-hist.png}
+	\caption{Number of consecutive years that a Lender funded}
+	\label{fig:active-hist}
+\end{figure}
