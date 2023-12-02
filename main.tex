@@ -6,6 +6,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{booktabs} % For formal tables
+\usepackage{microtype} % For better typesetting (dense text etc.)
 \usepackage{tikz}
 \usepackage{listings} % For code snippets
 \usepackage{longtable} % For long tables
@@ -18,6 +19,12 @@ style=alphabetic,
 sorting=ynt
 ]{biblatex}
 \addbibresource{kiva-writing.bib}
+
+
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\note}[1]{\textcolor{blue}{NOTE: #1}}
+\newcommand{\densetext}[1]{\scalebox{0.8}[1.0]{\textls[-80]{#1}}}
+
 
 
 \begin{document}

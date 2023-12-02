@@ -1,15 +1,15 @@
 \section{Understanding Kiva website and Dataset}
 
 \begin{itemize}
-	\item Describe what user can do on the website: search for Projects, Auto-lending setup
-	\item Describe how to get the data using GraphQL, Crawling method
-	\item Describe data schema: fields that we can get, the meaning of each fields
-	\item Describe preprocessing steps with the data
-	      \begin{itemize}
-		      \item Steps: accelerated loading, forming the big table, removing unwanted tags, remove anonymous Lenders, handle duplicates\dots
-		      \item Forming the tri-partite graph: Lenders-Projects-Tags
-		      \item Mention that we have to use CuDF for accelerated data handling
-	      \end{itemize}
+    \item Describe what user can do on the website: search for Projects, Auto-lending setup
+    \item Describe how to get the data using GraphQL, Crawling method
+    \item Describe data schema: fields that we can get, the meaning of each fields
+    \item Describe preprocessing steps with the data
+          \begin{itemize}
+              \item Steps: accelerated loading, forming the big table, removing unwanted tags, remove anonymous Lenders, handle duplicates\dots
+              \item Forming the tri-partite graph: Lenders-Projects-Tags
+              \item Mention that we have to use CuDF for accelerated data handling
+          \end{itemize}
 \end{itemize}
 
 In this section, we will describe the Kiva website and the dataset that we use in this thesis.
@@ -31,10 +31,10 @@ Or they can setup an Auto-Lending program, which will automatically fund project
 
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{images/kiva-browse-project.png}
-	\caption{Kiva website interface for browsing projects}
-	\label{fig:kiva-browser-project}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/kiva-browse-project.png}
+    \caption{Kiva website interface for browsing projects}
+    \label{fig:kiva-browser-project}
 \end{figure}
 
 It is important to know what Lenders can do when looking for his or her interested project.
@@ -44,31 +44,31 @@ For example in the data, we could see some Tags that did not appear in the Tags 
 We will consider these criteria as the gold standard for processing the data.
 
 \begin{table}[H]
-	\centering
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|c|c|c|c|}
-			\hline
-			   & Meaning                       & Type            & choices                                                                                                                 \\
-			\hline
-			1  & Gender of the borrower button & Choice          & Woman or Men or Nonbinary                                                                                               \\
-			2  & Filter by type of Loan        & Choice          & Individual or Group                                                                                                     \\
-			3  & Search by keyword             & Text            & Put any keyword to search in the stories of Projects                                                                    \\
-			4  & Sort Order                    & Choice          & Amount: High to Low, Amount left, Amount: Low to High, Ending soon, Most recent, Trending now, Loan Length, Recommended \\
-			5  & Location                      & Multiple choice & Choose from a list of countries                                                                                         \\
-			6  & Sector                        & Multiple choice & Choose from a list of sectors                                                                                           \\
-			7  & Attribute                     & Multiple choice & Choose from a list of attributes                                                                                        \\
-			8  & Tags                          & Multiple choice & Choose from a list of tags                                                                                              \\
-			9  & Loan Length                   & Choice          & All loans, 8 month or less, 16 months or less, 2 years or less, 2 years or more                                         \\
-			10 & Loan Distribution             & Choice          & All loans, Parter, Direct                                                                                               \\
-			11 & Partner Info                  & Text            & Search by Partner name                                                                                                  \\
-			12 & Risk Rating                   & Range           & From 1 to 5                                                                                                             \\
-			13 & Default Rate                  & Range           & From 0\% to 100\%                                                                                                       \\
-			14 & Profitability                 & Range           & From -160\% to 90\%                                                                                                     \\
-			\hline
-		\end{tabular}%
-	}
-	\caption{Table with 4 columns \cite{kiva-browse}}
-	\label{tab:browser-criteria}
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+               & Meaning                       & Type            & choices                                                                                                                 \\
+            \hline
+            1  & Gender of the borrower button & Choice          & Woman or Men or Nonbinary                                                                                               \\
+            2  & Filter by type of Loan        & Choice          & Individual or Group                                                                                                     \\
+            3  & Search by keyword             & Text            & Put any keyword to search in the stories of Projects                                                                    \\
+            4  & Sort Order                    & Choice          & Amount: High to Low, Amount left, Amount: Low to High, Ending soon, Most recent, Trending now, Loan Length, Recommended \\
+            5  & Location                      & Multiple choice & Choose from a list of countries                                                                                         \\
+            6  & Sector                        & Multiple choice & Choose from a list of sectors                                                                                           \\
+            7  & Attribute                     & Multiple choice & Choose from a list of attributes                                                                                        \\
+            8  & Tags                          & Multiple choice & Choose from a list of tags                                                                                              \\
+            9  & Loan Length                   & Choice          & All loans, 8 month or less, 16 months or less, 2 years or less, 2 years or more                                         \\
+            10 & Loan Distribution             & Choice          & All loans, Parter, Direct                                                                                               \\
+            11 & Partner Info                  & Text            & Search by Partner name                                                                                                  \\
+            12 & Risk Rating                   & Range           & From 1 to 5                                                                                                             \\
+            13 & Default Rate                  & Range           & From 0\% to 100\%                                                                                                       \\
+            14 & Profitability                 & Range           & From -160\% to 90\%                                                                                                     \\
+            \hline
+        \end{tabular}%
+    }
+    \caption{Table with 4 columns \cite{kiva-browse}}
+    \label{tab:browser-criteria}
 \end{table}
 
 Perhaps the most unique feature of Kiva is the Auto-Lending program.
@@ -77,10 +77,10 @@ When a new project is created, the platform will automatically fund the project 
 Figure \ref{fig:auto-lend-setup} shows the interface for setting up the Auto-Lending program.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{images/auto-lend-setup.png}
-	\caption{Auto-Lending setup interface \cite{kiva-autolend2}}
-	\label{fig:auto-lend-setup}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/auto-lend-setup.png}
+    \caption{Auto-Lending setup interface \cite{kiva-autolend2}}
+    \label{fig:auto-lend-setup}
 \end{figure}
 
 Users can "Let Kiva select the best loans for me" or "I want to set my own auto-lending criteria".
@@ -121,10 +121,10 @@ On top of that, kiva also use \textit{GraphQLi}, a web interface for easy try th
 We use the interface to introspection the data schema and to try out some queries before actually implementing them in the code.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{images/grapqli.png}
-	\caption{GraphQLi interface of Kiva GraphQL API}
-	\label{fig:grapqli}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/grapqli.png}
+    \caption{GraphQLi interface of Kiva GraphQL API}
+    \label{fig:grapqli}
 \end{figure}
 
 For example, we could try the query for getting basic stats of kiva like following Figure \ref{fig:graphqli-example}.
@@ -132,10 +132,10 @@ One can use the Docs side bar (the right side bar) to discover what is the data 
 A basic knowledge about GraphQL would be helpful to discover the data schema more easily.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{images/graphqli-example.png}
-	\caption{Example using GraphQLi interface of Kiva GraphQL API \cite{graphqli-example}}
-	\label{fig:graphqli-example}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/graphqli-example.png}
+    \caption{Example using GraphQLi interface of Kiva GraphQL API \cite{graphqli-example}}
+    \label{fig:graphqli-example}
 \end{figure}
 
 
@@ -143,10 +143,10 @@ Before begining to query the data, we have to understand the data schema to know
 
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.25\textwidth]{images/graphuml/dataschema.png}
-	\caption{Data schema}
-	\label{fig:data-schema}
+    \centering
+    \includegraphics[width=0.25\textwidth]{images/graphuml/dataschema.png}
+    \caption{Data schema}
+    \label{fig:data-schema}
 \end{figure}
 
 The relationship beteen Lender and Project is many-to-many.
@@ -160,254 +160,254 @@ In this thesis, if a "Loan" appear (with the letter L in capital), one can under
 
 
 \begin{longtable}{|p{0.33\textwidth}|p{0.67\textwidth}|}
-	\toprule\noalign{}
-	\caption{Fields of Projects}
-	\label{tab:fields-meaning}                                                                               \\
+    \toprule\noalign{}
+    \caption{Fields of Projects}
+    \label{tab:fields-meaning}                                                                               \\
 
-	\hline
-	\multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                             \\
-	\hline
-	\endfirsthead
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                             \\
+    \hline
+    \endfirsthead
 
-	\multicolumn{2}{c}%
-	{{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                    \\
-	\hline
-	\multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                             \\
-	\hline
-	\endhead
+    \multicolumn{2}{c}%
+    {{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                    \\
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                             \\
+    \hline
+    \endhead
 
-	\hline
-	\multicolumn{2}{|r|}{{Continued on next page}}                                                           \\ \hline
-	\endfoot
+    \hline
+    \multicolumn{2}{|r|}{{Continued on next page}}                                                           \\ \hline
+    \endfoot
 
-	\hline \hline
-	\endlastfoot
+    \hline \hline
+    \endlastfoot
 
-	activity                             & The activity is a structured categorization of the loan
-	use                                                                                                      \\
-	anonymizationLevel                   & The level of borrower privacy                                     \\
-	borrowerCount                        & The number of borrowers participating in the loan                 \\
-	borrowers                            & The one or more borrowers that are receiving this loan. If
-	there is more than one, the primary borrower is first                                                    \\
-	dafEligible                          & Whether or not the loan is eligible for donor-advised
-	funds.                                                                                                   \\
-	delinquent                           & Whether or not the loan is delinquent. This defaults to
-	false if the user is not privileged to this loan                                                         \\
-	description                          & The description of the loan profile in English.                   \\
-	descriptionInOriginalLanguage        & The description of the loan profile in
-	the original language of its posting                                                                     \\
-	disbursalDate                        & The date on which the loan was/will actually be
-	disbursed to the borrower                                                                                \\
-	distributionModel                    & How the loan is distributed to the borrower,
-	e.g.~`field\_partner' or `direct'                                                                        \\
-	endorser                             & The user who endorsed the loan. Only shown on fundRaising
-	loans, null for all other statuses.                                                                      \\
-	fundraisingDate                      & When the loan started fundraising on Kiva. Same as
-	posted\_date in v1.                                                                                      \\
-	gender                               & The gender of the primary borrower OR majority gender if
-	group                                                                                                    \\
-	geocode                              & The physical location of the borrower and/or business             \\
-	hasCurrencyExchangeLossLenders       & Whether or not the loan has currency
-	loss to lenders. Only usable after the loan has moved into the ``ended''
-	state.                                                                                                   \\
-	id                                   & Unique identifier for a Kiva loan                                 \\
-	image                                & The picture for this loan profile.                                \\
-	isMatchable                          & Is this Kiva loan matchable? e.g.~is there a source of
-	funds to provide matching if a share is purchased?                                                       \\
-	inPfp                                & If true, this loan is in a Private Fundraising Period             \\
-	loanAmount                           & The amount of this loan, as shown to lenders                      \\
-	loanFundraisingInfo                  & Information about this loan during its fundraising
-	period                                                                                                   \\
-	lenderRepaymentTerm                  & The number of months it will take the borrower to
-	repay the loan                                                                                           \\
-	matcherAccountId                     & The id of the loan matcher                                        \\
-	matcherName                          & The name of the loan matcher                                      \\
-	matchRatio                           & The loan match ratio                                              \\
-	matchingText                         & Text that is displayed if loan matching is turned on for
-	this loan.                                                                                               \\
-	name                                 & The name of the borrower or group receiving the loan              \\
-	originalLanguage                     & The original language on the loan                                 \\
-	minNoteSize                          & The minimum amount to lend for this loan                          \\
-	paidAmount                           & The amount of settled repayments for a loan that has
-	started paying back                                                                                      \\
-	pfpMinLenders                        & The minimum number of lenders that this loan needs to
-	exit its private fundraising period (PFP).                                                               \\
-	plannedExpirationDate                & When the loan will expire if it is not fully
-	funded                                                                                                   \\
-	previousLoanId                       & ID of the loan linked as previous to this one.                    \\
-	raisedDate                           & When the loan became raised, e.g.~fully funded. Same as
-	funded\_date in v1                                                                                       \\
-	researchScore                        & The research score of the loan theme instance of the
-	loan                                                                                                     \\
-	repaymentInterval                    & The repayment interval of the loan: ``monthly'',
-	``irregularly'',``at\_end''                                                                              \\
-	sector                               & The sector is a more general classification of the loan than
-	activity                                                                                                 \\
-	status                               & The status of a loan                                              \\
-	tags                                 & A list of tags on this loan                                       \\
-	terms                                & The financial terms of this loan                                  \\
-	use                                  & Text describing what the loan is to be used for; a logical subset
-	of description e.g.~``To buy a cow''                                                                     \\
-	userProperties                       & Properties that apply to the logged in user in relation
-	to a loan.                                                                                               \\
-	video                                & Video for this loan                                               \\
-	whySpecial                           & Why this loan is considered special.                              \\
-	comments                             & List of A user comment made on a Kiva loan.                       \\
-	lenders                              & List of Representation of a Kiva lender                           \\
-	lendingActions                       & List of Representation of a lending action                        \\
-	teams                                & List of Representation of a Kiva lending team                     \\
+    activity                             & The activity is a structured categorization of the loan
+    use                                                                                                      \\
+    anonymizationLevel                   & The level of borrower privacy                                     \\
+    borrowerCount                        & The number of borrowers participating in the loan                 \\
+    borrowers                            & The one or more borrowers that are receiving this loan. If
+    there is more than one, the primary borrower is first                                                    \\
+    dafEligible                          & Whether or not the loan is eligible for donor-advised
+    funds.                                                                                                   \\
+    delinquent                           & Whether or not the loan is delinquent. This defaults to
+    false if the user is not privileged to this loan                                                         \\
+    description                          & The description of the loan profile in English.                   \\
+    descriptionInOriginalLanguage        & The description of the loan profile in
+    the original language of its posting                                                                     \\
+    disbursalDate                        & The date on which the loan was/will actually be
+    disbursed to the borrower                                                                                \\
+    distributionModel                    & How the loan is distributed to the borrower,
+    e.g.~`field\_partner' or `direct'                                                                        \\
+    endorser                             & The user who endorsed the loan. Only shown on fundRaising
+    loans, null for all other statuses.                                                                      \\
+    fundraisingDate                      & When the loan started fundraising on Kiva. Same as
+    posted\_date in v1.                                                                                      \\
+    gender                               & The gender of the primary borrower OR majority gender if
+    group                                                                                                    \\
+    geocode                              & The physical location of the borrower and/or business             \\
+    hasCurrencyExchangeLossLenders       & Whether or not the loan has currency
+    loss to lenders. Only usable after the loan has moved into the ``ended''
+    state.                                                                                                   \\
+    id                                   & Unique identifier for a Kiva loan                                 \\
+    image                                & The picture for this loan profile.                                \\
+    isMatchable                          & Is this Kiva loan matchable? e.g.~is there a source of
+    funds to provide matching if a share is purchased?                                                       \\
+    inPfp                                & If true, this loan is in a Private Fundraising Period             \\
+    loanAmount                           & The amount of this loan, as shown to lenders                      \\
+    loanFundraisingInfo                  & Information about this loan during its fundraising
+    period                                                                                                   \\
+    lenderRepaymentTerm                  & The number of months it will take the borrower to
+    repay the loan                                                                                           \\
+    matcherAccountId                     & The id of the loan matcher                                        \\
+    matcherName                          & The name of the loan matcher                                      \\
+    matchRatio                           & The loan match ratio                                              \\
+    matchingText                         & Text that is displayed if loan matching is turned on for
+    this loan.                                                                                               \\
+    name                                 & The name of the borrower or group receiving the loan              \\
+    originalLanguage                     & The original language on the loan                                 \\
+    minNoteSize                          & The minimum amount to lend for this loan                          \\
+    paidAmount                           & The amount of settled repayments for a loan that has
+    started paying back                                                                                      \\
+    pfpMinLenders                        & The minimum number of lenders that this loan needs to
+    exit its private fundraising period (PFP).                                                               \\
+    plannedExpirationDate                & When the loan will expire if it is not fully
+    funded                                                                                                   \\
+    previousLoanId                       & ID of the loan linked as previous to this one.                    \\
+    raisedDate                           & When the loan became raised, e.g.~fully funded. Same as
+    funded\_date in v1                                                                                       \\
+    researchScore                        & The research score of the loan theme instance of the
+    loan                                                                                                     \\
+    repaymentInterval                    & The repayment interval of the loan: ``monthly'',
+    ``irregularly'',``at\_end''                                                                              \\
+    sector                               & The sector is a more general classification of the loan than
+    activity                                                                                                 \\
+    status                               & The status of a loan                                              \\
+    tags                                 & A list of tags on this loan                                       \\
+    terms                                & The financial terms of this loan                                  \\
+    use                                  & Text describing what the loan is to be used for; a logical subset
+    of description e.g.~``To buy a cow''                                                                     \\
+    userProperties                       & Properties that apply to the logged in user in relation
+    to a loan.                                                                                               \\
+    video                                & Video for this loan                                               \\
+    whySpecial                           & Why this loan is considered special.                              \\
+    comments                             & List of A user comment made on a Kiva loan.                       \\
+    lenders                              & List of Representation of a Kiva lender                           \\
+    lendingActions                       & List of Representation of a lending action                        \\
+    teams                                & List of Representation of a Kiva lending team                     \\
 \end{longtable}
 
 The example data that we get from the API is shown in Figure \ref{fig:example-data}.
 
 \begin{longtable}{|p{0.36\textwidth}|p{0.64\textwidth}|}
-	\toprule\noalign{}
-	\caption{An Example Project}
-	\label{fig:example-data}                                                                                   \\
+    \toprule\noalign{}
+    \caption{An Example Project}
+    \label{fig:example-data}                                                                                   \\
 
-	\hline
-	\multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                               \\
-	\hline
-	\endfirsthead
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                               \\
+    \hline
+    \endfirsthead
 
-	\multicolumn{2}{c}%
-	{{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                      \\
-	\hline
-	\multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                               \\
-	\hline
-	\endhead
+    \multicolumn{2}{c}%
+    {{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                      \\
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                               \\
+    \hline
+    \endhead
 
-	\hline
-	\multicolumn{2}{|r|}{{Continued on next page}}                                                             \\
-	\hline
-	\endfoot
+    \hline
+    \multicolumn{2}{|r|}{{Continued on next page}}                                                             \\
+    \hline
+    \endfoot
 
-	\hline \hline
-	\endlastfoot
+    \hline \hline
+    \endlastfoot
 
-	anonymizationLevel                   & none                                                                \\
-	borrowerCount                        & 1                                                                   \\
-	borrowers                            & {[}\{`id': 2843387, `borrowedAmount': `440.80', `firstName':
-	`Jessenia Elizabeth', `gender': `female', `isPrimary': True, `pictured':
-	True\}{]}                                                                                                  \\
-	dafEligible                          & False                                                               \\
-	delinquent                           & False                                                               \\
-	disbursalDate                        & 2013-09-25T07:00:00Z                                                \\
-	distributionModel                    & fieldPartner                                                        \\
-	endorser                             &                                                                     \\
-	fundraisingDate                      & 2013-10-23T22:40:01Z                                                \\
-	gender                               & female                                                              \\
-	hasCurrencyExchangeLossLenders       & False                                                               \\
-	id                                   & 623042                                                              \\
-	isMatchable                          & False                                                               \\
-	inPfp                                & False                                                               \\
-	loanAmount                           & 450.00                                                              \\
-	lenderRepaymentTerm                  & 8                                                                   \\
-	matcherAccountId                     &                                                                     \\
-	matcherName                          &                                                                     \\
-	matchRatio                           &                                                                     \\
-	matchingText                         &                                                                     \\
-	name                                 & Jessenia Elizabeth                                                  \\
-	minNoteSize                          & 25.00                                                               \\
-	paidAmount                           & 0.00                                                                \\
-	pfpMinLenders                        &                                                                     \\
-	plannedExpirationDate                & 2013-11-22T22:40:01Z                                                \\
-	previousLoanId                       &                                                                     \\
-	raisedDate                           & 2013-10-24T13:38:51Z                                                \\
-	researchScore                        & 9                                                                   \\
-	repaymentInterval                    & monthly                                                             \\
-	status                               & funded                                                              \\
-	tags                                 & {[}{]}                                                              \\
-	use                                  & purchase school supplies and other stationery items for her
-	store.                                                                                                     \\
-	video                                &                                                                     \\
-	whySpecial                           &                                                                     \\
-	activity.id                          & 103                                                                 \\
-	activity.name                        & Paper Sales                                                         \\
-	geocode.city                         & Pichincha                                                           \\
-	geocode.state                        & Pichincha                                                           \\
-	geocode.country.name                 & Ecuador                                                             \\
-	geocode.country.isoCode              & EC                                                                  \\
-	geocode.country.region               & South America                                                       \\
-	geocode.country.ppp                  & \$10,600                                                            \\
-	geocode.country.numLoansFundraising  & 553                                                                 \\
-	geocode.country.fundsLentInCountry   & 87573245                                                            \\
-	geocode.postalCode                   &                                                                     \\
-	geocode.latitude                     & -0.1464847                                                          \\
-	geocode.longitude                    & -78.4751945                                                         \\
-	image.id                             & 1456025                                                             \\
-	image.url                            &
-	https://www-kiva-org-0.freetls.fastly.net/img/s100/5cf86ba6c72db94f0721b934a57ca889.jpg                    \\
-	loanFundraisingInfo.fundedAmount     & 450.00                                                              \\
-	loanFundraisingInfo.isExpiringSoon   & False                                                               \\
-	loanFundraisingInfo.reservedAmount   & 0.00                                                                \\
-	originalLanguage.id                  & 2                                                                   \\
-	originalLanguage.isActive            & True                                                                \\
-	originalLanguage.isoCode             & ES                                                                  \\
-	originalLanguage.name                & Spanish                                                             \\
-	sector.id                            & 7                                                                   \\
-	sector.name                          & Retail                                                              \\
-	terms.currency                       & USD                                                                 \\
-	terms.currencyFullName               & United States Dollars                                               \\
-	terms.disbursalAmount                & 440.80                                                              \\
-	terms.disbursalDate                  & 2013-09-25T07:00:00Z                                                \\
-	terms.expectedPayments               & {[}{]}                                                              \\
-	terms.loanAmount                     & 450.00                                                              \\
-	terms.lenderRepaymentTerm            & 8                                                                   \\
-	terms.lossLiabilityCurrencyExchange  & none                                                                \\
-	terms.lossLiabilityNonpayment        & lender                                                              \\
-	terms.flexibleFundraisingEnabled     & False                                                               \\
-	userProperties.favorited             &                                                                     \\
-	userProperties.lentTo                &                                                                     \\
-	userProperties.subscribed            &                                                                     \\
-	userProperties.promoEligible         & False                                                               \\
-	userProperties.amountInBasket        &                                                                     \\
-	lendingActions.totalCount            & 14                                                                  \\
-	lendingActions.values                & {[}\{`lender': \{`id': 32817, `name': `Nate',
-	`publicId': `nateinaction'\}, `shareAmount': `25.00', `teams': {[}`(A+)
-	Atheists'{]}, `latestSharePurchaseDate': `2013-10-24T11:50:07Z'\},
-	\{`lender': \{`id': 55596, `name': `Dirk L.', `publicId': `DirkLebe'\},
-	`shareAmount': `25.00', `teams': {[}{]}, `latestSharePurchaseDate':
-	`2013-10-24T02:40:53Z'\}{]}                                                                                \\
-	description                          & Every fifteen days, the members of the Community Bank of
-	Pichincha meet in their home region of Pichincha. This area is well
-	known as a vibrant place, where the majority of the people are farmers
-	or ranchers. It's a highly vegetated area, cut by a great river that
-	nurtures the crops.                                                                                        \\
-	                                     & This is where Jessenia, 27 years old, lives with her common-law
-	husband and their three children, aged 9, 4, and 2 years. The eldest is
-	a student, and her husband is a shopkeeper.Jessenia is a woman with
-	spirit who likes to work to get ahead. For the last six years, she has
-	run a shop out of her home that functions as a stationery shop and a
-	bookstore. Day by day, the store has improved. Currently, apart from
-	books and supplies, she also sells trinkets and other school/office
-	supplies. With these products, her earnings have greatly increased, and
-	thanks to the loans she has received, she has been able to expand her
-	business.                                                                                                  \\
-	                                     & This loan will be used to buy school supplies and other stationery
-	products. She has been in the Community Bank for eight years and she
-	likes it because the loans have helped her improve her business. She
-	dreams of expanding it further still.                                                                      \\
-	descriptionInOriginalLanguage        & En el cantón Pichincha cada quince días
-	se reúne el Banco Comunal Pichincha, este lugar se lo conoce por ser muy
-	dinámico donde la mayoría de sus habitantes se dedican a la agricultura
-	y a la cría de animales, por ser una zona con gran vegetación surcada
-	por un gran rio lo cual lo hace propicia para los cultivos.                                                \\
-	                                     & En este lugar vive la señora Jessenia, tiene 27 años de edad y
-	mantiene una relación de unión libre de la cual tiene tres hijos de 9, 4
-	y 2 años de edad, el mayor estudia en escuela. El marido es
-	comerciante.                                                                                               \\
-	                                     & Doña Jessenia es una mujer muy luchadora que le gusta trabajar para
-	salir adelante, ella hace mas de 6 años adecuo un local en su casa y en
-	el mismo instaló una papelería y librería, la misma que con el paso de
-	los días ha ido mejorando, actualmente además de libros y útiles también
-	vende bisutería y artículos de bazar con esto sus ganancias han mejorado
-	mucho y esto gracias a los créditos que ha recibido ya que con ellos
-	cada vez aumenta más su negocio.                                                                           \\
-	                                     & Este crédito es para comprar útiles escolares y artículos de bazar.
-	Esta desde hace 8 años en el Banco Comunal y le gusta porque los
-	créditos le han ayudado a mejora su negocio. Sus sueños son aumentar más
-	su negocio.                                                                                                \\
+    anonymizationLevel                   & none                                                                \\
+    borrowerCount                        & 1                                                                   \\
+    borrowers                            & {[}\{`id': 2843387, `borrowedAmount': `440.80', `firstName':
+    `Jessenia Elizabeth', `gender': `female', `isPrimary': True, `pictured':
+    True\}{]}                                                                                                  \\
+    dafEligible                          & False                                                               \\
+    delinquent                           & False                                                               \\
+    disbursalDate                        & 2013-09-25T07:00:00Z                                                \\
+    distributionModel                    & fieldPartner                                                        \\
+    endorser                             &                                                                     \\
+    fundraisingDate                      & 2013-10-23T22:40:01Z                                                \\
+    gender                               & female                                                              \\
+    hasCurrencyExchangeLossLenders       & False                                                               \\
+    id                                   & 623042                                                              \\
+    isMatchable                          & False                                                               \\
+    inPfp                                & False                                                               \\
+    loanAmount                           & 450.00                                                              \\
+    lenderRepaymentTerm                  & 8                                                                   \\
+    matcherAccountId                     &                                                                     \\
+    matcherName                          &                                                                     \\
+    matchRatio                           &                                                                     \\
+    matchingText                         &                                                                     \\
+    name                                 & Jessenia Elizabeth                                                  \\
+    minNoteSize                          & 25.00                                                               \\
+    paidAmount                           & 0.00                                                                \\
+    pfpMinLenders                        &                                                                     \\
+    plannedExpirationDate                & 2013-11-22T22:40:01Z                                                \\
+    previousLoanId                       &                                                                     \\
+    raisedDate                           & 2013-10-24T13:38:51Z                                                \\
+    researchScore                        & 9                                                                   \\
+    repaymentInterval                    & monthly                                                             \\
+    status                               & funded                                                              \\
+    tags                                 & {[}{]}                                                              \\
+    use                                  & purchase school supplies and other stationery items for her
+    store.                                                                                                     \\
+    video                                &                                                                     \\
+    whySpecial                           &                                                                     \\
+    activity.id                          & 103                                                                 \\
+    activity.name                        & Paper Sales                                                         \\
+    geocode.city                         & Pichincha                                                           \\
+    geocode.state                        & Pichincha                                                           \\
+    geocode.country.name                 & Ecuador                                                             \\
+    geocode.country.isoCode              & EC                                                                  \\
+    geocode.country.region               & South America                                                       \\
+    geocode.country.ppp                  & \$10,600                                                            \\
+    geocode.country.numLoansFundraising  & 553                                                                 \\
+    geocode.country.fundsLentInCountry   & 87573245                                                            \\
+    geocode.postalCode                   &                                                                     \\
+    geocode.latitude                     & -0.1464847                                                          \\
+    geocode.longitude                    & -78.4751945                                                         \\
+    image.id                             & 1456025                                                             \\
+    image.url                            &
+    https://www-kiva-org-0.freetls.fastly.net/img/s100/5cf86ba6c72db94f0721b934a57ca889.jpg                    \\
+    loanFundraisingInfo.fundedAmount     & 450.00                                                              \\
+    loanFundraisingInfo.isExpiringSoon   & False                                                               \\
+    loanFundraisingInfo.reservedAmount   & 0.00                                                                \\
+    originalLanguage.id                  & 2                                                                   \\
+    originalLanguage.isActive            & True                                                                \\
+    originalLanguage.isoCode             & ES                                                                  \\
+    originalLanguage.name                & Spanish                                                             \\
+    sector.id                            & 7                                                                   \\
+    sector.name                          & Retail                                                              \\
+    terms.currency                       & USD                                                                 \\
+    terms.currencyFullName               & United States Dollars                                               \\
+    terms.disbursalAmount                & 440.80                                                              \\
+    terms.disbursalDate                  & 2013-09-25T07:00:00Z                                                \\
+    terms.expectedPayments               & {[}{]}                                                              \\
+    terms.loanAmount                     & 450.00                                                              \\
+    terms.lenderRepaymentTerm            & 8                                                                   \\
+    terms.lossLiabilityCurrencyExchange  & none                                                                \\
+    terms.lossLiabilityNonpayment        & lender                                                              \\
+    terms.flexibleFundraisingEnabled     & False                                                               \\
+    userProperties.favorited             &                                                                     \\
+    userProperties.lentTo                &                                                                     \\
+    userProperties.subscribed            &                                                                     \\
+    userProperties.promoEligible         & False                                                               \\
+    userProperties.amountInBasket        &                                                                     \\
+    lendingActions.totalCount            & 14                                                                  \\
+    lendingActions.values                & {[}\{`lender': \{`id': 32817, `name': `Nate',
+    `publicId': `nateinaction'\}, `shareAmount': `25.00', `teams': {[}`(A+)
+    Atheists'{]}, `latestSharePurchaseDate': `2013-10-24T11:50:07Z'\},
+    \{`lender': \{`id': 55596, `name': `Dirk L.', `publicId': `DirkLebe'\},
+    `shareAmount': `25.00', `teams': {[}{]}, `latestSharePurchaseDate':
+    `2013-10-24T02:40:53Z'\}{]}                                                                                \\
+    description                          & Every fifteen days, the members of the Community Bank of
+    Pichincha meet in their home region of Pichincha. This area is well
+    known as a vibrant place, where the majority of the people are farmers
+    or ranchers. It's a highly vegetated area, cut by a great river that
+    nurtures the crops.                                                                                        \\
+                                         & This is where Jessenia, 27 years old, lives with her common-law
+    husband and their three children, aged 9, 4, and 2 years. The eldest is
+    a student, and her husband is a shopkeeper.Jessenia is a woman with
+    spirit who likes to work to get ahead. For the last six years, she has
+    run a shop out of her home that functions as a stationery shop and a
+    bookstore. Day by day, the store has improved. Currently, apart from
+    books and supplies, she also sells trinkets and other school/office
+    supplies. With these products, her earnings have greatly increased, and
+    thanks to the loans she has received, she has been able to expand her
+    business.                                                                                                  \\
+                                         & This loan will be used to buy school supplies and other stationery
+    products. She has been in the Community Bank for eight years and she
+    likes it because the loans have helped her improve her business. She
+    dreams of expanding it further still.                                                                      \\
+    descriptionInOriginalLanguage        & En el cantón Pichincha cada quince días
+    se reúne el Banco Comunal Pichincha, este lugar se lo conoce por ser muy
+    dinámico donde la mayoría de sus habitantes se dedican a la agricultura
+    y a la cría de animales, por ser una zona con gran vegetación surcada
+    por un gran rio lo cual lo hace propicia para los cultivos.                                                \\
+                                         & En este lugar vive la señora Jessenia, tiene 27 años de edad y
+    mantiene una relación de unión libre de la cual tiene tres hijos de 9, 4
+    y 2 años de edad, el mayor estudia en escuela. El marido es
+    comerciante.                                                                                               \\
+                                         & Doña Jessenia es una mujer muy luchadora que le gusta trabajar para
+    salir adelante, ella hace mas de 6 años adecuo un local en su casa y en
+    el mismo instaló una papelería y librería, la misma que con el paso de
+    los días ha ido mejorando, actualmente además de libros y útiles también
+    vende bisutería y artículos de bazar con esto sus ganancias han mejorado
+    mucho y esto gracias a los créditos que ha recibido ya que con ellos
+    cada vez aumenta más su negocio.                                                                           \\
+                                         & Este crédito es para comprar útiles escolares y artículos de bazar.
+    Esta desde hace 8 años en el Banco Comunal y le gusta porque los
+    créditos le han ayudado a mejora su negocio. Sus sueños son aumentar más
+    su negocio.                                                                                                \\
 \end{longtable}
 
 Recall that when browse and search for Project in the kiva website,
@@ -435,29 +435,29 @@ this can be done using the following GraphQL query:
 The result is shown in Table \ref{tab:sector-definition}.
 
 \begin{longtable}[]{@{}rl@{}}
-	\caption{Definition of Sectors}
-	\label{tab:sector-definition} \\
-	\toprule\noalign{}
-	id & name                     \\
-	\midrule\noalign{}
-	\endhead
-	\bottomrule\noalign{}
-	\endlastfoot
-	1  & Agriculture              \\
-	3  & Transportation           \\
-	4  & Services                 \\
-	5  & Clothing                 \\
-	6  & Health                   \\
-	7  & Retail                   \\
-	8  & Manufacturing            \\
-	9  & Arts                     \\
-	10 & Housing                  \\
-	12 & Food                     \\
-	13 & Wholesale                \\
-	14 & Construction             \\
-	15 & Education                \\
-	16 & Personal Use             \\
-	17 & Entertainment            \\
+    \caption{Definition of Sectors}
+    \label{tab:sector-definition} \\
+    \toprule\noalign{}
+    id & name                     \\
+    \midrule\noalign{}
+    \endhead
+    \bottomrule\noalign{}
+    \endlastfoot
+    1  & Agriculture              \\
+    3  & Transportation           \\
+    4  & Services                 \\
+    5  & Clothing                 \\
+    6  & Health                   \\
+    7  & Retail                   \\
+    8  & Manufacturing            \\
+    9  & Arts                     \\
+    10 & Housing                  \\
+    12 & Food                     \\
+    13 & Wholesale                \\
+    14 & Construction             \\
+    15 & Education                \\
+    16 & Personal Use             \\
+    17 & Entertainment            \\
 \end{longtable}
 
 \textbf{Activity}
@@ -483,92 +483,92 @@ The result is show in Table \ref{tab:activity-definition}.
 
 \begin{longtable}[]{|r|l|r|l|r|l|}
 
-	\toprule\noalign{}
-	\caption{Definition of Activities}
-	\label{tab:activity-definition}                                                                                                                                                                                          \\
+    \toprule\noalign{}
+    \caption{Definition of Activities}
+    \label{tab:activity-definition}                                                                                                                                                                                          \\
 
-	\hline
-	\multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} \\
-	\hline
-	\endfirsthead
+    \hline
+    \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} \\
+    \hline
+    \endfirsthead
 
-	\multicolumn{6}{c}%
-	{{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                                                                                                                                    \\
-	\hline
-	\multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} \\
-	\hline
-	\endhead
+    \multicolumn{6}{c}%
+    {{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                                                                                                                                    \\
+    \hline
+    \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} \\
+    \hline
+    \endhead
 
-	\hline
-	\multicolumn{6}{|r|}{{Continued on next page}}                                                                                                                                                                           \\
-	\hline
-	\endfoot
+    \hline
+    \multicolumn{6}{|r|}{{Continued on next page}}                                                                                                                                                                           \\
+    \hline
+    \endfoot
 
-	\hline \hline
-	\endlastfoot
+    \hline \hline
+    \endlastfoot
 
 
-	9                                 & Clothing Sales                     & 84                                & Used Clothing                      & 147                               & Well digging                       \\
-	11                                & Land Rental                        & 85                                & Laundry                            & 149                               & Embroidery                         \\
-	12                                & Traveling Sales                    & 86                                & Textiles                           & 151                               & Music Discs \& Tapes               \\
-	13                                & Veterinary Sales                   & 87                                & Food Market                        & 156                               & Rickshaw                           \\
-	14                                & Bookstore                          & 88                                & Retail                             & 157                               & Call Center                        \\
-	15                                & Grocery Store                      & 89                                & Fishing                            & 158                               & Primary/secondary school
-	costs                                                                                                                                                                                                                    \\
-	17                                & Musical Performance                & 91                                & Milk Sales                         & 159                               & Bookbinding                        \\
-	18                                & Water Distribution                 & 92                                & Auto Repair                        & 161                               & Movie Tapes \&
-	DVDs                                                                                                                                                                                                                     \\
-	19                                & Cosmetics Sales                    & 94                                & Pub                                & 162                               & Liquor Store / Off-License         \\
-	21                                & Bicycle Repair                     & 95                                & Machine Shop                       & 163                               & Waste Management                   \\
-	23                                & Shoe Sales                         & 96                                & Phone Accessories                  & 164                               & Film                               \\
-	24                                & Construction Supplies              & 97                                & Cement                             & 165                               & Knitting                           \\
-	25                                & Cafe                               & 98                                & Decorations Sales                  & 167                               & Upholstery                         \\
-	26                                & Plastics Sales                     & 99                                & Pigs                               & 169                               & Fruits \& Vegetables               \\
-	27                                & Bakery                             & 100                               & Phone Repair                       & 170                               & Jewelry                            \\
-	28                                & Barber Shop                        & 101                               & Cobbler                            & 171                               & Cloth \& Dressmaking
-	Supplies                                                                                                                                                                                                                 \\
-	29                                & Home Products Sales                & 102                               & Poultry                            & 172                               & Internet Cafe                      \\
-	31                                & Farming                            & 103                               & Paper Sales                        & 174                               & Entertainment                      \\
-	32                                & Tailoring                          & 104                               & Electronics Repair                 & 175                               & Games                              \\
-	33                                & Furniture Making                   & 105                               & Air Conditioning                   & 176                               & Education
-	provider                                                                                                                                                                                                                 \\
-	34                                & Butcher Shop                       & 107                               & Transportation                     & 177                               & Flowers                            \\
-	35                                & Cheese Making                      & 108                               & Blacksmith                         & 180                               & Wholesale                          \\
-	37                                & Motorcycle Transport               & 109                               & Perfumes                           & 181                               & Food                               \\
-	39                                & Construction                       & 110                               & Animal Sales                       & 183                               & Clothing                           \\
-	40                                & Phone Use Sales                    & 111                               & Computers                          & 184                               & Machinery Rental                   \\
-	41                                & Sporting Good Sales                & 112                               & Cereals                            & 185                               & Food Stall                         \\
-	43                                & Carpentry                          & 114                               & Secretarial Services               & 186                               & Balut-Making                       \\
-	45                                & Catering                           & 115                               & Dental                             & 192                               & Personal Medical Expenses          \\
-	46                                & Restaurant                         & 116                               & Electrician                        & 193                               & Property                           \\
-	47                                & Sewing                             & 117                               & Mobile Phones                      & 194                               & Consumer Goods                     \\
-	49                                & Beauty Salon                       & 119                               & Quarrying                          & 195                               & Home Appliances                    \\
-	51                                & Electronics Sales                  & 120                               & Agriculture                        & 196                               & Vehicle                            \\
-	52                                & Metal Shop                         & 121                               & Services                           & 197                               & Wedding Expenses                   \\
-	54                                & Vehicle Repairs                    & 123                               & Health                             & 199                               & Used Shoes                         \\
-	56                                & Cattle                             & 124                               & Manufacturing                      & 200                               & Higher education costs             \\
-	57                                & General Store                      & 125                               & Arts                               & 201                               & Renewable Energy Products          \\
-	59                                & Taxi                               & 127                               & Party Supplies                     & 202                               & Recycled Materials                 \\
-	60                                & Charcoal Sales                     & 128                               & Timber Sales                       & 203                               & Home Energy                        \\
-	61                                & Dairy                              & 129                               & Child Care                         & 204                               & Cleaning Services                  \\
-	62                                & Photography                        & 130                               & Fuel/Firewood                      & 206                               & Communications                     \\
-	63                                & Fish Selling                       & 131                               & Electrical Goods                   & 207                               & Adult Care                         \\
-	65                                & Pharmacy                           & 132                               & Religious Articles                 & 208                               & Energy                             \\
-	66                                & Printing                           & 133                               & Tourism                            & 209                               & Florist                            \\
-	67                                & Food Production/Sales              & 134                               & Personal Housing Expenses          & 210                               &
-	Landscaping / Gardening                                                                                                                                                                                                  \\
-	68                                & Farm Supplies                      & 135                               & Motorcycle Repair                  & 216                               & Technology                         \\
-	70                                & Medical Clinic                     & 137                               & Utilities                          & 217                               & Beekeeping                         \\
-	72                                & Crafts                             & 138                               & Recycling                          & 218                               & Aquaculture                        \\
-	73                                & Livestock                          & 140                               & Souvenir Sales                     & 219                               & Computer                           \\
-	75                                & Patchwork                          & 141                               & Spare Parts                        & 220                               & Beverages                          \\
-	76                                & Bicycle Sales                      & 142                               & Personal Products Sales            & 221                               & Personal Care
-	Products                                                                                                                                                                                                                 \\
-	78                                & Musical Instruments                & 143                               & Natural Medicines                  & 222                               & Funerals                           \\
-	79                                & Bricks                             & 144                               & Goods Distribution                 & 223                               & Celebrations                       \\
-	80                                & Office Supplies                    & 145                               & Weaving                            & 224                               & Personal Expenses                  \\
-	81                                & Hardware                           & 146                               & Hotel                              & 225                               & Mobile Transactions                \\
-	                                  &                                    &                                   &                                    & 226                               & Event Planning                     \\
+    9                                 & Clothing Sales                     & 84                                & Used Clothing                      & 147                               & Well digging                       \\
+    11                                & Land Rental                        & 85                                & Laundry                            & 149                               & Embroidery                         \\
+    12                                & Traveling Sales                    & 86                                & Textiles                           & 151                               & Music Discs \& Tapes               \\
+    13                                & Veterinary Sales                   & 87                                & Food Market                        & 156                               & Rickshaw                           \\
+    14                                & Bookstore                          & 88                                & Retail                             & 157                               & Call Center                        \\
+    15                                & Grocery Store                      & 89                                & Fishing                            & 158                               & Primary/secondary school
+    costs                                                                                                                                                                                                                    \\
+    17                                & Musical Performance                & 91                                & Milk Sales                         & 159                               & Bookbinding                        \\
+    18                                & Water Distribution                 & 92                                & Auto Repair                        & 161                               & Movie Tapes \&
+    DVDs                                                                                                                                                                                                                     \\
+    19                                & Cosmetics Sales                    & 94                                & Pub                                & 162                               & Liquor Store / Off-License         \\
+    21                                & Bicycle Repair                     & 95                                & Machine Shop                       & 163                               & Waste Management                   \\
+    23                                & Shoe Sales                         & 96                                & Phone Accessories                  & 164                               & Film                               \\
+    24                                & Construction Supplies              & 97                                & Cement                             & 165                               & Knitting                           \\
+    25                                & Cafe                               & 98                                & Decorations Sales                  & 167                               & Upholstery                         \\
+    26                                & Plastics Sales                     & 99                                & Pigs                               & 169                               & Fruits \& Vegetables               \\
+    27                                & Bakery                             & 100                               & Phone Repair                       & 170                               & Jewelry                            \\
+    28                                & Barber Shop                        & 101                               & Cobbler                            & 171                               & Cloth \& Dressmaking
+    Supplies                                                                                                                                                                                                                 \\
+    29                                & Home Products Sales                & 102                               & Poultry                            & 172                               & Internet Cafe                      \\
+    31                                & Farming                            & 103                               & Paper Sales                        & 174                               & Entertainment                      \\
+    32                                & Tailoring                          & 104                               & Electronics Repair                 & 175                               & Games                              \\
+    33                                & Furniture Making                   & 105                               & Air Conditioning                   & 176                               & Education
+    provider                                                                                                                                                                                                                 \\
+    34                                & Butcher Shop                       & 107                               & Transportation                     & 177                               & Flowers                            \\
+    35                                & Cheese Making                      & 108                               & Blacksmith                         & 180                               & Wholesale                          \\
+    37                                & Motorcycle Transport               & 109                               & Perfumes                           & 181                               & Food                               \\
+    39                                & Construction                       & 110                               & Animal Sales                       & 183                               & Clothing                           \\
+    40                                & Phone Use Sales                    & 111                               & Computers                          & 184                               & Machinery Rental                   \\
+    41                                & Sporting Good Sales                & 112                               & Cereals                            & 185                               & Food Stall                         \\
+    43                                & Carpentry                          & 114                               & Secretarial Services               & 186                               & Balut-Making                       \\
+    45                                & Catering                           & 115                               & Dental                             & 192                               & Personal Medical Expenses          \\
+    46                                & Restaurant                         & 116                               & Electrician                        & 193                               & Property                           \\
+    47                                & Sewing                             & 117                               & Mobile Phones                      & 194                               & Consumer Goods                     \\
+    49                                & Beauty Salon                       & 119                               & Quarrying                          & 195                               & Home Appliances                    \\
+    51                                & Electronics Sales                  & 120                               & Agriculture                        & 196                               & Vehicle                            \\
+    52                                & Metal Shop                         & 121                               & Services                           & 197                               & Wedding Expenses                   \\
+    54                                & Vehicle Repairs                    & 123                               & Health                             & 199                               & Used Shoes                         \\
+    56                                & Cattle                             & 124                               & Manufacturing                      & 200                               & Higher education costs             \\
+    57                                & General Store                      & 125                               & Arts                               & 201                               & Renewable Energy Products          \\
+    59                                & Taxi                               & 127                               & Party Supplies                     & 202                               & Recycled Materials                 \\
+    60                                & Charcoal Sales                     & 128                               & Timber Sales                       & 203                               & Home Energy                        \\
+    61                                & Dairy                              & 129                               & Child Care                         & 204                               & Cleaning Services                  \\
+    62                                & Photography                        & 130                               & Fuel/Firewood                      & 206                               & Communications                     \\
+    63                                & Fish Selling                       & 131                               & Electrical Goods                   & 207                               & Adult Care                         \\
+    65                                & Pharmacy                           & 132                               & Religious Articles                 & 208                               & Energy                             \\
+    66                                & Printing                           & 133                               & Tourism                            & 209                               & Florist                            \\
+    67                                & Food Production/Sales              & 134                               & Personal Housing Expenses          & 210                               &
+    Landscaping / Gardening                                                                                                                                                                                                  \\
+    68                                & Farm Supplies                      & 135                               & Motorcycle Repair                  & 216                               & Technology                         \\
+    70                                & Medical Clinic                     & 137                               & Utilities                          & 217                               & Beekeeping                         \\
+    72                                & Crafts                             & 138                               & Recycling                          & 218                               & Aquaculture                        \\
+    73                                & Livestock                          & 140                               & Souvenir Sales                     & 219                               & Computer                           \\
+    75                                & Patchwork                          & 141                               & Spare Parts                        & 220                               & Beverages                          \\
+    76                                & Bicycle Sales                      & 142                               & Personal Products Sales            & 221                               & Personal Care
+    Products                                                                                                                                                                                                                 \\
+    78                                & Musical Instruments                & 143                               & Natural Medicines                  & 222                               & Funerals                           \\
+    79                                & Bricks                             & 144                               & Goods Distribution                 & 223                               & Celebrations                       \\
+    80                                & Office Supplies                    & 145                               & Weaving                            & 224                               & Personal Expenses                  \\
+    81                                & Hardware                           & 146                               & Hotel                              & 225                               & Mobile Transactions                \\
+                                      &                                    &                                   &                                    & 226                               & Event Planning                     \\
 \end{longtable}
 
 \textbf{Tag}
@@ -592,67 +592,67 @@ With the following GraphQL query, we can get all the possible Tags that the plat
 The result is shown in Table \ref{tab:tag-definition}.
 
 \begin{longtable}{|r|l|l|r|l|l|}
-	\toprule\noalign{}
-	\caption{Definition of tags}
-	\label{tab:tag-definition}                                                                                                                                                                                                                        \\
+    \toprule\noalign{}
+    \caption{Definition of tags}
+    \label{tab:tag-definition}                                                                                                                                                                                                                                         \\
 
-	\hline
-	\multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{name}} & \multicolumn{1}{|c|}{\small \textbf{vocabularyId}} & \multicolumn{1}{c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{name}} & \multicolumn{1}{c|}{\textbf{vocabularyId}} \\
-	\hline
-	\endfirsthead
+    \hline
+    \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{name}} & \multicolumn{1}{|c|}{\densetext{\textbf{vocabularyId}}} & \multicolumn{1}{c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{name}} & \multicolumn{1}{c|}{\densetext{\textbf{vocabularyId}}} \\
+    \hline
+    \endfirsthead
 
-	\multicolumn{6}{c}%
-	{{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                                                                                                                                                             \\
-	\hline
-	\multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{name}} & \multicolumn{1}{|c|}{\textbf{vocabularyId}}        & \multicolumn{1}{c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{name}} & \multicolumn{1}{c|}{\textbf{vocabularyId}} \\
-	\hline
-	\endhead
+    \multicolumn{6}{c}%
+    {{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                                                                                                                                                                              \\
+    \hline
+    \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{name}} & \multicolumn{1}{|c|}{\densetext{\textbf{vocabularyId}}} & \multicolumn{1}{c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{name}} & \multicolumn{1}{c|}{\densetext{\textbf{vocabularyId}}} \\
+    \hline
+    \endhead
 
-	\hline
-	\multicolumn{6}{|r|}{{Continued on next page}}                                                                                                                                                                                                    \\
-	\hline
-	\endfoot
+    \hline
+    \multicolumn{6}{|r|}{{Continued on next page}}                                                                                                                                                                                                                     \\
+    \hline
+    \endfoot
 
-	\hline \hline
-	\endlastfoot
-	1                                 & volunteer\_pick                    & 1                                                  & 20                               & \#Post-disbursed                    & 2                                          \\
-	2                                 & volunteer\_like                    & 1                                                  & 21                               & \#Inspiring Story                   & 2                                          \\
-	3                                 & user\_like                         & 1                                                  & 14                               & \#Single                            & 2                                          \\
-	4                                 & user\_favorite                     & 1                                                  & 23                               & \#Interesting Photo                 & 2                                          \\
-	26                                & \#Fabrics                          & 2                                                  & 66                               & \#TangibleProducts                  & 3                                          \\
-	27                                & \#Health and Sanitation            & 2                                                  & 61                               & \#Agriculture                       & 3                                          \\
-	28                                & \#Repeat Borrower                  & 2                                                  & 62                               & \#NewBusiness                       & 3                                          \\
-	29                                & \#Refugee                          & 2                                                  & 63                               & \#Values                            & 3                                          \\
-	30                                & \#Job Creator                      & 2                                                  & 64                               & \#PersonalImpact                    & 3                                          \\
-	31                                & \#Supporting Family                & 2                                                  & 65                               & \#QualityPhotos                     & 3                                          \\
-	32                                & \#Orphan                           & 2                                                  & 73                               & LGBTQ                               & 3                                          \\
-	33                                & \#Low-profit FP                    & 2                                                  & 68                               & \#StandoutBackstory                 & 3                                          \\
-	35                                & \#Biz Durable Asset                & 2                                                  & 69                               & \#UniqueLoanUse                     & 3                                          \\
-	25                                & \#Team Guys Holding Fish           & 2                                                  & 70                               & MUFG                                & 3                                          \\
-	36                                & \#Trees                            & 2                                                  & 71                               & LISCChicago                         & 3                                          \\
-	37                                & \#Female Education                 & 2                                                  & 72                               & \#Kaiser                            & 3                                          \\
-	39                                & \#Repair Renew Replace             & 2                                                  & 60                               & \#Refugees                          & 3                                          \\
-	40                                & \#US immigrant                     & 2                                                  & 74                               & US Refugee                          & 3                                          \\
-	43                                & \#US Black-Owned Business          & 2                                                  & 67                               & \#HighDetail                        & 3                                          \\
-	45                                & \#Latinx/Hispanic-Owned Business   & 2                                                  & 59                               & \#COVID-19                          & 3                                          \\
-	34                                & \#Hidden Gem                       & 2                                                  & 50                               & GoDaddy                             & 3                                          \\
-	24                                & \#Powerful Story                   & 2                                                  & 57                               & \#GenderEquity                      & 3                                          \\
-	38                                & \#Technology                       & 2                                                  & 75                               & Viral                               & 3                                          \\
-	22                                & \#Unique                           & 2                                                  & 41                               & reserved\_disaster\_relief\_covid   & 3                                          \\
-	5                                 & \#First Loan                       & 2                                                  & 42                               & reserved\_crisis\_support\_loan     & 3                                          \\
-	6                                 & \#Woman-Owned Business             & 2                                                  & 44                               &                                     & 3                                          \\
-	7                                 & \#Tourism                          & 2                                                  & 46                               & cow                                 & 3                                          \\
-	8                                 & \#Sustainable Ag                   & 2                                                  & 47                               & IT Cosmetics                        & 3                                          \\
-	9                                 & \#Eco-friendly                     & 2                                                  & 58                               & \#Education                         & 3                                          \\
-	11                                & \#Animals                          & 2                                                  & 48                               & beauty                              & 3                                          \\
-	12                                & \#Widowed                          & 2                                                  & 51                               & \#BIPOC-owned Business              & 3                                          \\
-	13                                & \#Elderly                          & 2                                                  & 52                               & \#Umpqua                            & 3                                          \\
-	10                                & \#Vegan                            & 2                                                  & 53                               & \#US Environmental Loan             & 3                                          \\
-	15                                & \#Married                          & 2                                                  & 54                               & \#CommunityImpact                   & 3                                          \\
-	16                                & \#Parent                           & 2                                                  & 55                               & \#FamilyImpact                      & 3                                          \\
-	17                                & \#Single Parent                    & 2                                                  & 56                               & \#EcoFriendly                       & 3                                          \\
-	18                                & \#Schooling                        & 2                                                  & 49                               & Turo                                & 3                                          \\
-	19                                & \#Pre-disbursed                    & 2                                                  & 76                               & Salesforce                          & 3                                          \\
+    \hline \hline
+    \endlastfoot
+    1                                 & volunteer\_pick                    & 1                                                       & 20                               & \#Post-disbursed                    & 2                                                      \\
+    2                                 & volunteer\_like                    & 1                                                       & 21                               & \#Inspiring Story                   & 2                                                      \\
+    3                                 & user\_like                         & 1                                                       & 14                               & \#Single                            & 2                                                      \\
+    4                                 & user\_favorite                     & 1                                                       & 23                               & \#Interesting Photo                 & 2                                                      \\
+    26                                & \#Fabrics                          & 2                                                       & 66                               & \#TangibleProducts                  & 3                                                      \\
+    27                                & \#Health and Sanitation            & 2                                                       & 61                               & \#Agriculture                       & 3                                                      \\
+    28                                & \#Repeat Borrower                  & 2                                                       & 62                               & \#NewBusiness                       & 3                                                      \\
+    29                                & \#Refugee                          & 2                                                       & 63                               & \#Values                            & 3                                                      \\
+    30                                & \#Job Creator                      & 2                                                       & 64                               & \#PersonalImpact                    & 3                                                      \\
+    31                                & \#Supporting Family                & 2                                                       & 65                               & \#QualityPhotos                     & 3                                                      \\
+    32                                & \#Orphan                           & 2                                                       & 73                               & LGBTQ                               & 3                                                      \\
+    33                                & \#Low-profit FP                    & 2                                                       & 68                               & \#StandoutBackstory                 & 3                                                      \\
+    35                                & \#Biz Durable Asset                & 2                                                       & 69                               & \#UniqueLoanUse                     & 3                                                      \\
+    25                                & \#Team Guys Holding Fish           & 2                                                       & 70                               & MUFG                                & 3                                                      \\
+    36                                & \#Trees                            & 2                                                       & 71                               & LISCChicago                         & 3                                                      \\
+    37                                & \#Female Education                 & 2                                                       & 72                               & \#Kaiser                            & 3                                                      \\
+    39                                & \#Repair Renew Replace             & 2                                                       & 60                               & \#Refugees                          & 3                                                      \\
+    40                                & \#US immigrant                     & 2                                                       & 74                               & US Refugee                          & 3                                                      \\
+    43                                & \#US Black-Owned Business          & 2                                                       & 67                               & \#HighDetail                        & 3                                                      \\
+    45                                & \#Latinx/Hispanic-Owned Business   & 2                                                       & 59                               & \#COVID-19                          & 3                                                      \\
+    34                                & \#Hidden Gem                       & 2                                                       & 50                               & GoDaddy                             & 3                                                      \\
+    24                                & \#Powerful Story                   & 2                                                       & 57                               & \#GenderEquity                      & 3                                                      \\
+    38                                & \#Technology                       & 2                                                       & 75                               & Viral                               & 3                                                      \\
+    22                                & \#Unique                           & 2                                                       & 41                               & reserved\_disaster\_relief\_covid   & 3                                                      \\
+    5                                 & \#First Loan                       & 2                                                       & 42                               & reserved\_crisis\_support\_loan     & 3                                                      \\
+    6                                 & \#Woman-Owned Business             & 2                                                       & 44                               &                                     & 3                                                      \\
+    7                                 & \#Tourism                          & 2                                                       & 46                               & cow                                 & 3                                                      \\
+    8                                 & \#Sustainable Ag                   & 2                                                       & 47                               & IT Cosmetics                        & 3                                                      \\
+    9                                 & \#Eco-friendly                     & 2                                                       & 58                               & \#Education                         & 3                                                      \\
+    11                                & \#Animals                          & 2                                                       & 48                               & beauty                              & 3                                                      \\
+    12                                & \#Widowed                          & 2                                                       & 51                               & \#BIPOC-owned Business              & 3                                                      \\
+    13                                & \#Elderly                          & 2                                                       & 52                               & \#Umpqua                            & 3                                                      \\
+    10                                & \#Vegan                            & 2                                                       & 53                               & \#US Environmental Loan             & 3                                                      \\
+    15                                & \#Married                          & 2                                                       & 54                               & \#CommunityImpact                   & 3                                                      \\
+    16                                & \#Parent                           & 2                                                       & 55                               & \#FamilyImpact                      & 3                                                      \\
+    17                                & \#Single Parent                    & 2                                                       & 56                               & \#EcoFriendly                       & 3                                                      \\
+    18                                & \#Schooling                        & 2                                                       & 49                               & Turo                                & 3                                                      \\
+    19                                & \#Pre-disbursed                    & 2                                                       & 76                               & Salesforce                          & 3                                                      \\
 \end{longtable}
 
 
@@ -668,17 +668,17 @@ we decided to not use them in our analysis.
 \section{Basic data statistics}
 
 \begin{itemize}
-	\item Worldwide statistics
-	      \begin{itemize}
-		      \item How many projects
-		      \item how many lenders
-		      \item projects vs country distribution
-		      \item successful rate
-		      \item \textbf{How long that users stay on the platform}
-	      \end{itemize}
-	\item Vietnam statistics
-	      \begin{itemize}
-		      \item How many projects
-		      \item \dots
-	      \end{itemize}
+    \item Worldwide statistics
+          \begin{itemize}
+              \item How many projects
+              \item how many lenders
+              \item projects vs country distribution
+              \item successful rate
+              \item \textbf{How long that users stay on the platform}
+          \end{itemize}
+    \item Vietnam statistics
+          \begin{itemize}
+              \item How many projects
+              \item \dots
+          \end{itemize}
 \end{itemize}
