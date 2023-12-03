@@ -771,6 +771,19 @@ We found that these tags are correspond to the \lstinline|vocabularyId = 1|,
 they are \lstinline|volunteer_pick|, \lstinline|volunteer_like|, \lstinline|user_like|, \lstinline|user_favorite|.
 We decide to get rid of these tags.
 
+But we suspect that Tags are more complicated than that.
+Somes tags are appear that they have special meaning and sounds like they could bring values to users who browsing through the website,
+such as \lstinline|#Agriculture| or \lstinline|#Education|, etc.
+Despite of that, these tags are not visible to users on the website interfaces.
+There are also some tags that even have stranger behavior, such as \lstinline|reserved_crisis_support_loan|.
+This tag is not appear in the website interface, nor when we ask the API for all the possible tags.
+Yet it appear in the crawl data.
+
+Since the documentation regarding these tags is not exists,
+we decided to do our best for understanding what each tags are by looking at some of project for each tags.
+We will get rid of the tags the we think is not have any meaning to users and keep the rest.
+
+
 \todo{Add statistic about the tags and number of Anonymous Lender}
 
 We explore the data, we also found that some Lenders is anonymous.
@@ -812,14 +825,74 @@ In the next section, we will provide some statistic about the data.
 	      \end{itemize}
 \end{itemize}
 
-\todo{tags analysis (the presentation slide)}
+Recall that for the purpose of the thesis, we would like to find community of Lenders who interest in same type of projects.
+Also recall that each project is associated with some descritive fields, such as Sector, Country, Tags, etc.
+In this section, we will explore the data to better understand those fields.
+
+\subsection{Geographical Distribution of Projects}
+
+The geographical distribution of Projects is shown in Figure \ref{fig:map-number-project-by-country}.
+We can see that the Projects are distributed all over the world.
+Not only in developing countries like Vietnam, Philippines,
+but also developed countries like United States.
+It is also interesting to see that there are no Projects in Euro or in Australia.
+
+Figure \ref{fig:country-project-distribution} shows the number of Projects by country.
+It is clear that the Projects are concentrated in some countries.
+We can see that the top 5 countries in term of the number of projects happened are Philippines, Kenya, Cambodia, Peru, and El Salvador.
+
+Since the Projects are concentrated in some countries,
+it will be promising to find community of Lenders who interest in Projects in those countries.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/map-number-project-by-country.png}
-	\caption{Number of Projects by country}
+	\caption{Geographical Distribution of Projects}
 	\label{fig:map-number-project-by-country}
 \end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/country-project-distribution.png}
+	\caption{Number of Projects by country}
+	\label{fig:country-project-distribution}
+\end{figure}
+
+
+\subsection{Distribution of Projects Across Sectors}
+
+The graph in Figure \ref{fig:project-vs-sector} shows the number of Projects,
+as well as the average amount of money asked by each project, by Sector.
+We could see that there are some Sectors that have a subtainial large number of Projects, such as Agriculture, Food, Retail, etc.
+But when it comes to the average amount of money ask by each project, those Sectors are not the top.
+Some Sectors, while limited in the number of Projects, have a large amount of money ask by each project, such as Manufacturing, Wholesale, or Entertainment.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/project-vs-sector.png}
+	\caption{}
+	\label{fig:project-vs-sector}
+\end{figure}
+
+\subsection{Distribution of Projects Across Tags}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/project-vs-tag.png}
+	\caption{}
+	\label{fig:project-vs-tag}
+\end{figure}
+
+\todo{tags analysis (the presentation slide)}
+
+
+While Sector and Country are mandatory fields of a Project, Tags are not.
+Recall that we have found that some Tags are used internally by Kiva to manage the data.
+In the preprocessing steps, we had removed those Tags.
+
+\todo{Report number project without tags is }
 
 \subsection{How long that users stay on the platform}
 
