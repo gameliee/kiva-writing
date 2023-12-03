@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usepackage{listings} % For code snippets
 \usepackage{longtable} % For long tables
+\usepackage[acronym]{glossaries} % For glossaries
 \usepackage[margin=1in]{geometry} % For page margins
 \usepackage{eso-pic} % Needed for AddToShipoutPicture
 \usetikzlibrary{calc}
@@ -25,7 +26,7 @@ sorting=ynt
 \newcommand{\note}[1]{\textcolor{blue}{NOTE: #1}}
 \newcommand{\densetext}[1]{\scalebox{0.8}[1.0]{\textls[-80]{#1}}}
 
-
+\input{frontmatter/glossaries.tex}
 
 \begin{document}
 
@@ -42,6 +43,10 @@ sorting=ynt
 \tableofcontents
 \listoffigures
 \listoftables
+
+% \clearpage
+\printglossary
+\printglossary[type=\acronymtype]
 
 \chapter{Introduction}
 \input{chap1/chap1.tex}

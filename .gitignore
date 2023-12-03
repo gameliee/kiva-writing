@@ -4,6 +4,8 @@ main.pdf
 # syncthing
 .DS_Store
 
+# makeglossaries
+*.ist
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
