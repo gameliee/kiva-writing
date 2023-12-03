@@ -1,3 +1,4 @@
+
 \begin{itemize}
 	\item The creatioon of Lender-Criteria bipartite graphs
 	\item Explain why we could not project Lender-Criteria graphs onto Lender to create Lender-Lender graph
@@ -18,7 +19,26 @@
 
 \begin{itemize}
 	\item Filter data to keep Lenderes who is active invest from 2019-2023
-	\item Rpeat the works on random graph for each year data
+	\item Repeat the works on random graph for each year data
 	\item Then find quality assessment $Q_{real}$ again and compare with $Q_{synthesis}$.
 	      Decide if there is a clear community for different criteria (Tags, Sectors, Country)
 \end{itemize}
+
+As the begin of this chapter, we are revisiting our hypothesis and testing them out.
+Recall that we would like to find community of Lenders, based on their interests in different criteria.
+Through the data explornation, we will use 3 different criteria to find if the community exists.
+The criteria are: Tags, Sectors and Country.
+
+The first steps is to associate each Lender with Criteria.
+In the Kiva data, Lender and Criteria are connected through the Project.
+A Lender is considered to be interested in a Criteria if he/she has invested in a Project that has that Criteria.
+Note that the relationship between Lender and Project is many-to-many.
+The relationship between Project and Criteria could be many-to-many in the case of Tags,
+or can be one-to-many in the case of Sectors and Country.
+Because of the many-to-many relationship, we will model the data in Graph data type.
+This decision is also supported by the fact that the "community finding" is a graph problem.
+And by modeling the data in Graph, we can apply the work to other crowdfunding platforms.
+
+\section{Lender-Criteria bipartite graph}
+\section{Hypothesis testing on synthesis data}
+\section{Hypothesis testing on real data}
