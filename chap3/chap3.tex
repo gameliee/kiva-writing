@@ -896,13 +896,45 @@ In the preprocessing steps, we had removed those Tags.
 
 \subsection{How long that users stay on the platform}
 
+Recall that we would like to address if there are community of Lenders in the platform.
+We have a hypothesis that, if every lender always give money, and then leaf the platform,
+then there are no community of Lenders.
+
+we will try to find out how long that a Lender stay on the platform.
+
+Defined that a Lender is active in a year if he/she give money to a project, which is posted on that year.
+We also define that a Lender is active in a range of year if he/she is active in all the years in that range.
+Fiture \ref{fig:active-hist} shows the distribution of the number of consecutive years that a Lender is active.
+We can see that most of the Lenders are active in only one year.
+This is not a good sign for finding community of Lenders.
+
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{images/active-pairwise.png}
-	\caption{}
-	\label{fig:active-pairwise}
+	\includegraphics[width=0.8\textwidth]{images/active-hist.png}
+	\caption{Number of consecutive years that a Lender funded}
+	\label{fig:active-hist}
 \end{figure}
+
+We also try to find out the portion of Lenders that are active in a range of years.
+To do it, we will construct a table that has following structure.
+The y-axes is the start year,
+while the x-axes is the end year that we concern.
+For each pair of years, we will calculate the \textit{Jaccard index}
+between the set of Lenders that are active in that range of years.
+For example, if the set of Lender who are active in 2020, 2021, 2022 are
+$L_{2020}, L_{2021}, L_{2022}$ respectively,
+then the Jaccard index between 2020 and 2022 would be
+
+\begin{equation}
+	J(L_{2020}, L_{2021}, L_{2022}) = \frac{|L_{2020} \cap L_{2021} \cap L_{2022}|}{|L_{2020} \cup L_{2021} \cup L_{2022}|}
+\end{equation}
+
+
+Figure \ref{fig:active-fromto} shows the result.
+We could see that the portion of Lenders that are active decrease as the range of years increase.
+Suppose that the new users are entering the platform and some users also leave the platform,
+then this result make sense.
 
 
 \begin{figure}[H]
@@ -912,9 +944,12 @@ In the preprocessing steps, we had removed those Tags.
 	\label{fig:active-fromto}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{images/active-hist.png}
-	\caption{Number of consecutive years that a Lender funded}
-	\label{fig:active-hist}
-\end{figure}
+In order to find a good community of Lenders,
+it is intuitively to select only the Lenders who are to a degree active in the platform.
+Because if he or she only contribute to a single project,
+then their behavior and their interest is not clear.
+If he or she repeatedly give money (stay active),
+we could find a pattern in their behavior.
+In that sense, we will study the active Lenders from 2019 to 2023.
+We belive that this range of years provide modern information,
+as well as the number of Lender still large enough for analysis.
