@@ -1,11 +1,21 @@
 {
     "latex-workshop.latex.recipes": [
         {
-            "name": "pdflatex -> bibtex -> pdflatex * 2",
+            "name": "pdflatex -> makeglossaries -> bibtex -> pdflatex * 2",
             "tools": [
                 "pdflatex",
                 "makeglossaries",
                 "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "pdflatex -> makeglossaries -> biber -> pdflatex * 2",
+            "tools": [
+                "pdflatex",
+                "makeglossaries",
+                "biber",
                 "pdflatex",
                 "pdflatex"
             ]
@@ -34,6 +44,14 @@
         {
             "name": "makeglossaries",
             "command": "makeglossaries",
+            "args": [
+                "%DOCFILE%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "biber",
+            "command": "biber",
             "args": [
                 "%DOCFILE%"
             ],

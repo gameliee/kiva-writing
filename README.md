@@ -11,3 +11,5 @@ Some other notes
 - each sentense on seperated line
 - [SciencePlot](https://github.com/garrettj403/SciencePlots/wiki/Gallery)
 - [paper-tips-and-tricks](https://github.com/Wookai/paper-tips-and-tricks)
+
+[Developement note](development.md)
