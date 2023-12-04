@@ -1,16 +1,6 @@
 {
     "latex-workshop.latex.recipes": [
         {
-            "name": "pdflatex -> makeglossaries -> bibtex -> pdflatex * 2",
-            "tools": [
-                "pdflatex",
-                "makeglossaries",
-                "bibtex",
-                "pdflatex",
-                "pdflatex"
-            ]
-        },
-        {
             "name": "pdflatex -> makeglossaries -> biber -> pdflatex * 2",
             "tools": [
                 "pdflatex",
