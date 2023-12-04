@@ -94,6 +94,152 @@ In the next chapter, we will introduce the community detection problem and how i
 
 \section{Review on Community Detecting problem}
 
+We will review the community detection problem in this section.
+The community detection problem is a well-known problem in network science.
+Recall that network or a graph is a set of vertex (or nodes) and a set of edges (or links) connecting these vertex.
+According to perhap the most famous literature on community finding \cite{fortunato2010},
+community refer to groups of vertexs with high concentrations of edges within vertexs within each group,
+and low concentrations between vertexs in different groups.
+The community structure is also known as \textit{clusters} or \textit{modules} in the literature.
+
+Scientists found community could be beneficial in real-world applications.
+For example, finding Web clients who interest in a similar topic and geologically close to each other
+can be used to improve the performace of content delivery network,
+but setting up a dedicated server for each community.
+Recommendation system can also benefit from community structure, by recommending similar items for users in a same community.
+Nodes that are centrally located within their clusters,
+meaning they share a significant number of edges with other members of the group,
+could serve a crucial role in maintaining control and stability within the group.
+On the other hand, nodes that are positioned at the boundaries between different modules
+are likely to play a key role in mediation,
+guiding the interactions and exchanges between various communities.
+
+There are two character of community detection problem.
+First, is the lacking of quantitive definition of community.
+No defintion is universally accepted.
+In fact, the definition often depends on the specific system under study.
+Second and even worst, communities are algorithmically defined.
+That is, they are just the final product of the algorithms,
+without a pricise \textit{a priori} definition \cite{fortunato2010}.
+
+Community detection is a NP-hard problem \cite{fortunato2010},
+hence exact algorithms are not feasible for large networks.
+It is common to use \textit{approximation algorithms} to provide approximate solution while maintaining low complexity.
+Note that approximate algorithms are often non-deterministic, as they provide different solutions for a same problem.
+Other than that, it is not possible to approximate the solution for any constant,
+as the goodness of approximation strongly depends on the problem at study.
+This characteristic of community detection problem provides a challenge for
+testing algorithms, let alone apply it to real-world applications.
+
+In the next part, we will review the community detection problem on unipartite graph,
+which is the most common type of graph where every nodes are in a same type.
+Then we will review the community detection problem on bipartite graph,
+a common real-world type of graph where nodes are divided into two types.
+
+\subsection{Unipartite graphs}
+
+\textbf{Basic Notations}
+
+The modeling of graphs is well-known in the literature.
+There are 3 parts in a graph.
+
+\begin{itemize}
+	\item a set $V$, representing the vertices (or nodes) of the graph
+	\item a \textit{binary relation} $E\subseteq V \times V$ representing the edges (or links) of the graph
+	\item (Optional) a \textit{function} $\omega: E \rightarrow \mathbb{R}$ representing the \textit{weight} of each edge
+\end{itemize}
+
+Denote such a graph with $G(V, E, \omega)$.
+When the graph is unweighted, meaning $\omega$ is a constant function, we can use the notation $G(V, E)$.
+The \textit{neighbourhood} of vertex $v$ as $N(v) = \{u \in V | (u, v) \in E\}$.
+Each element of $N(v)$ is called a \textit{neighbour} of $v$.
+The number of nodes in $N(v)$ is called the \textit{degree} of $v$, denoted as $d(v)$.
+In the case of weighted graph, the \textit{strength} of $v$, denoted as $s(v)$
+which is the sum of the weights of all edges connected to $v$.
+
+The most basic statistic describing such graph is the size of graph, as known as the number of nodes $n = |V|$.
+The number of links is $m = |E|$.
+The densitive of the graph, the number of edges devided by the number of possible edges, is $\delta(G) = \frac{m}{n(n-1)}$.
+It is the probability that two random nodes are linked together.
+
+
+
+\textbf{Community detection problem}
+
+In order to tell how good a community finding algorithm, one should use the \textit{quality function}.
+It assign a score number to each partition of a graph.
+By comparing the score of different partitions, one can tell which partition is better.
+But keep in mind that, the answer for the question which partition is better is not universally
+but depends on the specific concept of community adopted.
+
+\textit{modularity}\cite{newman2004} is the most popular quality function in the literature.
+The ideal is that, a random graph should not have any community structure.
+By comparision the edge density of a subgraph and density of a similar random graph (or \textit{null graph}),
+it is possible to reveal the community structure of the graph.
+The modularity $Q$ can be defined as
+
+\begin{equation}
+	Q = \frac{1}{2m} \sum_{ij} \left(A_{ij} - P_{ij}\right) \delta(C_i, C_j)
+\end{equation}
+
+Where $m$ is the total number of edges in the graph,
+$A$ is the ajdacency matrix of the graph.
+$P_{ij}$ is the probability that there is an edge between node $i$ and $j$ in a random graph.
+The function $\delta$ is the Kronecker delta function,
+which is 1 if $i$ and $j$ in a same community ($C_i = C_j$), and 0 otherwise.
+Note that the sum is iterated over all pairs of nodes.
+The choice of null graph is abitrairy, but it is common to use the configuration model \cite{newman2004}.
+This model consider two node $i, j$ with the degree $k_i, k_j$.
+And the corresponding modularity is
+
+\begin{equation}
+	Q = \frac{1}{2m} \sum_{ij} \left(A_{ij} - \frac{k_i k_j}{2m}\right) \delta(C_i, C_j)
+\end{equation}
+
+One can group the contribution to the sum from the same clusters together,
+to obtain the following form where the sum is iterated over all clusters instead of all pairs of nodes.
+$n_c$ is the number of clusters, $l_c$ is the number of edges within cluster $c$ (the number of edges connecting vertices in cluster $c$),
+$d_c$ is the sum of degree of all vertices in $c$.
+
+
+\begin{equation}
+	Q = \sum_{c=1}^{n_c} \left[\frac{l_c}{m} - \left(\frac{d_c}{2m}\right)^2 \right]
+\end{equation}
+
+There are some important properties of this modularity.
+It is always smaller than one, and can be negative.
+First, large positive values of modularity indicate good partitions \cite{fortunato2010}.
+Then, one should not use modularity to compare the goodness of partitions of two graphs that are very different in size.
+
+In the case of weighted graph, the modularity can be written as
+
+\begin{equation}
+	Q_w = \frac{1}{2W} \sum_{ij} \left(A_{ij} - \frac{s_i s_j}{2W}\right) \delta(C_i, C_j)
+\end{equation}
+
+or the equavielent form
+
+\begin{equation}
+	Q_w = \sum_{c=1}^{n_c} \left[\frac{W_c}{W} - \left(\frac{S_c}{2W}\right)^2 \right]
+\end{equation}
+
+Here $W$ is the total weight of the graph, $W_c$ is the total weight of cluster $c$,
+$S_c$ is the total strength of vertices in cluster $c$.
+
+\todo{resolution parameter}
+
+\note{if cannot possible to write a good review on resolution parameter,
+	just mention it and to solve that the modularity is not a swiss-army knife,
+	not a one-fit-all solution,
+	but a good starting point for community detection problem}
+
+\subsection{Bipartite graphs}
+
+$G(U, V, E, \omega)$
+
+
+
+\subsection{plan}
 \begin{itemize}
 	\item Definition of community finding on a graph
 	      Perhap the most famous literature on community finding is \cite{fortunato2010}
