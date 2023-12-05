@@ -413,13 +413,13 @@ it overcome the problem of enforcing one-to-one correspondance between communtie
 
 \todo{Definition of Murata bimodularity}
 The ideal of Murata's bimodularity is pairing every community $C$ from one vertex type with a community in the other vertex types
-that it has maximum connection to. 
+that it has maximum connection to.
 This is also call \textit{co-cluster mate} of community $C$, denoted by $\psi(C)$.
 \begin{equation}
 	\psi(C) = \argmax_{D \in P_e} \mathcal{E}_{C, D}
 \end{equation}
 
-In which, define 
+In which, define
 \begin{equation}
 	\mathcal{E}_{C, D} = \frac{1}{W} \sum_{e} \omega (e)
 \end{equation}
@@ -442,7 +442,7 @@ Given those definition, then the Murata bimodularity $Q_B$ is
 \begin{equation}
 	\label{eq:murata-bimodularity}
 	Q_B = \sum_C \left(\mathcal{E}_{C, \psi(C)} - \mathcal{A}_C \times \mathcal{A}_{\psi(C)}\right)
-		+ \sum_D \left(\mathcal{E}_{D, \psi(D)} - \mathcal{A}_D \times \mathcal{A}_{\psi(D)}\right)
+	+ \sum_D \left(\mathcal{E}_{D, \psi(D)} - \mathcal{A}_D \times \mathcal{A}_{\psi(D)}\right)
 \end{equation}
 
 \begin{figure}[H]
@@ -470,6 +470,10 @@ The work claim several advantages of the Murata+ metric and it is well-suited fo
 In this thesis, reviewing and testing all the algorithms is not possible.
 We will focus on the \textit{biLouvian} algorithm \cite{pesantez2018} for detecting community directly in bipartite graphs
 because of its reproduceability as the fact they provide the source code for the algorithm.
+The algorithm mimic the idea from the Louvian algorithm \cite{blondel2008}, hence the name.
+It try to optimize the Murata+ bimodularity metric by assign nodes to various communities and find the best metric value.
+
+
 
 \begin{figure}[H]
 	\centering
