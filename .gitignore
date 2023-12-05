@@ -4,6 +4,8 @@ main.pdf
 # syncthing
 .DS_Store
 
+thesis.zip
+
 # makeglossaries
 *.ist
 

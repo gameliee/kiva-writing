@@ -12,4 +12,8 @@ Some other notes
 - [SciencePlot](https://github.com/garrettj403/SciencePlots/wiki/Gallery)
 - [paper-tips-and-tricks](https://github.com/Wookai/paper-tips-and-tricks)
 
+Export
+
+- Run `./export.sh` to create a zip file, which can be uploaded to overleaf
+
 [Developement note](development.md)
