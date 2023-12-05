@@ -411,7 +411,72 @@ There are multiple efforts to define bimodularity, listed in \cite{pesantez2018}
 They also employ the Murata's definition \cite{murata2009} in their work because
 it overcome the problem of enforcing one-to-one correspondance between communties in both vertex types.
 
+\todo{Definition of Murata bimodularity}
+The ideal of Murata's bimodularity is pairing every community $C$ from one vertex type with a community in the other vertex types
+that it has maximum connection to. 
+This is also call \textit{co-cluster mate} of community $C$, denoted by $\psi(C)$.
+\begin{equation}
+	\psi(C) = \argmax_{D \in P_e} \mathcal{E}_{C, D}
+\end{equation}
 
+In which, define 
+\begin{equation}
+	\mathcal{E}_{C, D} = \frac{1}{W} \sum_{e} \omega (e)
+\end{equation}
+$e$ denotes any edges between two vertices community $C\in P_1$ and $D\in P_2$.
+And the fraction of this term contributed by all vertices in community $C$ is
+
+\begin{equation}
+	\mathcal{A}_C = \frac{1}{W} \sum_{D} \mathcal{E}_{C, D}
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{images/cocluster.png}
+	\caption{Illustration of a co-cluster $\langle C, \psi(C) \rangle$ where $\psi(C)$ is referred as the co-cluster mate of community $C$, reprinted from \cite{pesantez2018}}
+	\label{fig:cocluster}
+\end{figure}
+
+Given those definition, then the Murata bimodularity $Q_B$ is
+
+\begin{equation}
+	\label{eq:murata-bimodularity}
+	Q_B = \sum_C \left(\mathcal{E}_{C, \psi(C)} - \mathcal{A}_C \times \mathcal{A}_{\psi(C)}\right)
+		+ \sum_D \left(\mathcal{E}_{D, \psi(D)} - \mathcal{A}_D \times \mathcal{A}_{\psi(D)}\right)
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{images/cocluster2.png}
+	\caption{Illustration of co-cluster, reprinted from \cite{pesantez2018}}
+	\label{fig:cocluster2}
+\end{figure}
+
+
+The work of \cite{pesantez2018} provides some observations regarding the Murata metric.
+And then proposed a new metric called \textit{Murata+} to overcome the drawbacks of the original Murata metric.
+
+The Murata+ still use the same definition as in equation \ref{eq:murata-bimodularity}.
+But in which, change the co-cluster mate definition to
+
+\begin{equation}
+	\psi(C) = \argmax_D \left(\mathcal{E}_{C, D} - \mathcal{A}_C \times \mathcal{A}_D\right)
+\end{equation}
+
+The work claim several advantages of the Murata+ metric and it is well-suited for identifying significant communities in bipartite networks.
+
+\textbf{The biLouvian algorithm}
+
+In this thesis, reviewing and testing all the algorithms is not possible.
+We will focus on the \textit{biLouvian} algorithm \cite{pesantez2018} for detecting community directly in bipartite graphs
+because of its reproduceability as the fact they provide the source code for the algorithm.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/biLouvian-algorithm.png}
+	\caption{Main steps of biLouvian algorithm, reprinted from \cite{pesantez2018}}
+	\label{fig:biLouvian-algorithm}
+\end{figure}
 
 
 \subsection{plan}
