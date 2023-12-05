@@ -159,10 +159,32 @@ which is the sum of the weights of all edges connected to $v$.
 
 The most basic statistic describing such graph is the size of graph, as known as the number of nodes $n = |V|$.
 The number of links is $m = |E|$.
-The densitive of the graph, the number of edges devided by the number of possible edges, is $\delta(G) = \frac{m}{n(n-1)}$.
+The density of the graph, the number of edges devided by the number of possible edges, is $\delta(G) = \frac{m}{n(n-1)/2} = \frac{2m}{n(n-1)}$.
 It is the probability that two random nodes are linked together.
 
+To represent the graph, one can use the \textit{adjacency matrix} $A$ or the \textit{adjacency list} $L$.
+The adjacency matrix is defined as $A_{ij} = w(i, j)$ if $(i, j) \in E$, and $A_{ij} = 0$ otherwise.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{images/weighted-unipartite.pdf}
+	\caption{A weighted unipartite graph}
+	\label{fig:weighted-unipartite-graph}
+\end{figure}
+
+For the graph in figure \ref{fig:weighted-unipartite-graph},
+the vertices are $V = \{1, 2, 3, 4\}$.
+The adjacency matrix is
+
+\begin{equation*}
+	A =
+	\begin{bmatrix}
+		0   & 0.3 & 0.2 & 0 \\
+		0.3 & 0   & 0.8 & 0 \\
+		0.2 & 0.8 & 0   & 1 \\
+		0   & 0   & 1   & 0
+	\end{bmatrix}
+\end{equation*}
 
 \textbf{Community detection problem}
 
@@ -172,7 +194,7 @@ By comparing the score of different partitions, one can tell which partition is 
 But keep in mind that, the answer for the question which partition is better is not universally
 but depends on the specific concept of community adopted.
 
-\textit{modularity}\cite{newman2004} is the most popular quality function in the literature.
+\textit{Modularity}\cite{newman2004} is the most popular quality function in the literature.
 The ideal is that, a random graph should not have any community structure.
 By comparision the edge density of a subgraph and density of a similar random graph (or \textit{null graph}),
 it is possible to reveal the community structure of the graph.
@@ -235,7 +257,160 @@ $S_c$ is the total strength of vertices in cluster $c$.
 
 \subsection{Bipartite graphs}
 
-$G(U, V, E, \omega)$
+A bipartite graph is a graph where nodes are seperated into two disjoint sets,
+and links only exists between nodes of different sets.
+Other name for this type of graph is two-mode networks, or affiliation networks.
+Many real-world problem can be naturally modeled as bipartite graphs.
+Some of the most famous examples are the movie-actor network, or the author-paper network.
+In the movie-actor, the two sets of nodes are actors and movies.
+An actor is connected to a movie if he/she play in that movie.
+No links exist between actors, or between movies.
+In the author-paper networks, there are only links between authors and papers,
+happening when an author write a paper.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{images/unweighted-bipartite.pdf}
+	\caption{An unweighted bipartite graph with two types of nodes: Int and Char}
+	\label{fig:unweighted-bipartite-graph}
+\end{figure}
+
+Denote a bipartite network as $B(V_1 \cup V_2, E, \omega)$,
+where $V1$ and $V2$ are the two disjoint sets of nodes: $V_1 \cap V_2 = \emptyset$.
+The set of edges $E$ is a subset of $V_1 \times V_2$,
+and the optional weight function $\omega$ is a function from $E$ to $\mathbb{R}$.
+The number of nodes in $V_1$ is $n_1 = |V_1|$, and that for $V_2$ is $n_2 = |V_2|$.
+The number of edges is $m = |E|$.
+The average degree of the $V_1$ nodes is $k_1 = \frac{m}{n_1}$, of $V_2$ nodes is $k_2 = \frac{m}{n_2}$.
+The average density of the bipartite graph is $\delta(B) = \frac{m}{n_1 n_2}$.
+Note that this density is much lower than that of a unipartite graph with the same number of nodes $\frac{2m}{(n_1 + n_2)(n_1 + n_2 - 1)}$.
+
+Bipartities graphs can be represented by the \textit{biadjacency matrix} $A$.
+The matrix is of size $n_1 \times n_2$.
+The element $A_{ij}$ is the weight of the edge between node $i$ and $j$.
+For example the bipartite graph in figure \ref{fig:unweighted-bipartite-graph}
+We have two set of nodes $V_1 = \{1, 2, 3, 4\}$ and $V_2 = \{a, b, c, d, e, f\}$.
+Only nodes in different sets are connected together.
+The biadjacency metrix is
+
+\begin{equation*}
+	A =
+	\begin{bmatrix}
+		1 & 1 & 1 & 0 & 0 & 0 \\
+		1 & 1 & 1 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 1 & 1 & 0 \\
+		0 & 0 & 0 & 1 & 1 & 1
+	\end{bmatrix}
+\end{equation*}
+
+\textbf{Community detection problem}
+
+In order to better describe the community problem in bipartite graph,
+we employ the notation system from \cite{pesantez2018} because of its simplicity.
+We hereby recall some of the most important notations from the work.
+
+In bipartite, a community is a subset of either $V_1$ or $V_2$.
+Let $P_1 = \{C_1, C_2, \ldots, C_{p_1}\}$ is a partition of $V_1$,
+where $C_i$ is a community in $V_1$.
+Similarly, $P_2 = \{D_1, D_2, \ldots, D_{p_2}\}$ is a partition of $V_2$,
+where $D_i$ is a community in $V_2$.
+$p_1$ and $p_2$ are the number of communities in $V_1$ and $V_2$ respectively,
+and they are not necessarily equal.
+
+
+\textbf{One-mode projection}
+
+One-mode projection is a method to transform a bipartite graph into a unipartite graph.
+Using such method, one can apply the well-developed notations and algorithms for unipartite graph to analyze the bipartite graph.
+The one-mode projection onto $V_1$, or $V_1$-projection means create a network with only nodes in $V_1$,
+two nodes in $V_1$ are connected if they share at least one common neighbour in $V_2$.
+Mathematically, project a bipartite $B(U\cup V, E)$ to node set $V$
+will yield a unipartite graph $G(V, E')$.
+
+\begin{equation*}
+	E' = \{(u, v) | u, v \in V, \exists w \in U, (u, w) \in E, (v, w) \in E\}
+\end{equation*}
+
+The result is simply an unweighted network that can not capture the frequency of connection in the original bipartite graph.
+For example, Figure \ref{fig:Intprojection}, \ref{fig:Charprojection} corresponding shows the $V_1$-projection and $V_2$-projection of the graph in Figure \ref{fig:unweighted-bipartite-graph}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/bipartite-projection-number.pdf}
+		\caption{Projection onto Int node}
+		\label{fig:Intprojection}
+	\end{subfigure}
+	% \hfill
+	% \hspace{1cm}
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/bipartite-projection-char.pdf}
+		\caption{Projection onto Char node}
+		\label{fig:Charprojection}
+	\end{subfigure}
+	\caption{One-mode projection of the graph in Figure \ref{fig:unweighted-bipartite-graph}}
+	\label{fig:projection}
+\end{figure}
+
+One-mode projection always contains less information than the original bipartite network.
+Hence to better reflect the structure of the original network,
+projected networks are often weighted.
+Although there are many ways to weight the projected network,
+the simpliest way is to use the number of common neighbours as the weight.
+Figure \ref{fig:Weightedprojection} shows that weighted projection of the graph in Figure \ref{fig:unweighted-bipartite-graph}.
+Another famous weighting method is \textit{collaboration weight} or \textit{hyperbolic weight}
+The idea is develop when author-paper bipartite network is under study.
+In \cite{newman2001}, Newman stated that if two authors only publish together only one paper,
+then the two should be more connected than if they publish together 100 papers.
+To reflect this idea, the weight is reduce by a factor of $1/(d_u-1)$
+where $d_u$ is the number of author in considering paper, i.e. the degree of the paper node.
+
+\begin{equation*}
+	w_{v_1, v_2} = \sum_u \frac{\delta^u_{v_1}\delta^u_{v_2}}{d_u - 1}
+\end{equation*}
+
+Despite of the weighting method, the one-mode projection is still a lossy transformation.
+In fact, it is one of the three main drawbacks of the projection.
+The second one is, as quoted from \cite{latapy2006},
+"some properties of the projection may be due to the projection process rather than the underlying data itself".
+For example, the projection of a not-very-dense bipartite network could be a very dense unipartite graph.
+The third drawback, and perhap it is the most difficicult one to overcome when study large graph,
+is the computational cost of the projection.
+When project $B(V_1 \cup V_2, E)$ onto $V_1$,
+each node in $V_2$ with degree $d$ will introduce $d(d-1)/2$ edges in the projected graph.
+if the average degree of $V_2$ is high enough, the projection migh be infeasible.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/weighted-bipartite-projection-number.pdf}
+		\caption{Weighted Projection onto Int node}
+		\label{fig:WeightedIntprojection}
+	\end{subfigure}
+	% \hfill
+	% \hspace{1cm}
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/weighted-bipartite-projection-char.pdf}
+		\caption{Weighted Projection onto Char node}
+		\label{fig:WeightedCharprojection}
+	\end{subfigure}
+	\caption{Weighted One-mode projection of the graph in Figure \ref{fig:unweighted-bipartite-graph}}
+	\label{fig:Weightedprojection}
+\end{figure}
+
+\textbf{Directly detecting community in bipartite graph}
+
+There are, however, method for directly detecting community in bipartite graph instead of projection.
+Like in the unipartite case, quality functions is needed to judge the goodness of a community finding.
+Literature try to extend to concept of modularity to bipartite graphs, which often call \textit{bimodularity}.
+There are multiple efforts to define bimodularity, listed in \cite{pesantez2018}.
+They also employ the Murata's definition \cite{murata2009} in their work because
+it overcome the problem of enforcing one-to-one correspondance between communties in both vertex types.
+
 
 
 
@@ -275,6 +450,3 @@ $G(U, V, E, \omega)$
 	      \end{itemize}
 
 \end{itemize}
-
-\cite{fortunato2010}
-\cite{newman2004}
