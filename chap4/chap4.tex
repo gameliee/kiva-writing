@@ -243,8 +243,34 @@ There are several snapshot of the data at different time $T_1, T_2, \ldots, T_T$
 The above generation process is applied for the first snapshot only.
 For next snapshots, community structure could be change with with a new variable $p_{stay}$.
 We mimic the behavior of a Lender here, that is a node in $V_1$ could change its community over time.
-$p_{stay}$ is the probability that a node stay in the same community from time $T_i$ to $T_{i+1}$,
-and it can switch to a new community with probability $1-p_{stay}$ as illustrated in figure \ref{fig:synthesis_graph}.
+$p_{stay1}$ is the probability that a node in $V_1$ stay in the same community from time $T_i$ to $T_{i+1}$,
+and it can switch to a new community with probability $1-p_{stay1}$ as illustrated in figure \ref{fig:synthesis_graph}.
+The same goes for $V_2$ with $p_{stay2}$.
+The cocluster relationship will be predefined and kept the same over time.
+The details of the algorithm is described in \ref{alg:synthesis_graph_all}.
+
+Now we already have multiple bipartite graphs for each timestamp.
+We also have the community structure - the ground truth for each timestamp.
+We will apply the community detection algorithm to each bipartite graph,
+and compare the result with the ground truth.
+We defined a metric $Q$ based on Jaccard Index, to measure the quality of the community detection result.
+Consider the $k$ ground-truth clusters $\{U_1, \ldots, U_k\}$ 
+and let $\{\tilde{U}_1, \ldots, \tilde{U}_s\}$ be the $s$ clusters returned by an algorithm.
+The quality $Q$ of the solution $\tilde{U}_j$ is computed as follows.
+For each ground-truth cluster $U_i$, find the cluster $\tilde{U}_j$ 
+which maximizes the Jaccard coefficient of $U_i$ and $\tilde{U}_j$.
+Then sum over the Jaccard coefficients for all ground-truth clusters $U_i$ and normalize by $k$. 
+Formally,
+
+\begin{equation}
+	Q=\frac{1}{k} \sum_{i=1}^k \max _{j=1, \ldots, s} J\left(U_i, \tilde{U}_j\right) 
+\end{equation}
+
+where $J(A, B)=|A \cap B| /|A \cup B|$ is the Jaccard coefficient. 
+$Q \in [0,1]$, higher values for $Q$ imply a better quality of the solution. 
+E.g., if $Q=1$ then the clusters $\tilde{U}_j$ match exactly the ground-truth clusters $U_i$.
+
+
 
 \begin{algorithm}[H]
 	\caption{Synthesis graph generation}
@@ -272,7 +298,6 @@ and it can switch to a new community with probability $1-p_{stay}$ as illustrate
 	\end{algorithmic}
 \end{algorithm}
 
-\todo{describe the algorithm. then provide our init condition $p_{stay1} = p_{stay2}$ for example}
 
 
 \begin{figure}[H]
@@ -281,6 +306,43 @@ and it can switch to a new community with probability $1-p_{stay}$ as illustrate
 	\caption{Illustrate the process of creating the synthesis bipartite graph.}
 	\label{fig:synthesis_graph}
 \end{figure}
+
+\todo{describe the algorithm. then provide our init condition $p_{stay1} = p_{stay2}$ for example}
+
+We will conduct an experiment to test what is the $Q$ value for different parameters.
+Choose the parameters $n_1 = 7000, n_2 = 25, n_{community} = 5, T=5$.
+We fix the value $p_{in} = 0.95, p_{stay2}$, while vary the value of $p_{stay1}$ in range $[0, 1]$ and $p_{out}$ in range $[0, 0.5]$. 
+Notice that $p_{out} < p_{in}$, otherwise the community structure is not meaningful.
+With each parameters setting, we will generate 20 different graphs with different random seed.
+Then we will apply the community detection algorithm to each graph and compute the $Q1$ value,
+which is the $Q$ value for the $V_1$ partite.
+
+We employ the biLouvian algorithm as mentioned in Chapter 2 for detecting the community.
+Note that the algorithm use Murata+ to metric to tell how good the finding is.
+Figure \ref{fig:modularity_pout} shows that metric as a function of $p_{out}$.
+We could see that \todo{here}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/modularity_pout.png}
+	\caption{$modularity$ as a function of $p_{out}$ }
+	\label{fig:modularity_pout}
+\end{figure}
+
+
+
+Figure \ref{fig:Q1_pout} shows the $Q1$ value for different $p_{out}$.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/Q1_pout.png}
+	\caption{$Q1$ as a function of $p_{out}$ }
+	\label{fig:Q1_pout}
+\end{figure}
+
+
+
+
+\todo{refine the $p_{stay2}$}
 
 
 \section{Hypothesis testing on real data}
