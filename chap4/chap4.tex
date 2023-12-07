@@ -378,28 +378,48 @@ its member remain roughly $30\%$ over time, we can be confident that the communi
 	      Decide if there is a clear community for different criteria (Tags, Sectors, Country)
 \end{itemize}
 
+% \include{images/tikz/LCountry.tex}
 
-
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{images/LCountry.pdf}
-	\caption{\todo{caption}}
-	\label{fig:LCountry}
-\end{figure}
+The results is not easy to visualize but we will try our best to explain it here.
+Figure \ref{fig:appendix-LSector} shows the result of Lender-Sector community detection.
+The results looks like a graph where each node represents a co-cluster.
+We could not list all the member of a cocluster because there are too many of them,
+but only show some Sectors in each cocluster.
+Edges represents the similarities between co-clusters, which recall that is the Jaccard Index.
+Each label of a edge is a tuple of similarity of Lender nodes and Sector nodes.
+We try to align the result with timeline from 2019 to 2023 as shown.
+The thickness of the edge is proportional to the maximum similarity $max(\text{lender\_similarity}, \text{sector\_similarity})$.
+In this way, one should focus on edges with high thickness.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/LSector.pdf}
-	\caption{\todo{caption}}
-	\label{fig:LSector}
+	\caption{Illustrate the result of Lender-Sector community detection.}
+	\label{fig:appendix-LSector}
 \end{figure}
 
-\begin{figure}[H]
+Look at the figure, we could identify some interesting patterns.
+Take the part of the graph in the red rectangle for example.
+We could see a clear line structure here.
+Each nodes in this line represent a cocluster in a year,
+notice that all these cocluster are in the same Sector: Agriculture.
+
+
+\begin{table}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{images/LTag.pdf}
-	\caption{\todo{caption}}
-	\label{fig:LTag}
-\end{figure}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lllrr}
+			\hline
+			time       & community\_lender                                                             & community\_tag  & lender\_similarity\_to\_lastyear & tag\_similarity\_to\_last\_year \\
+			\hline
+			2019-01-01 & ['helen6472', 'becki2967', 'steohen6319', 'broen4509', 'mark6805', '...']     & {'Agriculture'} & -                                & -                               \\
+			2020-01-01 & ['helen6472', 'steohen6319', 'broen4509', 'mark6805', 'kelsey6209', '...']    & {'Agriculture'} & 0.318373                         & 1.000000                        \\
+			2021-01-01 & ['becki2967', 'steohen6319', 'fabianfuchs', 'tracy4274', 'mark6805', '...']   & {'Agriculture'} & 0.323045                         & 1.000000                        \\
+			2022-01-01 & ['becki2967', 'holly4656', 'kelsey6209', 'patricia4011', 'gerben5289', '...'] & {'Agriculture'} & 0.313389                         & 1.000000                        \\
+			\hline
+		\end{tabular}
+	}
+	\caption{A result in Lender-Sector community detection}
+	% \label{tab:bipartites-statistics}
+\end{table}
 
-% \include{images/tikz/LCountry.tex}
