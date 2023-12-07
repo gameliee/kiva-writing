@@ -254,22 +254,21 @@ We also have the community structure - the ground truth for each timestamp.
 We will apply the community detection algorithm to each bipartite graph,
 and compare the result with the ground truth.
 We defined a metric $Q$ based on Jaccard Index, to measure the quality of the community detection result.
-Consider the $k$ ground-truth clusters $\{U_1, \ldots, U_k\}$ 
+Consider the $k$ ground-truth clusters $\{U_1, \ldots, U_k\}$
 and let $\{\tilde{U}_1, \ldots, \tilde{U}_s\}$ be the $s$ clusters returned by an algorithm.
 The quality $Q$ of the solution $\tilde{U}_j$ is computed as follows.
-For each ground-truth cluster $U_i$, find the cluster $\tilde{U}_j$ 
+For each ground-truth cluster $U_i$, find the cluster $\tilde{U}_j$
 which maximizes the Jaccard coefficient of $U_i$ and $\tilde{U}_j$.
-Then sum over the Jaccard coefficients for all ground-truth clusters $U_i$ and normalize by $k$. 
+Then sum over the Jaccard coefficients for all ground-truth clusters $U_i$ and normalize by $k$.
 Formally,
 
 \begin{equation}
-	Q=\frac{1}{k} \sum_{i=1}^k \max _{j=1, \ldots, s} J\left(U_i, \tilde{U}_j\right) 
+	Q=\frac{1}{k} \sum_{i=1}^k \max _{j=1, \ldots, s} J\left(U_i, \tilde{U}_j\right)
 \end{equation}
 
-where $J(A, B)=|A \cap B| /|A \cup B|$ is the Jaccard coefficient. 
-$Q \in [0,1]$, higher values for $Q$ imply a better quality of the solution. 
+where $J(A, B)=|A \cap B| /|A \cup B|$ is the Jaccard coefficient.
+$Q \in [0,1]$, higher values for $Q$ imply a better quality of the solution.
 E.g., if $Q=1$ then the clusters $\tilde{U}_j$ match exactly the ground-truth clusters $U_i$.
-
 
 
 \begin{algorithm}[H]
@@ -311,7 +310,7 @@ E.g., if $Q=1$ then the clusters $\tilde{U}_j$ match exactly the ground-truth cl
 
 We will conduct an experiment to test what is the $Q$ value for different parameters.
 Choose the parameters $n_1 = 7000, n_2 = 25, n_{community} = 5, T=5$.
-We fix the value $p_{in} = 0.95, p_{stay2}$, while vary the value of $p_{stay1}$ in range $[0, 1]$ and $p_{out}$ in range $[0, 0.5]$. 
+We fix the value $p_{in} = 0.95, p_{stay2}$, while vary the value of $p_{stay1}$ in range $[0, 1]$ and $p_{out}$ in range $[0, 0.5]$.
 Notice that $p_{out} < p_{in}$, otherwise the community structure is not meaningful.
 With each parameters setting, we will generate 20 different graphs with different random seed.
 Then we will apply the community detection algorithm to each graph and compute the $Q1$ value,
@@ -321,6 +320,20 @@ We employ the biLouvian algorithm as mentioned in Chapter 2 for detecting the co
 Note that the algorithm use Murata+ to metric to tell how good the finding is.
 Figure \ref{fig:modularity_pout} shows that metric as a function of $p_{out}$.
 We could see that \todo{here}
+We could see that the $modularity$ is tend to be high when $p_{out}$ is low.
+Recall that we set $p_{in}$ fixed at $0.95$.
+When $p_{out}$ is low, the difference between edge density in pre-defined community and the other is high.
+The algorithm works well on this case.
+For an extreme case when $p_{out} = 0$, the graph has no edge between different community.
+The community structure is very clear, hence the algorithm suppose to work well.
+In fact, the algorithm yield the bimodularity close to $1.0$ in this case.
+When $p_{out} = 0.05$, there still be a clear structure because the probability
+of connecting to a node in a different community is $~20$ times lower than
+connecting to a node in a same community.
+In this case, the algorithm still works well, it produce the bimodularity fluctuate around $0.6$.
+The higher $p_{out}$ is, the more difficult for the algorithm to find the community.
+But when $p_{out} \ge 0.2$, the metric seem to be set still at $0.5$.
+We look at the results and found that the algorithm detected the whole graph as a single cocluster.
 
 \begin{figure}[H]
 	\centering
@@ -329,9 +342,15 @@ We could see that \todo{here}
 	\label{fig:modularity_pout}
 \end{figure}
 
+Moving next to the $Q1$ value, recall that $Q1$ measure the similarity between detected community in $V_1$ and the ground truth.
+Figure \ref{fig:Q1_pout} shows that $Q1$ is tend to be high when $p_{out}$ is low.
+The algorithm works as expected in the extreme case when $p_{out} = 0$.
+When $p_{out} = 0.05$ and $p_{out} = 0.1$, the algorithm still works well, it produce the $Q1$ fluctuate around $0.65$ and $0.5$ respectively.
+The behavior in $Q1$ is consistnent with the $modularity$ metric.
+When $p_{out} \ge 0.2$, the algorithm detected the whole graph as a single cocluster.
+And because we preset the number of community in $V_1$ to be $c_1=5$,
+Hence when the whole graph is detected as a single cocluster, the $Q1$ value is $0.2$.
 
-
-Figure \ref{fig:Q1_pout} shows the $Q1$ value for different $p_{out}$.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/Q1_pout.png}
@@ -339,10 +358,48 @@ Figure \ref{fig:Q1_pout} shows the $Q1$ value for different $p_{out}$.
 	\label{fig:Q1_pout}
 \end{figure}
 
-
-
+The results reveal that the algorithm only works well when the difference between edge density in pre-defined community and the other is high.
+We could get a sense of the value range of $Q1$.
+For example, even the difference is quite large when $p_{out}=0.15$,
+$Q1$ only archieve around $0.3$, meaning that the algorithm only detect $30\%$ of the community.
+It indicate that in the real dataset, if we manage to find a community that
+its member remain roughly $30\%$ over time, we can be confident that the community is real.
 
 \todo{refine the $p_{stay2}$}
 
 
 \section{Hypothesis testing on real data}
+
+\begin{itemize}
+	\item
+	\item Filter data to keep Lenderes who is active invest from 2019-2023
+	\item Repeat the works on random graph for each year data
+	\item Then find quality assessment $Q_{real}$ again and compare with $Q_{synthesis}$.
+	      Decide if there is a clear community for different criteria (Tags, Sectors, Country)
+\end{itemize}
+
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/LCountry.pdf}
+	\caption{\todo{caption}}
+	\label{fig:LCountry}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/LSector.pdf}
+	\caption{\todo{caption}}
+	\label{fig:LSector}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/LTag.pdf}
+	\caption{\todo{caption}}
+	\label{fig:LTag}
+\end{figure}
+
+% \include{images/tikz/LCountry.tex}
