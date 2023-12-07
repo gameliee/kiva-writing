@@ -3,7 +3,7 @@
 \begin{longtable}{|p{0.33\textwidth}|p{0.67\textwidth}|}
 	\toprule\noalign{}
 	\caption{Fields of Projects}
-	\label{tab:appendix-fields-meaning}                                                                               \\
+	\label{tab:appendix-fields-meaning}                                                                      \\
 
 	\hline
 	\multicolumn{1}{|c|}{\textbf{Field}} & \multicolumn{1}{c|}{\textbf{Meaning}}                             \\
@@ -103,7 +103,7 @@
 \begin{longtable}{|p{0.36\textwidth}|p{0.64\textwidth}|}
 	\toprule\noalign{}
 	\caption{An Example Project}
-	\label{tab:appendix-example-data}                                                                                                                                        \\
+	\label{tab:appendix-example-data}                                                                                                                               \\
 
 	\hline
 	\multicolumn{1}{|c|}{\textbf{Field}}            & \multicolumn{1}{c|}{\textbf{Meaning}}                                                                         \\
@@ -255,7 +255,7 @@
 
 	\toprule\noalign{}
 	\caption{Definition of Activities}
-	\label{tab:appendix-activity-definition}                                                                                                                                                                                          \\
+	\label{tab:appendix-activity-definition}                                                                                                                                                                                 \\
 
 	\hline
 	\multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{Name}} \\
@@ -345,7 +345,7 @@
 \begin{longtable}{|r|l|l|r|l|l|}
 	\toprule\noalign{}
 	\caption{Definition of tags}
-	\label{tab:appendix-tag-definition}                                                                                                                                                                                                                                         \\
+	\label{tab:appendix-tag-definition}                                                                                                                                                                                                                                \\
 
 	\hline
 	\multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{c|}{\textbf{name}} & \multicolumn{1}{|c|}{\densetext{\textbf{vocabularyId}}} & \multicolumn{1}{c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{name}} & \multicolumn{1}{c|}{\densetext{\textbf{vocabularyId}}} \\
@@ -405,3 +405,95 @@
 	18                                & \#Schooling                        & 2                                                       & 49                               & Turo                                & 3                                                      \\
 	19                                & \#Pre-disbursed                    & 2                                                       & 76                               & Salesforce                          & 3                                                      \\
 \end{longtable}
+
+\chapter{Data synthesis algorithms}
+
+\begin{algorithm}
+	\noindent
+	\caption{Synthesis graph nodes generation}
+	\label{alg:appendix-synthesis_graph_nodes}
+	\begin{description}
+		\item[Input:] number of timestep $T$
+		\item[Input:] number of nodes $n$
+		\item[Input:] number of community $c$
+		\item[Input:] probability a node stay in a same community in one step $p_{stay}$
+		\item[Output:] community indexes $C \in \mathbb{N}^{T \times n \times c}$
+	\end{description}
+	\begin{algorithmic}[1]
+		\Function{generate\_community\_dynamic}{$n, c, T$}
+		\For {$i = 1,2,\ldots,n$}
+		\Comment Init randomly for the first timestep
+		\State $C[1][i] \gets$ \Call{random\_integer}{$1, c$}
+		\EndFor
+		\For {$t = 2,3,\ldots,T$}
+		\For {$i = 1,2,\ldots,n$}
+		\If{\Call{random} $\le p_{stay}$}
+		\State $C[t][i] \gets C[t-1][i]$
+		\Comment Stay in the same community
+		\Else
+		\State $C[t][i] \gets$ \Call{random\_integer}{$1, c$}
+		\Comment Change to a new community randomly
+		\EndIf
+		\EndFor
+		\EndFor
+		\State \textbf{return} $C$
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+	\caption{Synthesis graph cocluster generation}
+	\label{alg:appendix-synthesis_graph_cocluster}
+	\begin{description}
+		\item[Input:] number of cluster $c_1, c_2$
+		\item[Output:] map $M$ from $[1, 2, \ldots, \max(c_1, c_2)]$ to $[1, 2, \ldots, \max(c_1, c_2)]$
+	\end{description}
+	\begin{algorithmic}[1]
+		\Function{generate\_cocluster}{$c_1, c_2$}
+		\For{$i=1,2,\ldots,\min(c_1, c_2)$}
+		\State $M[i] \gets i$
+		\EndFor
+		\For{$i=\min(c_1, c_2)+1, \ldots, \max(c_1, c_2)$}
+		\State $M[i] \gets$ \Call{random\_integer}{$1, \min(c_1, c_2)$}
+		\EndFor
+		\EndFunction
+	\end{algorithmic}
+	\begin{algorithmic}[1]
+		\Function{is\_same\_cocluster}{$c_1, c_2$}
+		\State \textbf{return} $M[c_1] = c_2$ \textbf{or} $M[c_2] = c_1$
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
+
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+
+\begin{algorithm}
+	\noindent
+	\caption{Synthesis graph edges generation}
+	\label{alg:appendix-synthesis_graph_edges}
+	\begin{description}
+		\item[Input/Output: ] biajacency matrix $B \in \mathbb{R}^{n_1 \times n_2}$
+		\item[Input:] $V_1$ community index $C \in \mathbb{N}^{n_1}$
+		\item[Input:] $V_2$ community index $D \in \mathbb{N}^{n_2}$
+		\item[Input:] $c_1, c_2, p_{in}, p_{out}$
+	\end{description}
+	\begin{algorithmic}[1] % line number
+		\Function{generate\_edges}{$B, C, D, c_1, c_2, p_{in}, p_{out}$}
+		\ForEach{$(i, j)$ \textbf{in} $[1, 2, \ldots, n_1] \times [1, 2, \ldots, n_2]$}
+		\If{\Call{is\_same\_cocluster}{$C[i], D[j]$}}
+		\If{\Call{random} $\le p_{in}$}
+		\State $B[i][j] \gets 1$
+		\EndIf
+		\Else
+		\If{\Call{random} $\le p_{out}$}
+		\State $B[i][j] \gets 1$
+		\EndIf
+		\EndIf
+		\EndFor
+		\EndFunction
+	\end{algorithmic}
+
+\end{algorithm}

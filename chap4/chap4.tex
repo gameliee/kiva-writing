@@ -1,12 +1,12 @@
-
+\begin{comment}
 \begin{itemize}
 	\item The creatioon of Lender-Criteria bipartite graphs
 	\item Explain why we could not project Lender-Criteria graphs onto Lender to create Lender-Lender graph
-	\item That's why we find communify directly in bipartite graphs
+	\item That's why we find community directly in bipartite graphs
 	\item Methodology: better-than-random testing
 \end{itemize}
 
-\section{Hypothesis testing on syntehsis data}
+\section{Hypothesis testing on synthesis data}
 
 \begin{itemize}
 	\item How to build a random graph, with community pre-defined
@@ -23,6 +23,7 @@
 	\item Then find quality assessment $Q_{real}$ again and compare with $Q_{synthesis}$.
 	      Decide if there is a clear community for different criteria (Tags, Sectors, Country)
 \end{itemize}
+\end{comment}
 
 As the begin of this chapter, we are revisiting our hypothesis and testing them out.
 Recall that we would like to find community of Lenders, based on their interests in different criteria.
@@ -40,8 +41,6 @@ This decision is also supported by the fact that the "community finding" is a gr
 And by modeling the data in Graph, we can apply the work to other crowdfunding platforms.
 
 \section{Lender-Criteria bipartite graph}
-
-\note{describe about Lender Tags graph, and told that the same apply for Lender sector and lender country}
 
 Like mention above we will use three Criteria features: Tags, Sectors and Country.
 But in fact, Lenders do not have any direct relationships with Tags, Sectors or Country.
@@ -141,7 +140,7 @@ Where the edge $INTEREST$ between Lender $L_i$ and Tag $T_k$ is the sum of amoun
 Follow the same logic, we could cosntruct the relationship between Lenders and Sectors, and between Lenders and Country.
 
 
-\todo{create the graph LT, LS, LC and present basic statistics here}
+\todo{add lines for raw dataset?}
 
 \begin{table}[H]
 	\centering
@@ -165,16 +164,123 @@ Follow the same logic, we could cosntruct the relationship between Lenders and S
 			\hline
 		\end{tabular}%
 	}
-	\caption{\todo{rename graph}}
+	\caption{Basic statistics of some bipartite graph datasets}
 	\label{tab:bipartites-statistics}
 \end{table}
 
-\todo{why it is impossible to project onto Lenders?}
+Table \ref{tab:bipartites-statistics} shows the basic statistics of some bipartite graphs.
+The first 4 graphs are from \cite{latapy2006}.
+The last 6 graphs are from Kiva dataset.
+Recall $n_1$ is the number of nodes in the first partite, $n_2$ is that for the second partite.
+In the case of Kiva dataset, we set the first partite to be Lendre, and the second partite to be Tag, Sector or Country.
+$m$ is the number of edges in the graph.
+$k_1$ and $k_2$ are the average degree of nodes in the first and second partite respectively.
+$k$ is the average degree of nodes in the graph.
+$\delta$ is the density of the graph.
+Notice that the kiva dataset is much denser than the other datasets,
+and the average degree of nodes in the second partite is very high.
 
-\todo{degree distribution \cite{latapy2006}}
+These number indicate the complexity of the kiva dataset.
+Like mentioned in chapter 2, one of the way to study the community in bipartite graph is through one-mode projection.
+Recall that when creating the one-mode projection (onto Lender for instance),
+each nodes in the other mode (i.e. a Tag) will generate $\frac{d(d-1)}{2}$ iterations,
+where $d$ is the degree of that (Tag) node.
+Take the kiva active LS dataset for example.
+It has the average Sector degree is $k_2=43978.80 \approx 4.4\times 10^4$.
+The required iterations for create the one-mode projection is
+$4.4\times 10^4 \times (4.4\times 10^4 - 1) \approx 1.93 \times 10^9$.
+This is a huge number, and it is infeasible to create the one-mode projection, let alone to analyze it.
 
+But we have to take a moment to express that this resonale is not obvious for us at the beginning.
+Having the kiva dataset in hand, we have naively try to create the one-mode projection for studying the community in it.
+The initial perception was that the task was too slow, might be because of the tools that we use.
+At first, it seems that using only python and pandas is too slow for the task.
+So we spend time try it with various tools, from the popular database PostgresSQL,
+to the type of database that is specifically designed for handle graph-like data: Neo4j and Memgraph.
+We even manage to try GPU-accelerated tools like cuDF and cuGraph,
+taking to a next level by using distributed computing with Dask.
+Only since all of these tools are not enough to handle the projection,
+we realize that we have missed something.
+Then we come back to literature and find out that it is impossible to create the projection with our dataset.
+We decided to use the bipartite graph directly for community detection.
+In chap2, we have mentioned that most works on this topic are supervised tasks,
+meaning that the community is known beforehand.
+While in our case, we do not know the community, and we have to find it out.
+Hence in order to assess the quality of the community that we found,
+we adopt the better-than-random methodology well-known in the literature.
+
+
+% \todo{degree distribution \cite{latapy2006}}
 
 \todo{Transaction to next chapter}
 
 \section{Hypothesis testing on synthesis data}
+
+In this section, we will build a dynamic bipartite graph with predefined community.
+We will use this graph to test a community detection algorithm.
+The community detection algorithm will be applied to the real data in the next section.
+
+We will create a bipartite graph with 2 partites: $V_1$ and $V_2$.
+The number of nodes in each partite is $n_1$ and $n_2$ respectively.
+We choose the to fix $n_1$ and $n_2$ to be the same as the kiva dataset,
+hence $n_1=7000, n_2=25$.
+
+Then we define the communtiy structure of the graph.
+We predefined that in each partite, there are $n_{community} = 5$ communities.
+Look at the figure \ref{fig:synthesis_graph} for illustration.
+Two partites represented by two type of nodes: Circle and Diamond.
+At the first time $T_1$, the community structure is predefined, showing by the rounded rectangles, they are $C_1, C_2, D_1, D_2$.
+We also intend to make the co-cluster beforehand.
+That is $C_1$ and $D_1$ are intended to be co-cluster, $C_2$ should be co-cluster mate of $D_2$.
+Note that $n_{community} = 5$ means we have 5 co-cluster pairs.
+In order to generate this structure, we employ two parameters $p_{in}$ and $p_{out}$.
+$p_{in}$ is the probability that a node in $V_1$ is connected to a node in $V_2$ if they are in the same co-cluster.
+A node in $V_1$ could connect to a different co-cluster node in $V_2$ with probability $p_{out}$.
+We have to set $p_{in} > p_{out}$ to make sure that the co-cluster pairs are more connected than the other pairs.
+
+In fact, we will generate the graph dynamically.
+There are several snapshot of the data at different time $T_1, T_2, \ldots, T_T$.
+The above generation process is applied for the first snapshot only.
+For next snapshots, community structure could be change with with a new variable $p_{stay}$.
+We mimic the behavior of a Lender here, that is a node in $V_1$ could change its community over time.
+$p_{stay}$ is the probability that a node stay in the same community from time $T_i$ to $T_{i+1}$,
+and it can switch to a new community with probability $1-p_{stay}$ as illustrated in figure \ref{fig:synthesis_graph}.
+
+\begin{algorithm}[H]
+	\caption{Synthesis graph generation}
+	\label{alg:synthesis_graph_all}
+	\begin{description}
+		\item[Input:] $T$ \Comment{Number of timestep}
+		\item[Input:] $n_1, n_2$ \Comment{Number of nodes for each partite}
+		\item[Input:] $c_1, c_2$ \Comment{Number of community for each partite}
+		\item[Input:] $p_{stay1}, p_{stay2}$ \Comment{Probability of staying in the same community}
+		\item[Input:] $p_{in}$ \Comment{Probability of connecting to a node in the same community}
+		\item[Input:] $p_{out}$ \Comment{Probability of connecting to a node in a different community}
+		\item[Output:] biajacency matrixes $B \in \mathbb{R}^{T \times n_1 \times n_2}$
+		\item[Output:] community indexes $C \in \mathbb{N}^{T \times n_1}$
+		\item[Output:] community indexes $D \in \mathbb{N}^{T \times n_2}$
+	\end{description}
+	\begin{algorithmic}[1]
+		\State $B \gets$ \Call{zeros}{$T, n_1, n_2$}
+		\State $C \gets$ \Call{generate\_community\_dynamic\ref{alg:appendix-synthesis_graph_nodes}}{$T$, $n_1$, $c_1, p_{stay1}$}
+		\State $D \gets$ \Call{generate\_community\_dynamic\ref{alg:appendix-synthesis_graph_nodes}}{$T$, $n_2$, $c_2, p_{stay2}$}
+		\State $M \gets$ \Call{generate\_cocluster\ref{alg:appendix-synthesis_graph_cocluster}}{$c_1, c_2$}
+		\Comment cocluster stay the same over time
+		\For {$t=1,2,\ldots,T$}
+		\State \Call {generate\_edges\ref{alg:appendix-synthesis_graph_edges}}{$B[t], C[t], D[t], p_{in}, p_{out}$}
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+\todo{describe the algorithm. then provide our init condition $p_{stay1} = p_{stay2}$ for example}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/synthesis.pdf}
+	\caption{Illustrate the process of creating the synthesis bipartite graph.}
+	\label{fig:synthesis_graph}
+\end{figure}
+
+
 \section{Hypothesis testing on real data}
