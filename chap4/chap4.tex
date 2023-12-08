@@ -466,4 +466,28 @@ We could not conclude that there is a community of Lenders with regard to those 
 	\label{tab:LS-other}
 \end{table}
 
+\subsection{Lender-Country}
+
+We applied the same process as in the Lender-Sector in the Lender-Country bipartite graph.
+The result is shown in figure \ref{fig:LCountry}.
+For better visualization, we only show the edges with thickness $> 0.1$.
+Note that the thickness of lines is defined as the minimum similarity between Lender nodes and Country nodes.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/LCountry.pdf}
+	\caption[Illustrate the result of Lender-Country community detection]{
+		Illustrate the result of Lender-Country community detection.
+		Each edges is a tuple of similarities between Lender nodes and Country nodes over the years.
+		The thickness of the edge is proportional to the minimum similarity $min(\text{lender\_similarity}, \text{sector\_similarity})$.
+		Edges that the min $\le 0.1$ is not drawn.
+		Figure \ref{fig:appendix-LCountry-full} draw all the edges.
+	}
+	\label{fig:LCountry}
+\end{figure}
+
+We could see some clear trends represented by the lines in the figure.
+In the first line from left to right, we could see that the Lenders who interested in the United States
+
+
 
