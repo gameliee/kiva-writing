@@ -480,14 +480,37 @@ Note that the thickness of lines is defined as the minimum similarity between Le
 		Illustrate the result of Lender-Country community detection.
 		Each edges is a tuple of similarities between Lender nodes and Country nodes over the years.
 		The thickness of the edge is proportional to the minimum similarity $min(\text{lender\_similarity}, \text{sector\_similarity})$.
-		Edges that the min $\le 0.1$ is not drawn.
+		Edges that the min $\le 0.1$ are not drawn.
 		Figure \ref{fig:appendix-LCountry-full} draw all the edges.
 	}
 	\label{fig:LCountry}
 \end{figure}
 
 We could see some clear trends represented by the lines in the figure.
-In the first line from left to right, we could see that the Lenders who interested in the United States
+In the first line from left to right, we could see that the Lenders who interested in the Kenya.
+There are about $16\%$ of them remain in the same interest over time.
+The third line from left to right represent the Lenders who interested in the United States.
+Although occatinally, the communities might include other countries like Myanmar or Puerto Rico.
+Lenders who interested in this community remains about $16\%$ over time.
+The fourth line from left to right related to Philippines.
+The fifth line related to Paraguay.
+But the second line, which is the thickest line in the figure, is not clear to us.
+The algorithm seem to detect mostly every countries into a big community.
+We could not conclude that there is a community of Lenders with regard to those Countries.
+
+\subsection{Lender-Tag}
+
+The result of Lender-Tag community detection is shown in figure \ref{fig:LTag}.
+It is similar to the previous figure, the algorithm do not show a clear community structure.
+It seems to just detect mostly every tags into a big community.
 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/LTag.pdf}
+	\caption{Illustrate the result of Lender-Tag community detection}
+	\label{fig:LTag}
+\end{figure}
 
+
+\todo{SOme conclusion here to wrap up the chapter}
