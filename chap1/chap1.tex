@@ -1,3 +1,4 @@
+\begin{comment}
 Content should be contain in this chapter
 
 \begin{itemize}
@@ -30,5 +31,42 @@ Content should be contain in this chapter
 		      \item This is a unsupervised problem
 	      \end{itemize}
 \end{itemize}
+\end{comment}
 
+Crowdfunding has become an increasingly popular way for entrepreneurs and innovators to raise funds for their projects.
+It is a process of raising small amounts of money from a large number of people, typically via the Internet.
+Researchers have studied crowdfunding from different perspectives, such as the impact of crowdfunding on the economy, or the role of social networks.
+The success of crowdfunding campaigns, however, is rather complex and still not well-understood.
+In this thesis, we focus on the role of community in crowdfunding.
 
+We hypothesize that there might be communities (explicit or implicit) of lenders (contributors) who are willing to contribute to the same type of projects again and again.
+The objective of this thesis is to detect the existing of such communities on crowdfunding platforms.
+
+We will test this hypothesis on the Kiva.org platform,
+which is a crowdfunding platform that allows people to lend money to low-income entrepreneurs and students in over 80 countries.
+Through API, we will collect data about Lenders, Projects, Sectors, Tags, Countries and the relationships between them.
+We then build a graph-like database from the collected data,
+and apply community detection on graphs techniques to find communities of lenders in the database.
+
+This is a unsupervised problem, because there is no predefined ground truth about the communities.
+Yet it even challenger because the sheer size of the data and the lack of official documentation about the data schema.
+We will therefore do heavily data explornation and preprocessing,
+before employ better-than-random methodology for find explainable communities.
+
+This research is conducted under the French national research program (ANR) UMICROWD (Understanding, Modeling and Improving the outcome of Crowdfunding campaigns).
+UMICROWD is a multidisciplinary initiative that brings together experts in economics, sociology, mathematics, and data science.
+The goal of UMICROWD is to study the dynamics of crowdfunding and promote sustainable and socially responsible project funding.
+
+In conclusion, this thesis will explore the complex dynamics of crowdfunding, with a focus on the role of community.
+By using the Kiva.org dataset and graph-based community detection techniques,
+we aim to shed light on the patterns of lending behavior and the influence of project type on these patterns.
+This research could provide valuable data and insights for further research on crowdfunding.
+
+The structure of this thesis is as follows.
+In Chapter 2, we review the literature on crowdfunding and community detection on graphs.
+In Chapter 3, we describe the Kiva.org platform and the dataset,
+as well as understanding basic properties of the dataset.
+In Chapter 4, we describe the methodology for community detection on graphs.
+First we construct a synthesis dataset to test communtity detection algorithms.
+Then we apply the algorithms on the Kiva.org dataset.
+In Chapter 5, we discuss the results and propose future works.
