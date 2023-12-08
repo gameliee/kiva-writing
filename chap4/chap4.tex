@@ -387,9 +387,11 @@ We could not list all the member of a cocluster because there are too many of th
 but only show some Sectors in each cocluster.
 Edges represents the similarities between co-clusters, which recall that is the Jaccard Index.
 Each label of a edge is a tuple of similarity of Lender nodes and Sector nodes.
-We try to align the result with timeline from 2019 to 2023 as shown.
-The thickness of the edge is proportional to the maximum similarity $max(\text{lender\_similarity}, \text{sector\_similarity})$.
+Note that the similarities can be between Lender nodes or between Sector nodes.
+We do not draw lines if one of the similarity is $0$.
+The thickness of the edge is proportional to the maximum similarity $min(\text{lender\_similarity}, \text{sector\_similarity})$.
 In this way, one should focus on edges with high thickness.
+We try to align the result with timeline from 2019 to 2023 as shown.
 
 \begin{figure}[H]
 	\centering
@@ -404,25 +406,64 @@ We could see a clear line structure here.
 Each nodes in this line represent a cocluster in a year,
 notice that all these cocluster are in the same Sector: Agriculture.
 Table \ref{tab:LS-agriculture} shows the details of the cocluster in Agriculture Sector.
-
-\todo{where the users go??????????}
-
+We could state that, roughly $30\%$ of the Lenders who interested in the Agriculture Sector
+remain in the same interest over time each year.
+This is a strong evidence that a community of Lenders exists with regard to the Agriculture Sector.
+Although it would require further investigation to confirm the existence of a community here,
+but we fould it resonable and confident to say it fit our hypothesis.
 
 \begin{table}[H]
 	\centering
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{lllrr}
+		\begin{tabular}{|m{0.1\textwidth}|m{0.4\textwidth}|m{0.2\textwidth}|m{0.1\textwidth}|m{0.1\textwidth}|}
 			\hline
-			time       & community\_lender                                                             & community\_tag  & lender\_similarity\_to\_lastyear & tag\_similarity\_to\_last\_year \\
+			time       & community\_Lender                                                             & community\_Sector & lender similarity to last year & tag similarity to last year \\
+			\hline\hline
+			2019-01-01 & ['helen6472', 'becki2967', 'steohen6319', 'broen4509', 'mark6805', '...']     & {'Agriculture'}   & -                              & -                           \\
 			\hline
-			2019-01-01 & ['helen6472', 'becki2967', 'steohen6319', 'broen4509', 'mark6805', '...']     & {'Agriculture'} & -                                & -                               \\
-			2020-01-01 & ['helen6472', 'steohen6319', 'broen4509', 'mark6805', 'kelsey6209', '...']    & {'Agriculture'} & 0.318373                         & 1.000000                        \\
-			2021-01-01 & ['becki2967', 'steohen6319', 'fabianfuchs', 'tracy4274', 'mark6805', '...']   & {'Agriculture'} & 0.323045                         & 1.000000                        \\
-			2022-01-01 & ['becki2967', 'holly4656', 'kelsey6209', 'patricia4011', 'gerben5289', '...'] & {'Agriculture'} & 0.313389                         & 1.000000                        \\
+			2020-01-01 & ['helen6472', 'steohen6319', 'broen4509', 'mark6805', 'kelsey6209', '...']    & {'Agriculture'}   & 0.318373                       & 1.000000                    \\
+			\hline
+			2021-01-01 & ['becki2967', 'steohen6319', 'fabianfuchs', 'tracy4274', 'mark6805', '...']   & {'Agriculture'}   & 0.323045                       & 1.000000                    \\
+			\hline
+			2022-01-01 & ['becki2967', 'holly4656', 'kelsey6209', 'patricia4011', 'gerben5289', '...'] & {'Agriculture'}   & 0.313389                       & 1.000000                    \\
 			\hline
 		\end{tabular}
 	}
 	\caption{A result in Lender-Sector community detection}
 	\label{tab:LS-agriculture}
 \end{table}
+
+If we focus on the other thick line in the figure.
+The details of this line is show in table \ref{tab:LS-other}.
+Although the labels in the line show a high similarities between Lenders and Sectors,
+the result is not intepretable.
+It seems that the algorithm identify a big community that contains many Lenders as well as many Sectors.
+Those Sectors do not seem to be related to each other.
+This behavior is consistent with the result in figure \ref{fig:modularity_pout} and \ref{fig:Q1_pout}.
+When $p_{out} \ge 0.2$, the algorithm detected the whole graph as a single cocluster.
+We could not conclude that there is a community of Lenders with regard to those Sectors.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{|m{0.1\textwidth}|m{0.3\textwidth}|m{0.3\textwidth}|m{0.1\textwidth}|m{0.1\textwidth}|}
+			\hline
+			time       & community\_Lender                                                                           & community\_Sector                                                                                                                                                                     & lender similarity vs last year & criteria similarity vs last year \\
+			\hline\hline
+			2019-01-01 & ['douglas9849', 'mitchell12131762', 'ivan7169', 'allison5876', 'sebastian7510', '...']      & {'Arts', 'Health', 'Retail', 'Personal Use', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing'}                                                                            & -                              & -                                \\
+			\hline
+			2020-01-01 & ['matthew50991422', 'douglas9849', 'mitchell12131762', 'ivan7169', 'sean37149660', '...']   & {'Arts', 'Construction', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing'}                        & 0.445410                       & 0.615385                         \\
+			\hline
+			2021-01-01 & ['douglas9849', 'mitchell12131762', 'karin1660', 'ivan7169', 'sean37149660', '...']         & {'Retail', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing'}                                                                                                              & 0.404038                       & 0.500000                         \\
+			\hline
+			2022-01-01 & ['matthew50991422', 'douglas9849', 'pat7979', 'annette84874099', 'mitchell12131762', '...'] & {'Arts', 'Education', 'Construction', 'Health', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing'} & 0.426134                       & 0.428571                         \\
+			\hline
+			2023-01-01 & ['annette84874099', 'pat7979', 'mary3729', 'ivan7169', 'jonathan5059', '...']               & {'Arts', 'Education', 'Construction', 'Health', 'Transportation', 'Personal Use', 'Services', 'Entertainment', 'Agriculture', 'Wholesale', 'Manufacturing'}                           & 0.358718                       & 0.666667                         \\
+			\hline
+		\end{tabular}
+	}
+	\caption{Basic statistics of some bipartite graph datasets}
+	\label{tab:LS-other}
+\end{table}
+
 
