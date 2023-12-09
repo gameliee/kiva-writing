@@ -33,7 +33,7 @@ Or they can setup an Auto-Lending program, which will automatically fund project
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/kiva-browse-project.png}
-	\caption{Kiva website interface for browsing projects \cite{kiva-browse}}
+	\caption{Kiva website interface for browsing projects \parencite{kiva-browse}}
 	\label{fig:kiva-browser-project}
 \end{figure}
 
@@ -67,7 +67,7 @@ We will consider these criteria as the gold standard for processing the data.
 			\hline
 		\end{tabular}%
 	}
-	\caption{Project filtering options on Kiva's website \cite{kiva-browse}}
+	\caption{Project filtering options on Kiva's website \parencite{kiva-browse}}
 	\label{tab:browser-criteria}
 \end{table}
 
@@ -79,7 +79,7 @@ Figure \ref{fig:auto-lend-setup} shows the interface for setting up the Auto-Len
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/auto-lend-setup.png}
-	\caption{Auto-Lending setup interface \cite{kiva-autolend2}}
+	\caption{Auto-Lending setup interface \parencite{kiva-autolend2}}
 	\label{fig:auto-lend-setup}
 \end{figure}
 
@@ -107,7 +107,7 @@ This enables us to perform in-depth analysis and gain valuable insights from the
 The availability of Kiva's data through GraphQL provides us with a powerful tool to explore and analyze the platform's data in a convenient and efficient manner.
 
 There are two noteworthy points about the GraphQL API.
-The first is through the \textit{introspection} \cite{graphql-introspection} feature of GraphQL,
+The first is through the \textit{introspection} \parencite{graphql-introspection} feature of GraphQL,
 we could have the information of what queries that the platform supports,
 as long as with the data schema.
 The second is that we can ultilize the GraphQL API to get the data in a batched manner.
@@ -134,7 +134,7 @@ A basic knowledge about GraphQL would be helpful to discover the data schema mor
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/graphqli-example.png}
-	\caption{Example using GraphQLi interface of Kiva GraphQL API \cite{graphqli-example}}
+	\caption{Example using GraphQLi interface of Kiva GraphQL API \parencite{graphqli-example}}
 	\label{fig:graphqli-example}
 \end{figure}
 
@@ -257,7 +257,7 @@ we decided to not use them in our analysis.
 Once understand the data schema, we can start crawling the data.
 We decided to get all the fields of the Project, as well as the fields of the nested objects.
 
-In order to retrieve all data using the API, we ultilize the \textit{scrappy}\cite{scrappy} framework.
+In order to retrieve all data using the API, we ultilize the \textit{scrappy}\parencite{scrappy} framework.
 Perhaps the most useful feature of scrappy is that it can automatically bypass the rate limit of the API.
 It is common that APIs should have a rate-limit mechanism to prevent users from abusing the API.
 While Kiva API is not an exception, it do not provide a clear documentation about the limit.
@@ -276,7 +276,7 @@ In practice, we decided to use the order that the newest Projects are crawled fi
 This is because the GraphQL API already support it, and the newest Projects are more likely to be crawled successfully.
 The second decision is the format of data storing.
 While nowaday, there are advanced data type that can store data and provide reading in a more efficient way,
-such as \textit{Parquet}\cite{parquet} or \textit{HDF5}\cite{hdf5}.
+such as \textit{Parquet}\parencite{parquet} or \textit{HDF5}\parencite{hdf5}.
 But when it comes to crawling data, we would like to have a format that is easy to append new data,
 as long as quickly read a part of the data for monitoring the crawling progress.
 Those format, while advanced, is binary format, meaning that it is not easy to append new data or read a part of it.
@@ -312,12 +312,12 @@ Figure \ref{fig:preprocessing} shows the steps of preprocessing.
 We will explains each step in detail in the following sections.
 But before it, we would like to list the tools that we use for the task.
 We use Python as the language of choice.
-When it comes to process data in Python, perhap the most popular library is \textit{pandas}\cite{pandas}.
-We took a step further and use \textit{cuDF}\cite{cudf} library, which is a GPU-accelerated version of pandas.
+When it comes to process data in Python, perhap the most popular library is \textit{pandas}\parencite{pandas}.
+We took a step further and use \textit{cuDF}\parencite{cudf} library, which is a GPU-accelerated version of pandas.
 The reason for that is because we would like to have a fast processing time.
 So we can quickly iterate over the preprocessing steps.
 Meaning that we can try many different preprocessing steps and choose the one most suitable for our analysis.
-We also use \textit{Dask}\cite{dask} library to handle bigger-than-memory data.
+We also use \textit{Dask}\parencite{dask} library to handle bigger-than-memory data.
 This is because at first, we do not came up with a good preprocessing pipeline.
 We could easily have to process the amount of data that is too large for a GPU to handle.
 We use Dask to use multiple GPUs to be able to process the whole dataset.
