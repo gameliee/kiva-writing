@@ -570,6 +570,10 @@ The y-axes is the start year,
 while the x-axes is the end year that we concern.
 For each pair of years, we will calculate the \textit{Jaccard index}
 between the set of Lenders that are active in that range of years.
+Note that the Jaccard index is a measure of similarity between two sets.
+Suppose that we have two sets $A$ and $B$,
+then the Jaccard index between $A$ and $B$ is defined as
+$J(A, B) = |A \cap B|/|A \cup B|$.
 For example, if the set of Lender who are active in 2020, 2021, 2022 are
 $L_{2020}, L_{2021}, L_{2022}$ respectively,
 then the Jaccard index between 2020 and 2022 would be
@@ -601,3 +605,10 @@ we could find a pattern in their behavior.
 In that sense, we will study the active Lenders from 2019 to 2023.
 We belive that this range of years provide modern information,
 as well as the number of Lender still large enough for analysis.
+
+In this chapter, we have discovered the Kiva website interface
+and find a way to get the data from the platform using crawling techniques and GraphQL API.
+Understanding the data schema, we have done some preprocessing steps to
+fix the flaws in the data and transform the data into a format that is easy to use for analysis.
+We have also done some basic data statistics to better understand the data.
+In the next chapter, we will try to find community of Lenders in the platform.
