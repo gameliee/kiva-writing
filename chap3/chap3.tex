@@ -505,24 +505,43 @@ For the 20 most popular Tags, we could see that the average amount of money ask 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\textwidth]{images/project-vs-tag.pdf}
-	\caption[Number of Projecst and Average amount of required money for each project by Tag]{
+	\caption[Number of Projects and Average amount of required money for each project by Tag]{
 		Number of Projecst and Average amount of required money for each project by Tag.
+		Note that this graph is drawed with preprocessed data.
 		More detail in Table \ref{tab:appendix-project-vs-tag}
 	}
 	\label{fig:project-vs-tag}
 \end{figure}
 
+Tags are more complicated than Sector and Country.
+While Sector and Country are mandatory fields of a Project, Tags are not.
+Rather than that, unlike Sector and Country, each Project could have many Tags, or none of them.
+Figure \ref{fig:tag-project-vs-time} shows the number of Projects and Tags by time.
+We could see that Kiva only explode from 2013.
+On average, the number of Tags is roughly $2.5$ times the number of Projects.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth]{images/tag-project-vs-time.pdf}
+	\caption[Number of Projects and Tags by Time]{
+		Number of Projects and Tags by Time.
+		Note that this graph is drawed with preprocessed data.
+	}
+	\label{fig:tag-project-vs-time}
+\end{figure}
+
+Recall that we have found that some Tags are not visible to users and used internally by Kiva to manage the data as stated in Chapter 2.
+In the preprocessing steps, we had removed those Tags.
+The Figure \ref{fig:project-vs-tag} and \ref{fig:tag-project-vs-time}
+are drawn with the preprocessed data,
+because otherwise, the visible Tags will be overwhelmed by the invisible Tags.
 
 
 \todo{tags analysis (the presentation slide)}
 
-
-While Sector and Country are mandatory fields of a Project, Tags are not.
-Recall that we have found that some Tags are used internally by Kiva to manage the data.
-In the preprocessing steps, we had removed those Tags.
-
 \todo{Report number project without tags is }
+
+\todo{appendix: number of project, tags vs time, colored by tags}
 
 \subsection{How long that users stay on the platform}
 
