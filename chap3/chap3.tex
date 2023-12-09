@@ -1,5 +1,6 @@
 \section{Understanding Kiva website and Dataset}
 
+\begin{comment}
 \begin{itemize}
 	\item Describe what user can do on the website: search for Projects, Auto-lending setup
 	\item Describe how to get the data using GraphQL, Crawling method
@@ -11,6 +12,7 @@
 		      \item Mention that we have to use CuDF for accelerated data handling
 	      \end{itemize}
 \end{itemize}
+\end{comment}
 
 In this section, we will describe the Kiva website and the dataset that we use in this thesis.
 We will also describe the preprocessing steps that we have to do with the dataset.
@@ -46,24 +48,24 @@ We will consider these criteria as the gold standard for processing the data.
 \begin{table}[H]
 	\centering
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|l|l|l|l|}
+		\begin{tabular}{|l|l|l|p{0.49\textwidth}|}
 			\hline
-			   & Options                       & Type            & Choices                                                                                                                 \\
+			No & Options                & Type            & Choices                                                                                                                 \\
 			\hline
-			1  & Gender of the borrower button & Single Choice   & Woman or Men or Nonbinary                                                                                               \\
-			2  & Filter by type of Loan        & Single Choice   & Individual or Group                                                                                                     \\
-			3  & Search by keyword             & Text            & Put any keyword to search in the stories of Projects                                                                    \\
-			4  & Sort Order                    & Single Choice   & Amount: High to Low, Amount left, Amount: Low to High, Ending soon, Most recent, Trending now, Loan Length, Recommended \\
-			5  & Location                      & Multiple choice & Choose from a list of countries                                                                                         \\
-			6  & Sector                        & Multiple choice & Choose from a list of sectors                                                                                           \\
-			7  & Attribute                     & Multiple choice & Choose from a list of attributes                                                                                        \\
-			8  & Tags                          & Multiple choice & Choose from a list of tags                                                                                              \\
-			9  & Loan Length                   & Single Choice   & All loans, 8 month or less, 16 months or less, 2 years or less, 2 years or more                                         \\
-			10 & Loan Distribution             & Single Choice   & All loans, Parter, Direct                                                                                               \\
-			11 & Partner Info                  & Text            & Search by Partner name                                                                                                  \\
-			12 & Risk Rating                   & Range           & From 1 to 5                                                                                                             \\
-			13 & Default Rate                  & Range           & From 0\% to 100\%                                                                                                       \\
-			14 & Profitability                 & Range           & From -160\% to 90\%                                                                                                     \\
+			1  & Gender of the borrower & Single Choice   & Woman or Men or Nonbinary                                                                                               \\
+			2  & Filter by type of Loan & Single Choice   & Individual or Group                                                                                                     \\
+			3  & Search by keyword      & Text            & Put any keyword to search in the stories of Projects                                                                    \\
+			4  & Sort Order             & Single Choice   & Amount: High to Low, Amount left, Amount: Low to High, Ending soon, Most recent, Trending now, Loan Length, Recommended \\
+			5  & Location               & Multiple choice & Choose from a list of countries                                                                                         \\
+			6  & Sector                 & Multiple choice & Choose from a list of sectors                                                                                           \\
+			7  & Attribute              & Multiple choice & Choose from a list of attributes                                                                                        \\
+			8  & Tags                   & Multiple choice & Choose from a list of tags                                                                                              \\
+			9  & Loan Length            & Single Choice   & All loans, 8 month or less, 16 months or less, 2 years or less, 2 years or more                                         \\
+			10 & Loan Distribution      & Single Choice   & All loans, Parter, Direct                                                                                               \\
+			11 & Partner Info           & Text            & Search by Partner name                                                                                                  \\
+			12 & Risk Rating            & Range           & From 1 to 5                                                                                                             \\
+			13 & Default Rate           & Range           & From 0\% to 100\%                                                                                                       \\
+			14 & Profitability          & Range           & From -160\% to 90\%                                                                                                     \\
 			\hline
 		\end{tabular}%
 	}
@@ -156,7 +158,7 @@ The relationship between Project and Tag is also many-to-many.
 The fields that we could get from each Project is described in Table \ref{tab:appendix-fields-meaning}.
 The example data that we get from the API is shown in Table \ref{tab:appendix-example-data}.
 We have to note that, in the APIs, kiva use the term "Loan" to indicate a single project.
-We found it rather misunderstanding to use "Loan", so we try our best to use "Project" to avoid those misleading.
+We found it rather misunderstanding to use "Gls{loan}", so we try our best to use "\Gls{project}" to avoid those misleading.
 In this thesis, if a "Loan" appear (with the letter L in capital), one can understand the meaning is a "Project".
 
 Recall that when browse and search for Project in the kiva website,
@@ -168,9 +170,13 @@ The API document provide a good definition for some of those terms.
 From the API documentation, we have the definition of Sector as, quoted:
 "A sector is a broad category for a loan, e.g. Agriculture, Arts, Clothing. Sectors are subdivided further by activities."
 We take a step further to get all the possible Sectors that the platform support,
-this can be done using the following GraphQL query:
+this can be done using the GraphQL in Listing \ref{code:query-all-sector}.
 
-\begin{lstlisting}
+\begin{minipage}[c]{0.95\textwidth}
+	\begin{lstlisting}[
+	caption={Query to fetch Sector from Kiva.org},
+	label={code:query-all-sector},
+]
     {
         lend {
             sector {
@@ -180,27 +186,29 @@ this can be done using the following GraphQL query:
         }
     }
 \end{lstlisting}
+\end{minipage}
 
 The result is shown in Table \ref{tab:sector-definition}.
 
-\begin{longtable}[]{@{}rlrl@{}}
+\begin{table}[H]
+	\centering
 	\caption{Definition of Sectors}
-	\label{tab:sector-definition}            \\
-	\toprule\noalign{}
-	id & name           & id & name          \\
-	\midrule\noalign{}
-	\endhead
-	\bottomrule\noalign{}
-	\endlastfoot
-	1  & Agriculture    & 9  & Arts          \\
-	3  & Transportation & 10 & Housing       \\
-	4  & Services       & 12 & Food          \\
-	5  & Clothing       & 13 & Wholesale     \\
-	6  & Health         & 14 & Construction  \\
-	7  & Retail         & 15 & Education     \\
-	8  & Manufacturing  & 16 & Personal Use  \\
-	9  & Arts           & 17 & Entertainment \\
-\end{longtable}
+	\label{tab:sector-definition}
+	\begin{tabular}{|l|r|l|r|}
+		\hline
+		id & name           & id & name          \\
+		\hline
+		1  & Agriculture    & 9  & Arts          \\
+		3  & Transportation & 10 & Housing       \\
+		4  & Services       & 12 & Food          \\
+		5  & Clothing       & 13 & Wholesale     \\
+		6  & Health         & 14 & Construction  \\
+		7  & Retail         & 15 & Education     \\
+		8  & Manufacturing  & 16 & Personal Use  \\
+		9  & Arts           & 17 & Entertainment \\
+		\hline
+	\end{tabular}
+\end{table}
 
 
 \textbf{\Gls{activity}}
@@ -211,7 +219,11 @@ Note, some Activities have the same name as their parent Sector."
 Quoted from the API documentation.
 All the possible Activities can be found using the following GraphQL query:
 
-\begin{lstlisting}
+\begin{minipage}[c]{0.95\textwidth}
+	\begin{lstlisting}[
+	caption={Query to fetch Activities from Kiva.org},
+	label={code:query-all-activity},
+]
     {
         lend {
             activity {
@@ -221,6 +233,7 @@ All the possible Activities can be found using the following GraphQL query:
         }
     }
 \end{lstlisting}
+\end{minipage}
 
 The result is show in Table \ref{tab:appendix-activity-definition}.
 
@@ -228,9 +241,13 @@ The result is show in Table \ref{tab:appendix-activity-definition}.
 
 The API give the definition of Tag as,
 quoted: "Loan properties which are attributed by lenders"
-With the following GraphQL query, we can get all the possible Tags that the platform support.
+With the GraphQL query shown in Listing \ref{code:query-all-tag}, we can get all the possible Tags that the platform support.
 
-\begin{lstlisting}
+\begin{minipage}[c]{0.95\textwidth}
+	\begin{lstlisting}[
+	caption={Query to fetch Tags from Kiva.org},
+	label={code:query-all-tag},
+]
     {
         lend {
             tag {
@@ -241,6 +258,7 @@ With the following GraphQL query, we can get all the possible Tags that the plat
         }
     }
 \end{lstlisting}
+\end{minipage}
 
 The result is shown in Table \ref{tab:appendix-tag-definition}.
 
@@ -256,6 +274,7 @@ we decided to not use them in our analysis.
 
 Once understand the data schema, we can start crawling the data.
 We decided to get all the fields of the Project, as well as the fields of the nested objects.
+The GraphQL query for crawl all the data is shown in \ref{code:appendix-query-all-data}.
 
 In order to retrieve all data using the API, we ultilize the \textit{scrappy}\parencite{scrappy} framework.
 Perhaps the most useful feature of scrappy is that it can automatically bypass the rate limit of the API.
@@ -284,6 +303,8 @@ In practice, we decided to go with \textit{JSONL} format.
 Each Project will be stored in a single line, and the whole file is a valid JSON file.
 This format is easy to append new data, and also easy to read a part of it, and remaining the data structure as defined in the API.
 
+
+
 \section{Preprocessing}
 
 After crawling the data, we need to preprocess it before we can use it for analysis.
@@ -303,7 +324,7 @@ The Tag part is just a single column that contains the Tag name.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.2\textwidth]{images/graphuml/preprocessing.png}
+	\includegraphics[width=0.3\textwidth]{images/graphuml/preprocessing.png}
 	\caption{Preprocessing steps}
 	\label{fig:preprocessing}
 \end{figure}
@@ -458,8 +479,8 @@ We suppose that this is an interesting finding, and we will explore it in the fu
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\textwidth]{images/project-vs-country.pdf}
-	\caption[Number of Projecst and Average amount of required money for each project by Country]{
-		Number of Projecst and Average amount of required money for each project by Country.
+	\caption[Number of Project and Average amount of required money for each project by Country]{
+		Number of Project and Average amount of required money for each project by Country.
 		More detail in Table \ref{tab:appendix-project-vs-country}
 	}
 	\label{fig:country-project-distribution}
@@ -482,8 +503,8 @@ Some Sectors, while limited in the number of Projects, have a large amount of mo
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/project-vs-sector.pdf}
-	\caption[Number of Projecst and Average amount of required money for each project by Sector]{
-		Number of Projecst and Average amount of required money for each project by Sector
+	\caption[Number of Project and Average amount of required money for each project by Sector]{
+		Number of Project and Average amount of required money for each project by Sector
 	}
 	\label{fig:project-vs-sector}
 \end{figure}
@@ -506,7 +527,7 @@ For the 20 most popular Tags, we could see that the average amount of money ask 
 	\centering
 	\includegraphics[width=0.95\textwidth]{images/project-vs-tag.pdf}
 	\caption[Number of Projects and Average amount of required money for each project by Tag]{
-		Number of Projecst and Average amount of required money for each project by Tag.
+		Number of Project and Average amount of required money for each project by Tag.
 		Note that this graph is drawed with preprocessed data.
 		More detail in Table \ref{tab:appendix-project-vs-tag}
 	}
@@ -608,6 +629,9 @@ we could find a pattern in their behavior.
 In that sense, we will study the active Lenders from 2019 to 2023.
 We belive that this range of years provide modern information,
 as well as the number of Lender still large enough for analysis.
+Hereafter in this thesis,
+we use the term \gls{active} to refer to the Lenders who are active in the range of 2019 to 2023.
+If not specified, we will use the term "Lenders" to refer to these active Lenders.
 
 In this chapter, we have discovered the Kiva website interface
 and find a way to get the data from the platform using crawling techniques and GraphQL API.

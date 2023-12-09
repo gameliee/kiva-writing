@@ -1,0 +1,159 @@
+query FetchLoans($offset: Int!, $limit: Int!) 
+{
+  lend {
+    loans(offset: $offset, limit: $limit, filters: {distributionModel: both, status: all}, sortBy: newest) {
+      totalCount
+      values {
+        activity {
+          id,
+          name
+        }
+        anonymizationLevel
+        borrowerCount
+        borrowers {
+          id,
+          borrowedAmount,
+          firstName,
+          gender,
+          isPrimary,
+          pictured
+        }
+        dafEligible
+        delinquent
+        description
+        descriptionInOriginalLanguage
+        disbursalDate
+        distributionModel
+        endorser {
+          id,
+          image {
+            id,
+            url(presetSize: default),
+          },
+          inviteeCount,
+          lenderPage {
+            city
+            state
+            country {
+              name
+              isoCode
+              region
+              ppp
+              numLoansFundraising
+              fundsLentInCountry
+            }
+            loanBecause
+            occupation
+            otherInfo
+            url
+            whereabouts
+          }
+          loanCount
+          memberSince
+          name
+          publicId
+        }
+        fundraisingDate
+        gender
+        geocode {
+          city
+          state
+          country {
+            name
+            isoCode
+            region
+            ppp
+            numLoansFundraising
+            fundsLentInCountry
+          }
+          postalCode
+          latitude
+          longitude
+        }
+        hasCurrencyExchangeLossLenders
+        id
+        image {
+          id,
+          url(presetSize: default)
+        }
+        isMatchable
+        inPfp
+        loanAmount
+        loanFundraisingInfo {
+          fundedAmount
+          isExpiringSoon
+          reservedAmount
+        }
+        lenderRepaymentTerm
+        matcherAccountId
+        matcherName
+        matchRatio
+        matchingText
+        name
+        originalLanguage {
+          id
+          isActive
+          isoCode
+          name
+        }
+        minNoteSize
+        paidAmount
+        pfpMinLenders
+        plannedExpirationDate
+        previousLoanId
+        raisedDate
+        researchScore
+        repaymentInterval
+        sector {
+          id
+          name
+        }
+        status
+        tags
+        terms {
+          currency
+          currencyFullName
+          disbursalAmount
+          disbursalDate
+          expectedPayments {
+            amount
+            dueToKivaDate
+            effectiveDate
+            localAmount
+          }
+          loanAmount
+          lenderRepaymentTerm
+          lossLiabilityCurrencyExchange
+          lossLiabilityNonpayment
+          flexibleFundraisingEnabled
+        }
+        use
+        userProperties {
+          favorited
+          lentTo
+          subscribed
+          promoEligible
+          amountInBasket
+        }
+        video {
+          thumbnailImageId
+          youtubeId
+        }
+        whySpecial
+        lendingActions(offset: 0, limit: 1000000) {
+          totalCount
+          values {
+            lender {
+              id
+              name
+              publicId
+            }
+            shareAmount
+            teams
+            latestSharePurchaseDate
+          }
+        }
+      }
+    }
+  }
+}

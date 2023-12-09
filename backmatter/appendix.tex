@@ -1,5 +1,13 @@
 \chapter{Data Fields and Example Data}
 
+% \label{code:appendix-query-all-data}
+\lstinputlisting[language=bash,
+	caption={Query to fetch all Loan data from Kiva.org},
+	label={code:appendix-query-all-data},
+	breaklines=true,
+	frame=single
+]{artifacts/fetch_loans.graphql}
+
 \begin{longtable}{|p{0.33\textwidth}|p{0.67\textwidth}|}
 	\toprule\noalign{}
 	\caption{Fields of Projects}
@@ -485,90 +493,88 @@
 \begin{longtable}{|c|l|r|r|}
 	\toprule\noalign{}
 	\caption{Distribution of Projects by Tags}
-	\label{tab:appendix-project-vs-tag}                                                                                                                                                                         \\
+	\label{tab:appendix-project-vs-tag}                                                                    \\
 
 	\hline
-	\textbf{No} & \textbf{Tag}                                 & \textbf{Project count} & \textbf{Average Loan Amount}  \\
+	\textbf{No} & \textbf{Tag}                     & \textbf{Project count} & \textbf{Average Loan Amount} \\
 	\hline
 	\endfirsthead
 
 	\multicolumn{4}{c}%
-	{{\tablename\ \thetable{} -- continued from previous page}}                                                                                                                                        \\
+	{{\tablename\ \thetable{} -- continued from previous page}}                                            \\
 	\hline
-	\textbf{No} & \textbf{Tag}                                 & \textbf{Project count} & \textbf{Average Loan Amount}  \\
+	\textbf{No} & \textbf{Tag}                     & \textbf{Project count} & \textbf{Average Loan Amount} \\
 	\hline
 	\endhead
 
 	\hline
-	\multicolumn{4}{|r|}{{Continued on next page}}                                                                                                                                                     \\
+	\multicolumn{4}{|r|}{{Continued on next page}}                                                         \\
 	\hline
 	\endfoot
 
 	\hline \hline
 	\endlastfoot
 
-	1 &           \#Woman-Owned Business &         525767 &               943.48 \\
-	2 &                         \#Parent &         464637 &               889.20 \\
-	3 &                \#Repeat Borrower &         250713 &               993.38 \\
-	4 &                        \#Elderly &         171442 &               781.28 \\
-	5 &                        \#Animals &         140633 &               816.53 \\
-	6 &                   \#Eco-friendly &         126065 &               767.86 \\
-	7 &                      \#Schooling &         122842 &               934.43 \\
-	8 &                          \#Vegan &         103935 &               934.96 \\
-	9 &          \#Health and Sanitation &          90618 &               630.69 \\
-   10 &              \#Biz Durable Asset &          87061 &              1265.14 \\
-   11 &                     \#Technology &          65557 &               725.45 \\
-   12 &                  \#Single Parent &          55925 &               989.94 \\
-   13 &              \#Supporting Family &          53536 &               936.91 \\
-   14 &                        \#Fabrics &          52927 &              1096.92 \\
-   15 &                         \#Single &          48513 &               935.22 \\
-   16 &                     \#First Loan &          43115 &              1118.88 \\
-   17 &           \#Repair Renew Replace &          38795 &               994.39 \\
-   18 &                        \#Widowed &          31518 &               902.32 \\
-   19 &                 \#Sustainable Ag &          30746 &              1130.55 \\
-   20 &                    \#Job Creator &          19772 &              1819.23 \\
-   21 &               \#Female Education &          16491 &              1091.24 \\
-   22 &                          \#Trees &          16439 &              1196.81 \\
-   23 &                        \#Refugee &          14033 &              1409.83 \\
-   24 &                         \#Unique &           9720 &              3362.81 \\
-   25 &                  \#Low-profit FP &           7286 &              1265.20 \\
-   26 &              \#Interesting Photo &           5897 &              1274.42 \\
-   27 &           \#BIPOC-owned Business &           5523 &              5900.62 \\
-   28 &                \#Inspiring Story &           4635 &              1889.90 \\
-   29 &        \#US Black-Owned Business &           3075 &              5897.17 \\
-   30 &                 \#Post-disbursed &           2719 &              1670.03 \\
-   31 & \#Latinx/Hispanic-Owned Business &           2104 &              5064.92 \\
-   32 &                         \#Umpqua &           1757 &              5362.56 \\
-   33 &                     \#Hidden Gem &           1541 &              1752.11 \\
-   34 &                   \#US immigrant &           1533 &              5526.88 \\
-   35 &                         \#Orphan &            877 &              1722.18 \\
-   36 &                           LGBTQ &            304 &              7133.22 \\
-   37 &                        \#Tourism &            203 &              1402.46 \\
-   38 &                      US Refugee &            136 &              6966.91 \\
-   39 &         \#Team Guys Holding Fish &            120 &              1311.67 \\
-   40 &                        \#Married &            102 &              1752.21 \\
-   41 &               \#TangibleProducts &             93 &              8956.99 \\
-   42 &                \#CommunityImpact &             81 &              9030.86 \\
-   43 &                 \#Powerful Story &             48 &              3316.67 \\
-   44 &                    \#EcoFriendly &             29 &             10810.34 \\
-   45 &                           Viral &             21 &              9860.71 \\
-   46 &          \#US Environmental Loan &             19 &              8868.42 \\
-   47 &                      \#Education &             16 &              7218.75 \\
-   48 &                    \#Agriculture &             14 &              9178.57 \\
-   49 &              \#StandoutBackstory &             12 &              9041.67 \\
-   50 &                    \#NewBusiness &             11 &              7363.64 \\
-   51 &                            MUFG &              9 &              6888.89 \\
-   52 &                         \#Kaiser &              5 &             13500.00 \\
-   53 &                   \#GenderEquity &              4 &             15625.00 \\
-   54 &                          beauty &              3 &              1216.67 \\
-   55 &                             cow &              3 &              1475.00 \\
-   56 &                       \#COVID-19 &              2 &             11250.00 \\
-   57 &                  \#Pre-disbursed &              1 &              5950.00 \\
-   58 &                         GoDaddy &              1 &             10000.00 \\
-   59 &                     LISCChicago &              1 &              9500.00 \\
-
+	1           & \#Woman-Owned Business           & 525767                 & 943.48                       \\
+	2           & \#Parent                         & 464637                 & 889.20                       \\
+	3           & \#Repeat Borrower                & 250713                 & 993.38                       \\
+	4           & \#Elderly                        & 171442                 & 781.28                       \\
+	5           & \#Animals                        & 140633                 & 816.53                       \\
+	6           & \#Eco-friendly                   & 126065                 & 767.86                       \\
+	7           & \#Schooling                      & 122842                 & 934.43                       \\
+	8           & \#Vegan                          & 103935                 & 934.96                       \\
+	9           & \#Health and Sanitation          & 90618                  & 630.69                       \\
+	10          & \#Biz Durable Asset              & 87061                  & 1265.14                      \\
+	11          & \#Technology                     & 65557                  & 725.45                       \\
+	12          & \#Single Parent                  & 55925                  & 989.94                       \\
+	13          & \#Supporting Family              & 53536                  & 936.91                       \\
+	14          & \#Fabrics                        & 52927                  & 1096.92                      \\
+	15          & \#Single                         & 48513                  & 935.22                       \\
+	16          & \#First Loan                     & 43115                  & 1118.88                      \\
+	17          & \#Repair Renew Replace           & 38795                  & 994.39                       \\
+	18          & \#Widowed                        & 31518                  & 902.32                       \\
+	19          & \#Sustainable Ag                 & 30746                  & 1130.55                      \\
+	20          & \#Job Creator                    & 19772                  & 1819.23                      \\
+	21          & \#Female Education               & 16491                  & 1091.24                      \\
+	22          & \#Trees                          & 16439                  & 1196.81                      \\
+	23          & \#Refugee                        & 14033                  & 1409.83                      \\
+	24          & \#Unique                         & 9720                   & 3362.81                      \\
+	25          & \#Low-profit FP                  & 7286                   & 1265.20                      \\
+	26          & \#Interesting Photo              & 5897                   & 1274.42                      \\
+	27          & \#BIPOC-owned Business           & 5523                   & 5900.62                      \\
+	28          & \#Inspiring Story                & 4635                   & 1889.90                      \\
+	29          & \#US Black-Owned Business        & 3075                   & 5897.17                      \\
+	30          & \#Post-disbursed                 & 2719                   & 1670.03                      \\
+	31          & \#Latinx/Hispanic-Owned Business & 2104                   & 5064.92                      \\
+	32          & \#Umpqua                         & 1757                   & 5362.56                      \\
+	33          & \#Hidden Gem                     & 1541                   & 1752.11                      \\
+	34          & \#US immigrant                   & 1533                   & 5526.88                      \\
+	35          & \#Orphan                         & 877                    & 1722.18                      \\
+	36          & LGBTQ                            & 304                    & 7133.22                      \\
+	37          & \#Tourism                        & 203                    & 1402.46                      \\
+	38          & US Refugee                       & 136                    & 6966.91                      \\
+	39          & \#Team Guys Holding Fish         & 120                    & 1311.67                      \\
+	40          & \#Married                        & 102                    & 1752.21                      \\
+	41          & \#TangibleProducts               & 93                     & 8956.99                      \\
+	42          & \#CommunityImpact                & 81                     & 9030.86                      \\
+	43          & \#Powerful Story                 & 48                     & 3316.67                      \\
+	44          & \#EcoFriendly                    & 29                     & 10810.34                     \\
+	45          & Viral                            & 21                     & 9860.71                      \\
+	46          & \#US Environmental Loan          & 19                     & 8868.42                      \\
+	47          & \#Education                      & 16                     & 7218.75                      \\
+	48          & \#Agriculture                    & 14                     & 9178.57                      \\
+	49          & \#StandoutBackstory              & 12                     & 9041.67                      \\
+	50          & \#NewBusiness                    & 11                     & 7363.64                      \\
+	51          & MUFG                             & 9                      & 6888.89                      \\
+	52          & \#Kaiser                         & 5                      & 13500.00                     \\
+	53          & \#GenderEquity                   & 4                      & 15625.00                     \\
+	54          & beauty                           & 3                      & 1216.67                      \\
+	55          & cow                              & 3                      & 1475.00                      \\
+	56          & \#COVID-19                       & 2                      & 11250.00                     \\
+	57          & \#Pre-disbursed                  & 1                      & 5950.00                      \\
+	58          & GoDaddy                          & 1                      & 10000.00                     \\
+	59          & LISCChicago                      & 1                      & 9500.00                      \\
 \end{longtable}
-
 
 
 \chapter{Data synthesis algorithms}
