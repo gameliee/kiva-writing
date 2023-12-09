@@ -397,6 +397,7 @@ In the next section, we will provide some statistic about the data.
 
 \section{Basic data statistics}
 
+\begin{comment}
 \begin{itemize}
 	\item Worldwide statistics
 	      \begin{itemize}
@@ -412,25 +413,23 @@ In the next section, we will provide some statistic about the data.
 		      \item \dots
 	      \end{itemize}
 \end{itemize}
+\end{comment}
 
 Recall that for the purpose of the thesis, we would like to find community of Lenders who interest in same type of projects.
-Also recall that each project is associated with some descritive fields, such as Sector, Country, Tags, etc.
+Also recall that each project is associated with some fields, such as Sector, Country, Tags, etc.
+Through the API, we suppose that these factors could bring good descritive information about the project.
+But we have to look carefully at the data to see if it is true.
+For instance, if all projects are from the same country, then the country field is not useful.
 In this section, we will explore the data to better understand those fields.
 
 \subsection{Geographical Distribution of Projects}
 
 The geographical distribution of Projects is shown in Figure \ref{fig:map-number-project-by-country}.
-We can see that the Projects are distributed all over the world.
+We can see that although Projects are concentrated in some countries, but they are infact distributed all over the world.
 Not only in developing countries like Vietnam, Philippines,
 but also developed countries like United States.
 It is also interesting to see that there are no Projects in Euro or in Australia.
 
-Figure \ref{fig:country-project-distribution} shows the number of Projects by country.
-It is clear that the Projects are concentrated in some countries.
-We can see that the top 5 countries in term of the number of projects happened are Philippines, Kenya, Cambodia, Peru, and El Salvador.
-
-Since the Projects are concentrated in some countries,
-it will be promising to find community of Lenders who interest in Projects in those countries.
 
 \begin{figure}[H]
 	\centering
@@ -439,17 +438,36 @@ it will be promising to find community of Lenders who interest in Projects in th
 	\label{fig:map-number-project-by-country}
 \end{figure}
 
+
 Look at the georaphical distribution of Projects in Figure \ref{fig:map-number-project-by-country},
 we can see that the Projects are from all over the world.
+To better visualization, the Figure do not show all the countries.
+One can find the detailed information in Table \ref{tab:appendix-project-vs-country}.
 Philippines is the country that has the most number of Projects.
-The other countries in top 5 are Kenya, El Salvador,
+The other countries in top 5 are Kenya, El Salvador, Tajikistan, and Cambodia.
+The graph also show the average amount of money that each project ask for funding in each country.
+We notice that this average is particularly high for the country the right-ending side of the graph.
+We suppose that phenomenon is explained by the small number of Projects in those countries,
+hence the average is easily affected by the outliers.
+But in the left side of the graph, when the number of project is high enough,
+notice that the United States has a high average loan amount.
+We suppose that this is an interesting finding, and we will explore it in the future works.
+
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\textwidth]{images/project-vs-country.pdf}
-	\caption{Number of Projects by country}
+	\caption[Number of Projecst and Average amount of required money for each project by Country]{
+		Number of Projecst and Average amount of required money for each project by Country.
+		More detail in Table \ref{tab:appendix-project-vs-country}
+	}
 	\label{fig:country-project-distribution}
 \end{figure}
+
+
+Since the Projects are concentrated in some countries,
+and some countries has a higher average amount of money ask by each project,
+it will be promising to find community of Lenders who interest in Projects in those countries.
 
 
 \subsection{Distribution of Projects Across Sectors}
@@ -460,7 +478,6 @@ We could see that there are some Sectors that have a subtainial large number of 
 But when it comes to the average amount of money ask by each project, those Sectors are not the top.
 Some Sectors, while limited in the number of Projects, have a large amount of money ask by each project, such as Manufacturing, Wholesale, or Entertainment.
 
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/project-vs-sector.pdf}
@@ -468,7 +485,17 @@ Some Sectors, while limited in the number of Projects, have a large amount of mo
 	\label{fig:project-vs-sector}
 \end{figure}
 
+We could not interpret many meaning from the figure
+except that the Sectors are not distributed evenly.
+For instance Agriculture usually ask for a smaller amount of money comparing to Services.
+Or Personal Use required the least, which is intuitively understandable.
+Since the Sectors itself have descriptive meaning and the projects spand accross all the Sectors,
+it should not be ignore in the analysis.
+
 \subsection{Distribution of Projects Across Tags}
+
+\todo{continue here}
+
 
 \begin{figure}[H]
 	\centering
@@ -476,6 +503,8 @@ Some Sectors, while limited in the number of Projects, have a large amount of mo
 	\caption{}
 	\label{fig:project-vs-tag}
 \end{figure}
+
+
 
 \todo{tags analysis (the presentation slide)}
 
