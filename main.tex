@@ -14,7 +14,7 @@
 \usepackage{hyperref} % For hyperlinks
 \usepackage{listings} % For code snippets
 \usepackage{longtable} % For long tables
-\usepackage[acronym]{glossaries} % For glossaries
+\usepackage[acronym,nopostdot,nogroupskip,nonumberlist,section]{glossaries} % For glossaries
 \usepackage[margin=1in]{geometry} % For page margins
 \usepackage{eso-pic} % Needed for AddToShipoutPicture
 \usepackage{comment} % For multiline comments
@@ -56,8 +56,11 @@ sorting=ynt
 \listoftables
 
 % \clearpage
-\printglossary
-\printglossary[type=\acronymtype]
+\chapter*{Glossary and Acronyms}
+\printglossary[title={Glossary}, type=main]
+\printglossary[type=\acronymtype, title={Acronyms}]
+% \printglossary
+% \printglossary[type=\acronymtype]
 
 \chapter{Introduction}
 \input{chap1/chap1.tex}
