@@ -4,8 +4,11 @@
 \lstinputlisting[language=bash,
 	caption={Query to fetch all Loan data from Kiva.org},
 	label={code:appendix-query-all-data},
+	basicstyle=\ttfamily\scriptsize,
+	columns=fullflexible,
 	breaklines=true,
-	frame=single
+	frame=single,
+	postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
 ]{artifacts/fetch_loans.graphql}
 
 \begin{longtable}{|p{0.33\textwidth}|p{0.67\textwidth}|}
