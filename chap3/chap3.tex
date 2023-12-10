@@ -18,17 +18,17 @@ In this section, we will describe the Kiva website and the dataset that we use i
 We will also describe the preprocessing steps that we have to do with the dataset.
 
 While there are many crowdfunding platforms,
-we specifically choose Kiva because of its transparancy and the avalability of the data for public access.
+we specifically choose Kiva because of its transparency and the availability of the data for public access.
 
 \subsection{Kiva website}
 
 To understand the data that the platform provides, we have to understand the interface that the platform provides to its users.
 Like other platform, Kiva has a website where users can login and interact with the platform.
-To understand the data that the platform provides and to extract meaningfull insight from the data,
+To understand the data that the platform provides and to extract meaningful insight from the data,
 we have to understand the interface that the platform provides to its users.
 
 Any website interface is designed to make users interact with it in a pre-defined way.
-In Kiva, we belived that the most function that users can do is to search for projects that they want to fund.
+In Kiva, we believed that the most function that users can do is to search for projects that they want to fund.
 Or they can setup an Auto-Lending program, which will automatically fund projects that fit their criteria.
 
 
@@ -61,7 +61,7 @@ We will consider these criteria as the gold standard for processing the data.
 			7  & Attribute              & Multiple choice & Choose from a list of attributes                                                                                        \\
 			8  & Tags                   & Multiple choice & Choose from a list of tags                                                                                              \\
 			9  & Loan Length            & Single Choice   & All loans, 8 month or less, 16 months or less, 2 years or less, 2 years or more                                         \\
-			10 & Loan Distribution      & Single Choice   & All loans, Parter, Direct                                                                                               \\
+			10 & Loan Distribution      & Single Choice   & All loans, Partner, Direct                                                                                              \\
 			11 & Partner Info           & Text            & Search by Partner name                                                                                                  \\
 			12 & Risk Rating            & Range           & From 1 to 5                                                                                                             \\
 			13 & Default Rate           & Range           & From 0\% to 100\%                                                                                                       \\
@@ -74,8 +74,8 @@ We will consider these criteria as the gold standard for processing the data.
 \end{table}
 
 Perhaps the most unique feature of Kiva is the Auto-Lending program.
-In the program, Lenders can setup criterias for future projects that they want to fund.
-When a new project is created, the platform will automatically fund the project if it fits the criterias.
+In the program, Lenders can setup criteria for future projects that they want to fund.
+When a new project is created, the platform will automatically fund the project if it fits the criteria.
 Figure \ref{fig:auto-lend-setup} shows the interface for setting up the Auto-Lending program.
 
 \begin{figure}[H]
@@ -88,15 +88,15 @@ Figure \ref{fig:auto-lend-setup} shows the interface for setting up the Auto-Len
 Users can "Let Kiva select the best loans for me" or "I want to set my own auto-lending criteria".
 We do not have any information about how the platform select the best loans for users.
 So we will focus on the second option.
-We can see that the criterias are very similar to the criterias that users can use to search for projects.
+We can see that the criteria are very similar to the criteria that users can use to search for projects.
 
 \subsection{Kiva Data Access}
 
 In order to access the data provided by Kiva, we utilize the GraphQL API.
 Kiva has made their data available through this API, allowing developers to query and retrieve specific information from the platform.
-This is perhap unique to Kiva, as most other crowdfunding platforms do not provide such access to their data.
+This is perhaps unique to Kiva, as most other crowdfunding platforms do not provide such access to their data.
 It is also note that Kiva also provides a public dataset through their so called "Data Snapshot".
-However, this function is appearantly not working at the time of writing.
+However, this function is apparently not working at the time of writing.
 There also another way to get the data from kiva website, which is through Web Crawling.
 By analysis the website interface and the network traffic, we can get the data that the website use to display the information.
 This approach is although popular, but it is not very reliable because the website can change its interface at any time.
@@ -112,9 +112,9 @@ There are two noteworthy points about the GraphQL API.
 The first is through the \textit{introspection} \parencite{graphql-introspection} feature of GraphQL,
 we could have the information of what queries that the platform supports,
 as long as with the data schema.
-The second is that we can ultilize the GraphQL API to get the data in a batched manner.
+The second is that we can utilize the GraphQL API to get the data in a batched manner.
 Usually the platform will limit the number of requests that a user can make to the API.
-But if we use some Web Crawling techniques, we can manage to get all the data that avaliable in the API.
+But if we use some Web Crawling techniques, we can manage to get all the data that available in the API.
 
 Kiva GraphQL API can be found publicly at \url{https://api.kivaws.org/graphql}.
 One can connect to the URI with any compatible GraphQL client.
@@ -141,7 +141,7 @@ A basic knowledge about GraphQL would be helpful to discover the data schema mor
 \end{figure}
 
 
-Before begining to query the data, we have to understand the data schema to know what data that we can get.
+Before beginning to query the data, we have to understand the data schema to know what data that we can get.
 
 
 \begin{figure}[H]
@@ -151,7 +151,7 @@ Before begining to query the data, we have to understand the data schema to know
 	\label{fig:data-schema}
 \end{figure}
 
-The relationship beteen Lender and Project is many-to-many.
+The relationship between Lender and Project is many-to-many.
 Each Project in Kiva can be funded by many Lenders.
 And each Lender can fund many Projects.
 The relationship between Project and Tag is also many-to-many.
@@ -276,7 +276,7 @@ Once understand the data schema, we can start crawling the data.
 We decided to get all the fields of the Project, as well as the fields of the nested objects.
 The GraphQL query for crawl all the data is shown in \ref{code:appendix-query-all-data}.
 
-In order to retrieve all data using the API, we ultilize the \textit{scrappy}\parencite{scrappy} framework.
+In order to retrieve all data using the API, we utilize the \textit{scrappy}\parencite{scrappy} framework.
 Perhaps the most useful feature of scrappy is that it can automatically bypass the rate limit of the API.
 It is common that APIs should have a rate-limit mechanism to prevent users from abusing the API.
 While Kiva API is not an exception, it do not provide a clear documentation about the limit.
@@ -294,7 +294,7 @@ Otherwise, we could end up with duplicate data or, worst, missing data.
 In practice, we decided to use the order that the newest Projects are crawled first.
 This is because the GraphQL API already support it, and the newest Projects are more likely to be crawled successfully.
 The second decision is the format of data storing.
-While nowaday, there are advanced data type that can store data and provide reading in a more efficient way,
+While nowadays, there are advanced data type that can store data and provide reading in a more efficient way,
 such as \textit{Parquet}\parencite{parquet} or \textit{HDF5}\parencite{hdf5}.
 But when it comes to crawling data, we would like to have a format that is easy to append new data,
 as long as quickly read a part of the data for monitoring the crawling progress.
@@ -329,11 +329,18 @@ The Tag part is just a single column that contains the Tag name.
 	\label{fig:preprocessing}
 \end{figure}
 
+\begin{comment}
+ds.project_id.nunique() = 2090091
+ds.lender_id.nunique() = 1942657
+in which, number of anons is
+ds[anons].lender_id.nunique() = 1110136
+\end{comment}
+
 Figure \ref{fig:preprocessing} shows the steps of preprocessing.
 We will explains each step in detail in the following sections.
 But before it, we would like to list the tools that we use for the task.
 We use Python as the language of choice.
-When it comes to process data in Python, perhap the most popular library is \textit{pandas}\parencite{pandas}.
+When it comes to process data in Python, perhaps the most popular library is \textit{pandas}\parencite{pandas}.
 We took a step further and use \textit{cuDF}\parencite{cudf} library, which is a GPU-accelerated version of pandas.
 The reason for that is because we would like to have a fast processing time.
 So we can quickly iterate over the preprocessing steps.
@@ -346,7 +353,7 @@ Although we do not use Dask in the final pipeline, we still cite it here because
 In the future works, when the data is even larger than in this thesis, one might found it helpful to use Dask.
 
 The preprocessing pipeline begin with loading the crawled data.
-Because the preprocessing steps are not appearantly clear.
+Because the preprocessing steps are not apparently clear.
 We need to explore the data to find out what are the problems.
 Hence, it is always a good practice to be able to load the crawled data quickly.
 The first things, we use pandas to load the whole crawled data (in \lstinline|.jsonl| format) to memory.
@@ -357,7 +364,7 @@ because the \lstinline|.parquet| offer much better data compression as well as f
 Next, two basic preprocessing steps that perhaps will always be done is to check for missing values and duplicated values.
 In our case, the missing values and duplicated values are caused by the way that API offer data for us.
 In the long duration time of crawling, it is possible that the data in the API will change.
-Perhap some new Projects could be add to the platform.
+Perhaps some new Projects could be add to the platform.
 But we decided that, the number of changed is not important for our analysis because the number of changed is small compared to the total number of Projects.
 We remove rows that contains all null values.
 Then we remove duplicated rows, consider the "id" (a.k.a "project\_id") field as the key.
@@ -382,7 +389,7 @@ they are \lstinline|volunteer_pick|, \lstinline|volunteer_like|, \lstinline|user
 We decide to get rid of these tags.
 
 But we suspect that Tags are more complicated than that.
-Somes tags are appear that they have special meaning and sounds like they could bring values to users who browsing through the website,
+Some tags are appear that they have special meaning and sounds like they could bring values to users who browsing through the website,
 such as \lstinline|#Agriculture| or \lstinline|#Education|, etc.
 Despite of that, these tags are not visible to users on the website interfaces.
 There are also some tags that even have stranger behavior, such as \lstinline|reserved_crisis_support_loan|.
@@ -439,7 +446,7 @@ In the next section, we will provide some statistic about the data.
 
 Recall that for the purpose of the thesis, we would like to find community of Lenders who interest in same type of projects.
 Also recall that each project is associated with some fields, such as Sector, Country, Tags, etc.
-Through the API, we suppose that these factors could bring good descritive information about the project.
+Through the API, we suppose that these factors could bring good descriptive information about the project.
 But we have to look carefully at the data to see if it is true.
 For instance, if all projects are from the same country, then the country field is not useful.
 In this section, we will explore the data to better understand those fields.
@@ -447,7 +454,7 @@ In this section, we will explore the data to better understand those fields.
 \subsection{Geographical Distribution of Projects}
 
 The geographical distribution of Projects is shown in Figure \ref{fig:map-number-project-by-country}.
-We can see that although Projects are concentrated in some countries, but they are infact distributed all over the world.
+We can see that although Projects are concentrated in some countries, but they are in fact distributed all over the world.
 Not only in developing countries like Vietnam, Philippines,
 but also developed countries like United States.
 It is also interesting to see that there are no Projects in Euro or in Australia.
@@ -461,7 +468,7 @@ It is also interesting to see that there are no Projects in Euro or in Australia
 \end{figure}
 
 
-Look at the georaphical distribution of Projects in Figure \ref{fig:map-number-project-by-country},
+Look at the geographical distribution of Projects in Figure \ref{fig:map-number-project-by-country},
 we can see that the Projects are from all over the world.
 To better visualization, the Figure do not show all the countries.
 One can find the detailed information in Table \ref{tab:appendix-project-vs-country}.
@@ -496,7 +503,7 @@ it will be promising to find community of Lenders who interest in Projects in th
 
 The graph in Figure \ref{fig:project-vs-sector} shows the number of Projects,
 as well as the average amount of money asked by each project, by Sector.
-We could see that there are some Sectors that have a subtainial large number of Projects, such as Agriculture, Food, Retail, etc.
+We could see that there are some Sectors that have a subminimal large number of Projects, such as Agriculture, Food, Retail, etc.
 But when it comes to the average amount of money ask by each project, those Sectors are not the top.
 Some Sectors, while limited in the number of Projects, have a large amount of money ask by each project, such as Manufacturing, Wholesale, or Entertainment.
 
@@ -513,7 +520,7 @@ We could not interpret many meaning from the figure
 except that the Sectors are not distributed evenly.
 For instance Agriculture usually ask for a smaller amount of money comparing to Services.
 Or Personal Use required the least, which is intuitively understandable.
-Since the Sectors itself have descriptive meaning and the projects spand accross all the Sectors,
+Since the Sectors itself have descriptive meaning and the projects spans across all the Sectors,
 it should not be ignore in the analysis.
 
 \subsection{Distribution of Projects Across Tags}
@@ -528,7 +535,7 @@ For the 20 most popular Tags, we could see that the average amount of money ask 
 	\includegraphics[width=0.95\textwidth]{images/project-vs-tag.pdf}
 	\caption[Number of Projects and Average amount of required money for each project by Tag]{
 		Number of Project and Average amount of required money for each project by Tag.
-		Note that this graph is drawed with preprocessed data.
+		Note that this graph is drawn with preprocessed data.
 		More detail in Table \ref{tab:appendix-project-vs-tag}
 	}
 	\label{fig:project-vs-tag}
@@ -546,7 +553,7 @@ On average, the number of Tags is roughly $2.5$ times the number of Projects.
 	\includegraphics[width=0.95\textwidth]{images/tag-project-vs-time.pdf}
 	\caption[Number of Projects and Tags by Time]{
 		Number of Projects and Tags by Time.
-		Note that this graph is drawed with preprocessed data.
+		Note that this graph is drawn with preprocessed data.
 	}
 	\label{fig:tag-project-vs-time}
 \end{figure}
@@ -573,7 +580,7 @@ We will try to find out how long that a Lender stay on the platform.
 
 Defined that a Lender is active in a year if he/she give money to a project, which is posted on that year.
 We also define that a Lender is active in a range of year if he/she is active in all the years in that range.
-Fiture \ref{fig:active-hist} shows the distribution of the number of consecutive years that a Lender is active.
+Figure \ref{fig:active-hist} shows the distribution of the number of consecutive years that a Lender is active.
 We can see that most of the Lenders are active in only one year.
 This is not a good sign for finding community of Lenders.
 
@@ -627,7 +634,7 @@ then their behavior and their interest is not clear.
 If he or she repeatedly give money (stay active),
 we could find a pattern in their behavior.
 In that sense, we will study the active Lenders from 2019 to 2023.
-We belive that this range of years provide modern information,
+We believe that this range of years provide modern information,
 as well as the number of Lender still large enough for analysis.
 Hereafter in this thesis,
 we use the term \gls{active} to refer to the Lenders who are active in the range of 2019 to 2023.
