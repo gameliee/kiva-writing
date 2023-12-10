@@ -25,11 +25,15 @@ In this thesis, we have studied the dynamics of crowdfunding, with a focus on th
 We have first reviewed the related works on crowdfunding and on community detection problems.
 We have show studies on community detection on graphs is still an active research field,
 and there are many different approaches to the problem.
-If focus on bipartite graphs, two main approaches are \textit{projection} and \textit{non-projection} methods.
-We have observed that most of the works on community detection is a supervised problem,
-while in our case, it is to apply algorithms on the unsupervised data and see if the results make sense.
 
-We have proposed a methodology for detecting communities of lenders on crowdfunding platforms.
+If focus on bipartite graphs, two main approaches are \textit{projection} and \textit{non-projection} methods.
+We have show than non-projection methods are more suitable for our problem.
+We have observed that most of the works on community detection is a supervised problem,
+while in our case, it is to apply algorithms on the unsupervised data.
+Therefore we have faced challenges in finding a metric to evaluate the results of community detection algorithms,
+and we solve this problem by looking at the stablity of the found communities over time.
+
+We have proposed a methodology for detecting communities of lenders on crowdfunding platforms like following.
 By devide the dataset into time slices or snapshots
 and apply community detection on bipartite graphs techniques on each snapshot,
 we can find groups of lenders at each snapshot.
