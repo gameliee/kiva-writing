@@ -11,6 +11,7 @@
 	postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
 ]{artifacts/fetch_loans.graphql}
 
+% /* cSpell:disable */ 
 \begin{longtable}{|p{0.33\textwidth}|p{0.67\textwidth}|}
 	\toprule\noalign{}
 	\caption{Fields of Projects}
@@ -258,7 +259,7 @@
 	                                                & Este crédito es para comprar útiles escolares y artículos de bazar.
 	Esta desde hace 8 años en el Banco Comunal y le gusta porque los
 	créditos le han ayudado a mejora su negocio. Sus sueños son aumentar más
-	su negocio.                                                                                                                                                     \\
+	su negocio.
 \end{longtable}
 
 
@@ -416,10 +417,11 @@
 	18          & \#Schooling                      & 2                                 & 49          & Turo                              & 3                                 \\
 	19          & \#Pre-disbursed                  & 2                                 & 76          & Salesforce                        & 3                                 \\
 \end{longtable}
+%/* cSpell:enable */   
 
 \chapter{Data overview}
 
-
+% /* cSpell:disable */
 \begin{longtable}{|c|l|r|r|c|l|r|r|}
 	\toprule\noalign{}
 	\caption{Distribution of Projects by Countries}
@@ -492,6 +494,7 @@
 	46          & Albania               & 4233                               & 1669.89                         & 92          & Sri Lanka             & 1                                  & 450.0                           \\
 	            &                       &                                    &                                 & 93          & Uruguay               & 1                                  & 8000.0                          \\
 \end{longtable}
+
 
 \begin{longtable}{|c|l|r|r|}
 	\toprule\noalign{}
@@ -578,7 +581,7 @@
 	58          & GoDaddy                          & 1                      & 10000.00                     \\
 	59          & LISCChicago                      & 1                      & 9500.00                      \\
 \end{longtable}
-
+% /* cSpell:enable */
 
 \chapter{Data synthesis algorithms}
 
@@ -587,7 +590,7 @@
 	\caption{Synthesis graph nodes generation}
 	\label{alg:appendix-synthesis_graph_nodes}
 	\begin{description}
-		\item[Input:] number of timestep $T$
+		\item[Input:] number of time step $T$
 		\item[Input:] number of nodes $n$
 		\item[Input:] number of community $c$
 		\item[Input:] probability a node stay in a same community in one step $p_{stay}$
@@ -596,7 +599,7 @@
 	\begin{algorithmic}[1]
 		\Function{generate\_community\_dynamic}{$n, c, T$}
 		\For {$i = 1,2,\ldots,n$}
-		\Comment Init randomly for the first timestep
+		\Comment Init randomly for the first time step
 		\State $C[1][i] \gets$ \Call{random\_integer}{$1, c$}
 		\EndFor
 		\For {$t = 2,3,\ldots,T$}
@@ -617,7 +620,7 @@
 
 
 \begin{algorithm}
-	\caption{Synthesis graph cocluster generation}
+	\caption{Synthesis graph co-cluster generation}
 	\label{alg:appendix-synthesis_graph_cocluster}
 	\begin{description}
 		\item[Input:] number of cluster $c_1, c_2$
@@ -649,7 +652,7 @@
 	\caption{Synthesis graph edges generation}
 	\label{alg:appendix-synthesis_graph_edges}
 	\begin{description}
-		\item[Input/Output: ] biajacency matrix $B \in \mathbb{R}^{n_1 \times n_2}$
+		\item[Input/Output: ] biadjacency matrix $B \in \mathbb{R}^{n_1 \times n_2}$
 		\item[Input:] $V_1$ community index $C \in \mathbb{N}^{n_1}$
 		\item[Input:] $V_2$ community index $D \in \mathbb{N}^{n_2}$
 		\item[Input:] $c_1, c_2, p_{in}, p_{out}$

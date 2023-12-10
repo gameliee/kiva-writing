@@ -55,5 +55,20 @@
     "pasteImage.filePathConfirmInputBoxMode": "onlyName",
     "pasteImage.path": "${projectRoot}/images",
     "plantuml.exportSubFolder": false,
-    "plantuml.exportOutDir": "images"
+    "plantuml.exportOutDir": "images",
+    "cSpell.words": [
+        "biadjacency",
+        "bimodularity",
+        "BIPOC",
+        "Dask",
+        "funders",
+        "Jaccard",
+        "Louvian",
+        "Memgraph",
+        "Murata",
+        "successfulness",
+        "TAGW",
+        "Taobao",
+        "unipartite"
+    ]
 }

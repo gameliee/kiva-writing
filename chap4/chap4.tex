@@ -1,6 +1,6 @@
 \begin{comment}
 \begin{itemize}
-	\item The creatioon of Lender-Criteria bipartite graphs
+	\item The creation of Lender-Criteria bipartite graphs
 	\item Explain why we could not project Lender-Criteria graphs onto Lender to create Lender-Lender graph
 	\item That's why we find community directly in bipartite graphs
 	\item Methodology: better-than-random testing
@@ -11,14 +11,14 @@
 \begin{itemize}
 	\item How to build a random graph, with community pre-defined
 	\item Detecting community in random graph
-	\item Quality assessment of the detected community, presented by a numer $Q_{synthesis}$
+	\item Quality assessment of the detected community, presented by a number $Q_{synthesis}$
 	\item $Q_{synthesis}$ gives an idea about the best we could get from a data, but depends on the laten parameters when building datasets $p_{in}$, $p_{out}$, $p_{change}$ - the change from community to another
 \end{itemize}
 
 \section{Hypothesis testing on real data}
 
 \begin{itemize}
-	\item Filter data to keep Lenderes who is active invest from 2019-2023
+	\item Filter data to keep Lenders who is active invest from 2019-2023
 	\item Repeat the works on random graph for each year data
 	\item Then find quality assessment $Q_{real}$ again and compare with $Q_{synthesis}$.
 	      Decide if there is a clear community for different criteria (Tags, Sectors, Country)
@@ -27,7 +27,7 @@
 
 As the begin of this chapter, we are revisiting our hypothesis and testing them out.
 Recall that we would like to find community of Lenders, based on their interests in different criteria.
-Through the data explornation, we will use 3 different criteria to find if the community exists.
+Through the data exploration, we will use 3 different criteria to find if the community exists.
 The criteria are: Tags, Sectors and Country.
 
 The first steps is to associate each Lender with Criteria.
@@ -46,7 +46,7 @@ Like mention above we will use three Criteria features: Tags, Sectors and Countr
 But in fact, Lenders do not have any direct relationships with Tags, Sectors or Country.
 The relationship between Lender and Criteria is through the Project.
 We consider that a Lender choose to invest in a Project because he/she is interested in the Criteria of that Project.
-The interests could be explicitly, when a Lender actively find a project with sepecifics crietria.
+The interests could be explicitly, when a Lender actively find a project with specifics criteria.
 For example, a Lender who intend to give money to Vietnamese people can search for
 all the Projects that have the the Country criteria set to Vietnam.
 That feature is available on Kiva website like described in previous chapter.
@@ -82,15 +82,15 @@ We consider that the Lender is interested in the Tag "Schooling".
 Figure \ref{fig:create_lender_tag} illustrate the process of creating the relationship between Lenders and Tags.
 For example, Lender1 has invested \$10 to Project1, \$20 to Project2 and \$50 to Project3.
 Lender2 contributed \$100 to Project2 and \$200 to Project3.
-Project1 was tagged with Tag1 and Tag2, the same for Project2, while Tag3 is the soly Tag of Project3.
+Project1 was tagged with Tag1 and Tag2, the same for Project2, while Tag3 is the sole Tag of Project3.
 We could see that Lender1 express his/her interest in Tag1 through two projects: Project1 and Project2.
 We could further "weight" this interest by the amount of money that Lender1 contributed to Projects.
 Lender1 contributed \$10 to Project1 and \$20 to Project2,
 so we could say that Lender1 interest \$30 in Tag1.
 By this way, we could construct a bipartite graph between Lenders and Tags like in Figure \ref{fig:create_lender_tag2}.
 
-We also take this apportunity to mathematically define the notation that we will use in this chapter.
-To list all the partites appear in our work, it would be Lender, Project, Tag, Sector and Country.
+We also take this opportunity to mathematically define the notation that we will use in this chapter.
+To list all the partite appear in our work, it would be Lender, Project, Tag, Sector and Country.
 We will use the full name of the partite to denote the set of nodes in that partite.
 For example, $Lender$ is the set of all Lenders.
 For each member of each partite, we will use the first letter of the partite to denote the node.
@@ -137,7 +137,7 @@ Where the edge $INTEREST$ between Lender $L_i$ and Tag $T_k$ is the sum of amoun
 	INTEREST_{i,k}= \sum_{0\le j \le |Project|} LEND_{ij}\times TAGW_{jk}
 \end{equation}
 
-Follow the same logic, we could cosntruct the relationship between Lenders and Sectors, and between Lenders and Country.
+Follow the same logic, we could construct the relationship between Lenders and Sectors, and between Lenders and Country.
 
 
 \begin{table}[H]
@@ -170,7 +170,7 @@ Table \ref{tab:bipartites-statistics} shows the basic statistics of some biparti
 The first 4 graphs are from \parencite{latapy2006}.
 The last 6 graphs are from Kiva dataset.
 Recall $n_1$ is the number of nodes in the first partite, $n_2$ is that for the second partite.
-In the case of Kiva dataset, we set the first partite to be Lendre, and the second partite to be Tag, Sector or Country.
+In the case of Kiva dataset, we set the first partite to be Lender, and the second partite to be Tag, Sector or Country.
 $m$ is the number of edges in the graph.
 $k_1$ and $k_2$ are the average degree of nodes in the first and second partite respectively.
 $k$ is the average degree of nodes in the graph.
@@ -189,7 +189,7 @@ The required iterations for create the one-mode projection is
 $4.4\times 10^4 \times (4.4\times 10^4 - 1) \approx 1.93 \times 10^9$.
 This is a huge number, and it is infeasible to create the one-mode projection, let alone to analyze it.
 
-But we have to take a moment to express that this resonale is not obvious for us at the beginning.
+But we have to take a moment to express that this insight is not obvious for us at the beginning.
 Having the kiva dataset in hand, we have naively try to create the one-mode projection for studying the community in it.
 The initial perception was that the task was too slow, might be because of the tools that we use.
 At first, it seems that using only python and pandas is too slow for the task.
@@ -217,12 +217,12 @@ In this section, we will build a dynamic bipartite graph with predefined communi
 We will use this graph to test a community detection algorithm.
 The community detection algorithm will be applied to the real data in the next section.
 
-We will create a bipartite graph with 2 partites: $V_1$ and $V_2$.
+We will create a bipartite graph with 2 node types: $V_1$ and $V_2$.
 The number of nodes in each partite is $n_1$ and $n_2$ respectively.
 Then we define the community structure of the graph.
 We predefined that in each partite, there are $n_{community} = 5$ communities.
 Look at the figure \ref{fig:synthesis_graph} for illustration.
-Two partites represented by two type of nodes: Circle and Diamond.
+Two partite represented by two type of nodes: Circle and Diamond.
 At the first time $T_1$, the community structure is predefined, showing by the rounded rectangles, they are $C_1, C_2, D_1, D_2$.
 We also intend to make the co-cluster beforehand.
 That is $C_1$ and $D_1$ are intended to be co-cluster, $C_2$ should be co-cluster mate of $D_2$.
@@ -240,7 +240,7 @@ We mimic the behavior of a Lender here, that is a node in $V_1$ could change its
 $p_{stay1}$ is the probability that a node in $V_1$ stay in the same community from time $T_i$ to $T_{i+1}$,
 and it can switch to a new community with probability $1-p_{stay1}$ as illustrated in figure \ref{fig:synthesis_graph}.
 The same goes for $V_2$ with $p_{stay2}$.
-The cocluster relationship will be predefined and kept the same over time.
+The co-cluster relationship will be predefined and kept the same over time.
 The details of the algorithm is described in \ref{alg:synthesis_graph_all}.
 
 Now we already have multiple bipartite graphs for each timestamp.
@@ -284,15 +284,15 @@ E.g., if $Q=1$ then the clusters $\tilde{U}_j$ match exactly the ground-truth cl
 		\State $C \gets$ \Call{generate\_community\_dynamic\ref{alg:appendix-synthesis_graph_nodes}}{$T$, $n_1$, $c_1, p_{stay1}$}
 		\State $D \gets$ \Call{generate\_community\_dynamic\ref{alg:appendix-synthesis_graph_nodes}}{$T$, $n_2$, $c_2, p_{stay2}$}
 		\State $M \gets$ \Call{generate\_cocluster\ref{alg:appendix-synthesis_graph_cocluster}}{$c_1, c_2$}
-		\Comment cocluster stay the same over time
+		\Comment co-cluster stay the same over time
 		\For {$t=1,2,\ldots,T$}
 		\State \Call {generate\_edges\ref{alg:appendix-synthesis_graph_edges}}{$B[t], C[t], D[t], p_{in}, p_{out}$}
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}
 
-Our target is to create biadjacency metrix for $T$ snapshots.
-The biadjacency metrix $B$ hence will be a 3-dimensional matrix with shape $T \times n_1 \times n_2$.
+Our target is to create biadjacency metric for $T$ snapshots.
+The biadjacency metric $B$ hence will be a 3-dimensional matrix with shape $T \times n_1 \times n_2$.
 Note that for the start, each element of $B$ is just zero, indicate that there is no edge between nodes,
 or 1, indicate that there is an edge between nodes.
 In the future, it can be easily extend to weighted graph by changing the value of each element.
@@ -301,7 +301,7 @@ Which mean in the start, each node in $V_1$ and $V_2$ will be assigned to a comm
 In later time, the node could change its community with a probability $1-p_{stay}$.
 Hence the algorithm also output the community indexes matrix $C$ and $D$ for $V_1$ and $V_2$ respectively,
 $C \in \mathbb{N}^{T \times n_1}$ and $D \in \mathbb{N}^{T \times n_2}$.
-After that, we create the cocluster relationship.
+After that, we create the co-cluster relationship.
 This relationship is supposed to stay stable over time, represented by the matrix $M$.
 Finally, we generate the edges for each snapshot.
 
@@ -336,7 +336,7 @@ connecting to a node in a same community.
 In this case, the algorithm still works well, it produce the bimodularity fluctuate around $0.6$.
 The higher $p_{out}$ is, the more difficult for the algorithm to find the community.
 But when $p_{out} \ge 0.2$, the metric seem to be set still at $0.5$.
-We look at the results and found that the algorithm detected the whole graph as a single cocluster.
+We look at the results and found that the algorithm detected the whole graph as a single co-cluster.
 
 \begin{figure}[H]
 	\centering
@@ -349,10 +349,10 @@ Moving next to the $Q1$ value, recall that $Q1$ measure the similarity between d
 Figure \ref{fig:Q1_pout} shows that $Q1$ is tend to be high when $p_{out}$ is low.
 The algorithm works as expected in the extreme case when $p_{out} = 0$.
 When $p_{out} = 0.05$ and $p_{out} = 0.1$, the algorithm still works well, it produce the $Q1$ fluctuate around $0.65$ and $0.5$ respectively.
-The behavior in $Q1$ is consistnent with the $modularity$ metric.
-When $p_{out} \ge 0.2$, the algorithm detected the whole graph as a single cocluster.
+The behavior in $Q1$ is consistent with the $modularity$ metric.
+When $p_{out} \ge 0.2$, the algorithm detected the whole graph as a single co-cluster.
 And because we preset the number of community in $V_1$ to be $c_1=5$,
-Hence when the whole graph is detected as a single cocluster, the $Q1$ value is $0.2$.
+Hence when the whole graph is detected as a single co-cluster, the $Q1$ value is $0.2$.
 
 \begin{figure}[H]
 	\centering
@@ -364,7 +364,7 @@ Hence when the whole graph is detected as a single cocluster, the $Q1$ value is 
 The results reveal that the algorithm only works well when the difference between edge density in pre-defined community and the other is high.
 We could get a sense of the value range of $Q1$.
 For example, even the difference is quite large when $p_{out}=0.15$,
-$Q1$ only archieve around $0.3$, meaning that the algorithm only detect $30\%$ of the community.
+$Q1$ only achieve around $0.3$, meaning that the algorithm only detect $30\%$ of the community.
 It indicate that in the real dataset, if we manage to find a community that
 its member remain roughly $30\%$ over time, we can be confident that the community is real.
 
@@ -372,7 +372,7 @@ its member remain roughly $30\%$ over time, we can be confident that the communi
 
 \begin{itemize}
 	\item
-	\item Filter data to keep Lenderes who is active invest from 2019-2023
+	\item Filter data to keep Lenders who is active invest from 2019-2023
 	\item Repeat the works on random graph for each year data
 	\item Then find quality assessment $Q_{real}$ again and compare with $Q_{synthesis}$.
 	      Decide if there is a clear community for different criteria (Tags, Sectors, Country)
@@ -383,8 +383,8 @@ its member remain roughly $30\%$ over time, we can be confident that the communi
 The results is not easy to visualize but we will try our best to explain it here.
 Figure \ref{fig:appendix-LSector} shows the result of Lender-Sector community detection.
 The results looks like a graph where each node represents a co-cluster.
-We could not list all the member of a cocluster because there are too many of them,
-but only show some Sectors in each cocluster.
+We could not list all the member of a co-cluster because there are too many of them,
+but only show some Sectors in each co-cluster.
 Edges represents the similarities between co-clusters, which recall that is the Jaccard Index.
 Each label of a edge is a tuple of similarity of Lender nodes and Sector nodes.
 Note that the similarities can be between Lender nodes or between Sector nodes.
@@ -403,15 +403,16 @@ We try to align the result with timeline from 2019 to 2023 as shown.
 Look at the figure, we could identify some interesting patterns.
 Take the part of the graph in the red rectangle for example.
 We could see a clear line structure here.
-Each nodes in this line represent a cocluster in a year,
-notice that all these cocluster are in the same Sector: Agriculture.
-Table \ref{tab:LS-agriculture} shows the details of the cocluster in Agriculture Sector.
+Each nodes in this line represent a co-cluster in a year,
+notice that all these co-cluster are in the same Sector: Agriculture.
+Table \ref{tab:LS-agriculture} shows the details of the co-cluster in Agriculture Sector.
 We could state that, roughly $30\%$ of the Lenders who interested in the Agriculture Sector
 remain in the same interest over time each year.
 This is a strong evidence that a community of Lenders exists with regard to the Agriculture Sector.
 Although it would require further investigation to confirm the existence of a community here,
-but we fould it resonable and confident to say it fit our hypothesis.
+but we found it reasonable and confident to say it fit our hypothesis.
 
+% /* cSpell:disable */ 
 \begin{table}[H]
 	\centering
 	\resizebox{\textwidth}{!}{%
@@ -427,20 +428,21 @@ but we fould it resonable and confident to say it fit our hypothesis.
 			\hline
 			2022-01-01 & ['becki2967', 'holly4656', 'kelsey6209', 'patricia4011', 'gerben5289', '...'] & {'Agriculture'}   & 0.313389                       & 1.000000                    \\
 			\hline
-		\end{tabular}
+		\end{tabular}%/* cSpell:enable */
 	}
 	\caption{A result in Lender-Sector community detection}
 	\label{tab:LS-agriculture}
 \end{table}
+%/* cSpell:enable */
 
 If we focus on the other thick line in the figure.
 The details of this line is show in table \ref{tab:LS-other}.
 Although the labels in the line show a high similarities between Lenders and Sectors,
-the result is not intepretable.
+the result is not interpretable.
 It seems that the algorithm identify a big community that contains many Lenders as well as many Sectors.
 Those Sectors do not seem to be related to each other.
 This behavior is consistent with the result in figure \ref{fig:modularity_pout} and \ref{fig:Q1_pout}.
-When $p_{out} \ge 0.2$, the algorithm detected the whole graph as a single cocluster.
+When $p_{out} \ge 0.2$, the algorithm detected the whole graph as a single co-cluster.
 We could not conclude that there is a community of Lenders with regard to those Sectors.
 
 \begin{table}[H]
@@ -490,7 +492,7 @@ We could see some clear trends represented by the lines in the figure.
 In the first line from left to right, we could see that the Lenders who interested in the Kenya.
 There are about $16\%$ of them remain in the same interest over time.
 The third line from left to right represent the Lenders who interested in the United States.
-Although occatinally, the communities might include other countries like Myanmar or Puerto Rico.
+Although occasionally, the communities might include other countries like Myanmar or Puerto Rico.
 Lenders who interested in this community remains about $16\%$ over time.
 The fourth line from left to right related to Philippines.
 The fifth line related to Paraguay.
@@ -514,7 +516,7 @@ It seems to just detect mostly every tags into a big community.
 
 
 
-In this chapter we have described the process of creating a syntehsis dataset with predefined community structure.
+In this chapter we have described the process of creating a synthesis dataset with predefined community structure.
 We run a same community structure in both the synthesis dataset and the real dataset.
 By compare the results, we could have a sense of the quality of the community detection algorithm.
 By specifically use \textit{biLouvian} algorithm,
