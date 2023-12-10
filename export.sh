@@ -1,3 +1,3 @@
 #!/bin/bash
 
-find -E . -iregex "(.*\.(tex|png|bib))|(.*images\/.*\.pdf)" -exec zip thesis.zip {} + 
+find -E . -iregex "(.*\.(tex|png|bib|graphql))|(.*images\/.*\.pdf)" -exec zip thesis.zip {} + 
