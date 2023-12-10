@@ -140,27 +140,25 @@ Where the edge $INTEREST$ between Lender $L_i$ and Tag $T_k$ is the sum of amoun
 Follow the same logic, we could cosntruct the relationship between Lenders and Sectors, and between Lenders and Country.
 
 
-\todo{add lines for raw dataset?}
-
 \begin{table}[H]
 	\centering
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{|l|r|r|r|r|r|r|r|}
 			\hline
-			dataset        & $n_1$     & $n_2$     & $m$        & $k_1$ & $k_2$     & $k$   & $\delta$ \\
+			dataset              & $n_1$     & $n_2$     & $m$        & $k_1$ & $k_2$     & $k$   & $\delta$ \\
 			\hline
-			actor-movies   & 127,823   & 383,640   & 1,470,418  & 11.5  & 3.8       & 5.7   &
-			0.000030                                                                                   \\
-			authoring      & 19,885    & 16,400    & 45,904     & 2.3   & 2.8       & 2.5   & 0.00014  \\
-			occurrences    & 13,587    & 9,264     & 183,363    & 13.5  & 19.8      & 16.0  & 0.0015   \\
-			peer-to-peer   & 1,986,588 & 5,380,546 & 55,829,392 & 28.1  & 10.4      & 15.2  &
-			0.0000052                                                                                  \\
-			kiva LS        & 750793    & 15        & 3047733    & 4.06  & 203182.20 & 4.06  & 0.27     \\
-			kiva LC        & 750793    & 93        & 5773899    & 7.69  & 62084.94  & 7.69  & 0.08     \\
-			kiva LT        & 750793    & 60        & 7957291    & 10.60 & 132621.52 & 10.60 & 0.18     \\
-			kiva active LS & 95662     & 15        & 659682     & 6.90  & 43978.80  & 6.89  & 0.46     \\
-			kiva active LC & 95662     & 73        & 1453934    & 15.20 & 19916.90  & 15.19 & 0.21     \\
-			kiva active LT & 95662     & 53        & 1640037    & 17.14 & 30944.09  & 17.13 & 0.32     \\
+			actor-movies         & 127,823   & 383,640   & 1,470,418  & 11.5  & 3.8       & 5.7   &
+			0.000030                                                                                         \\
+			authoring            & 19,885    & 16,400    & 45,904     & 2.3   & 2.8       & 2.5   & 0.00014  \\
+			occurrences          & 13,587    & 9,264     & 183,363    & 13.5  & 19.8      & 16.0  & 0.0015   \\
+			peer-to-peer         & 1,986,588 & 5,380,546 & 55,829,392 & 28.1  & 10.4      & 15.2  &
+			0.0000052                                                                                        \\
+			kiva LS              & 750793    & 15        & 3047733    & 4.06  & 203182.20 & 4.06  & 0.27     \\
+			kiva LC              & 750793    & 93        & 5773899    & 7.69  & 62084.94  & 7.69  & 0.08     \\
+			kiva LT              & 750793    & 60        & 7957291    & 10.60 & 132621.52 & 10.60 & 0.18     \\
+			kiva \gls{active} LS & 95662     & 15        & 659682     & 6.90  & 43978.80  & 6.89  & 0.46     \\
+			kiva \gls{active} LC & 95662     & 73        & 1453934    & 15.20 & 19916.90  & 15.19 & 0.21     \\
+			kiva \gls{active} LT & 95662     & 53        & 1640037    & 17.14 & 30944.09  & 17.13 & 0.32     \\
 			\hline
 		\end{tabular}%
 	}
@@ -208,11 +206,10 @@ meaning that the community is known beforehand.
 While in our case, we do not know the community, and we have to find it out.
 Hence in order to assess the quality of the community that we found,
 we adopt the better-than-random methodology well-known in the literature.
-
+In the next chapter, we will describe the the way we build synthesis graph (or random graph),
+and how we use it to assess the quality of the community that we found in the real dataset.
 
 % \todo{degree distribution \parencite{latapy2006}}
-
-\todo{Transaction to next chapter}
 
 \section{Hypothesis testing on synthesis data}
 
@@ -222,10 +219,7 @@ The community detection algorithm will be applied to the real data in the next s
 
 We will create a bipartite graph with 2 partites: $V_1$ and $V_2$.
 The number of nodes in each partite is $n_1$ and $n_2$ respectively.
-We choose the to fix $n_1$ and $n_2$ to be the same as the kiva dataset,
-hence $n_1=7000, n_2=25$.
-
-Then we define the communtiy structure of the graph.
+Then we define the community structure of the graph.
 We predefined that in each partite, there are $n_{community} = 5$ communities.
 Look at the figure \ref{fig:synthesis_graph} for illustration.
 Two partites represented by two type of nodes: Circle and Diamond.
@@ -281,7 +275,7 @@ E.g., if $Q=1$ then the clusters $\tilde{U}_j$ match exactly the ground-truth cl
 		\item[Input:] $p_{stay1}, p_{stay2}$ \Comment{Probability of staying in the same community}
 		\item[Input:] $p_{in}$ \Comment{Probability of connecting to a node in the same community}
 		\item[Input:] $p_{out}$ \Comment{Probability of connecting to a node in a different community}
-		\item[Output:] biajacency matrixes $B \in \mathbb{R}^{T \times n_1 \times n_2}$
+		\item[Output:] biadjacency matrixes $B \in \mathbb{R}^{T \times n_1 \times n_2}$
 		\item[Output:] community indexes $C \in \mathbb{N}^{T \times n_1}$
 		\item[Output:] community indexes $D \in \mathbb{N}^{T \times n_2}$
 	\end{description}
@@ -297,7 +291,19 @@ E.g., if $Q=1$ then the clusters $\tilde{U}_j$ match exactly the ground-truth cl
 	\end{algorithmic}
 \end{algorithm}
 
-
+Our target is to create biadjacency metrix for $T$ snapshots.
+The biadjacency metrix $B$ hence will be a 3-dimensional matrix with shape $T \times n_1 \times n_2$.
+Note that for the start, each element of $B$ is just zero, indicate that there is no edge between nodes,
+or 1, indicate that there is an edge between nodes.
+In the future, it can be easily extend to weighted graph by changing the value of each element.
+We specifically intend to create the community structure.
+Which mean in the start, each node in $V_1$ and $V_2$ will be assigned to a community.
+In later time, the node could change its community with a probability $1-p_{stay}$.
+Hence the algorithm also output the community indexes matrix $C$ and $D$ for $V_1$ and $V_2$ respectively,
+$C \in \mathbb{N}^{T \times n_1}$ and $D \in \mathbb{N}^{T \times n_2}$.
+After that, we create the cocluster relationship.
+This relationship is supposed to stay stable over time, represented by the matrix $M$.
+Finally, we generate the edges for each snapshot.
 
 \begin{figure}[H]
 	\centering
@@ -306,11 +312,9 @@ E.g., if $Q=1$ then the clusters $\tilde{U}_j$ match exactly the ground-truth cl
 	\label{fig:synthesis_graph}
 \end{figure}
 
-\todo{describe the algorithm. then provide our init condition $p_{stay1} = p_{stay2}$ for example}
-
 We will conduct an experiment to test what is the $Q$ value for different parameters.
 Choose the parameters $n_1 = 7000, n_2 = 25, n_{community} = 5, T=5$.
-We fix the value $p_{in} = 0.95, p_{stay2}$, while vary the value of $p_{stay1}$ in range $[0, 1]$ and $p_{out}$ in range $[0, 0.5]$.
+We fix the value $p_{in} = 0.95, p_{stay2} = 1.0$, while vary the value of $p_{stay1}$ in range $[0, 1]$ and $p_{out}$ in range $[0, 0.5]$.
 Notice that $p_{out} < p_{in}$, otherwise the community structure is not meaningful.
 With each parameters setting, we will generate 20 different graphs with different random seed.
 Then we will apply the community detection algorithm to each graph and compute the $Q1$ value,
@@ -319,7 +323,6 @@ which is the $Q$ value for the $V_1$ partite.
 We employ the biLouvian algorithm as mentioned in Chapter 2 for detecting the community.
 Note that the algorithm use Murata+ to metric to tell how good the finding is.
 Figure \ref{fig:modularity_pout} shows that metric as a function of $p_{out}$.
-We could see that \todo{here}
 We could see that the $modularity$ is tend to be high when $p_{out}$ is low.
 Recall that we set $p_{in}$ fixed at $0.95$.
 When $p_{out}$ is low, the difference between edge density in pre-defined community and the other is high.
@@ -364,9 +367,6 @@ For example, even the difference is quite large when $p_{out}=0.15$,
 $Q1$ only archieve around $0.3$, meaning that the algorithm only detect $30\%$ of the community.
 It indicate that in the real dataset, if we manage to find a community that
 its member remain roughly $30\%$ over time, we can be confident that the community is real.
-
-\todo{refine the $p_{stay2}$}
-
 
 \section{Hypothesis testing on real data}
 
@@ -513,4 +513,10 @@ It seems to just detect mostly every tags into a big community.
 \end{figure}
 
 
-\todo{SOme conclusion here to wrap up the chapter}
+
+In this chapter we have described the process of creating a syntehsis dataset with predefined community structure.
+We run a same community structure in both the synthesis dataset and the real dataset.
+By compare the results, we could have a sense of the quality of the community detection algorithm.
+By specifically use \textit{biLouvian} algorithm,
+we discovered stable community structure of Lender who interested in Agriculture Sector.
+The Country and Tag community structure is not clear to us.
