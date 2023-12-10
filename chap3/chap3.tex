@@ -330,9 +330,11 @@ The Tag part is just a single column that contains the Tag name.
 \end{figure}
 
 \begin{comment}
+\todo{Add statistic about the data}
 ds.project_id.nunique() = 2090091
 ds.lender_id.nunique() = 1942657
 in which, number of anons is
+anons = ds.lender_publicId.fillna("").str.startswith("anon")
 ds[anons].lender_id.nunique() = 1110136
 \end{comment}
 
@@ -400,22 +402,12 @@ Since the documentation regarding these tags is not exists,
 we decided to do our best for understanding what each tags are by looking at some of project for each tags.
 We will get rid of the tags the we think is not have any meaning to users and keep the rest.
 
-
-\todo{Add statistic about the tags and number of Anonymous Lender}
-
+% \todo{anonymous data is real minority or not?}
 We explore the data, we also found that some Lenders is anonymous.
 Though kiva do not provide any documentation about who is anonymous Lender and how they interact with the platform,
 we would like to find those Lenders to see if they are minority or majority.
-
-\todo{Add statistic about the tags and number of Anonymous Lender}
-
-The only way to find out if a Lender is anonymous is to look at the \lstinline|lender_name|,
-or \lstinline|lender_publicId| fields.
-If the lower case of \lstinline|lender_name| is begin with "anonymous",
-or the lower case of \lstinline|lender_publicId| is begin with "anon",
-then we consider that Lender is anonymous.
-
-\todo{Add comment about remove those Lenders}
+We observed that the \lstinline|lender_publicId| field is always starts with "anon" for anonymous Lenders.
+By filtering with that condition, we found that they are minority and we decide to remove them from the data.
 
 After all the above steps, we store the data again in a \lstinline|.parquet| file.
 We always keep track of the date of the data, so different version of the data can be easily identify.
@@ -565,11 +557,11 @@ are drawn with the preprocessed data,
 because otherwise, the visible Tags will be overwhelmed by the invisible Tags.
 
 
-\todo{tags analysis (the presentation slide)}
+% \todo{tags analysis (the presentation slide)}
 
-\todo{Report number project without tags is }
+% \todo{Report number project without tags is }
 
-\todo{appendix: number of project, tags vs time, colored by tags}
+% \todo{appendix: number of project, tags vs time, colored by tags}
 
 \subsection{How long that users stay on the platform}
 
