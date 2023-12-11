@@ -6,14 +6,15 @@ Structure of the project
 - all images go to the `images` folder
 - each chapter has it own folder
 
+Scripts
+
+- Build project with `./build.sh`
+- Run `./export.sh` to create a zip file, which can be uploaded to overleaf
+
 Some other notes
 
-- each sentense on seperated line
+- each sentence on separated line
 - [SciencePlot](https://github.com/garrettj403/SciencePlots/wiki/Gallery)
 - [paper-tips-and-tricks](https://github.com/Wookai/paper-tips-and-tricks)
 
-Export
-
-- Run `./export.sh` to create a zip file, which can be uploaded to overleaf
-
-[Developement note](development.md)
+[Development note](development.md)
