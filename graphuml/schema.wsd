@@ -1,0 +1,25 @@
+@startuml dataschema
+class Lender {
+  Integer id
+  String publicId
+  String name
+}
+
+class Project {
+  Integer id
+  String name
+  ...
+}
+
+class Tag {
+  String name
+}
+
+class Sector {
+  String name
+}
+
+Lender "many" *--* "many" Project
+Project "many" *--* "many" Tag
+Project "many" --> "1" Sector
+@enduml

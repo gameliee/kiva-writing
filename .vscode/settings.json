@@ -1,10 +1,11 @@
 {
     "latex-workshop.latex.recipes": [
         {
-            "name": "pdflatex -> bibtex -> pdflatex * 2",
+            "name": "pdflatex -> makeglossaries -> biber -> pdflatex * 2",
             "tools": [
                 "pdflatex",
-                "bibtex",
+                "makeglossaries",
+                "biber",
                 "pdflatex",
                 "pdflatex"
             ]
@@ -29,6 +30,51 @@
                 "%DOCFILE%"
             ],
             "env": {}
+        },
+        {
+            "name": "makeglossaries",
+            "command": "makeglossaries",
+            "args": [
+                "%DOCFILE%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "biber",
+            "command": "biber",
+            "args": [
+                "%DOCFILE%"
+            ],
+            "env": {}
         }
+    ],
+    "pasteImage.basePath": "${projectRoot}",
+    "pasteImage.showFilePathConfirmInputBox": true,
+    "pasteImage.prefix": "\\begin{figure}[H]\n\t\\centering\n\t\\includegraphics[width=0.8\\textwidth]{",
+    "pasteImage.suffix": "}\n\t\\caption{}\n\t\\label{fig:${imageFileNameWithoutExt}}\n\\end{figure}",
+    "pasteImage.filePathConfirmInputBoxMode": "onlyName",
+    "pasteImage.path": "${projectRoot}/images",
+    "plantuml.exportSubFolder": false,
+    "plantuml.exportOutDir": "images",
+    "cSpell.words": [
+        "AUTOTHROTTLE",
+        "biadjacency",
+        "bimodularity",
+        "BIPOC",
+        "Dask",
+        "datetime",
+        "funders",
+        "geocode",
+        "Jaccard",
+        "Louvian",
+        "Memgraph",
+        "Murata",
+        "Nonbinary",
+        "preprocess",
+        "successfulness",
+        "TAGW",
+        "Taobao",
+        "UMICROWD",
+        "unipartite"
     ]
 }

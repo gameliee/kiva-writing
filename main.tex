@@ -5,18 +5,37 @@
 \usepackage{xcolor}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{caption}
+\usepackage{subcaption} % For subfigures
+\usepackage{setspace} % For line spacing
 \usepackage{booktabs} % For formal tables
+\usepackage{microtype} % For better typesetting (dense text etc.)
 \usepackage{tikz}
+\usepackage{hyperref} % For hyperlinks
+\usepackage{listings} % For code snippets
+\usepackage{longtable} % For long tables
+\usepackage[acronym,nopostdot,nogroupskip,nonumberlist,section]{glossaries} % For glossaries
 \usepackage[margin=1in]{geometry} % For page margins
 \usepackage{eso-pic} % Needed for AddToShipoutPicture
+\usepackage{comment} % For multiline comments
+\usepackage{array} % For table formatting
 \usetikzlibrary{calc}
 \usepackage[
-backend=bibtex,
-style=alphabetic,
+backend=biber,
+style=authoryear-icomp,
 sorting=ynt
 ]{biblatex}
-\addbibresource{kiva-writing.bib}
 
+\addbibresource{kiva-writing.bib}
+\setstretch{1.25}
+\lstset{frame=single}
+
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\note}[1]{\textcolor{blue}{NOTE: #1}}
+\newcommand{\densetext}[1]{\scalebox{0.8}[1.0]{\textls[-80]{#1}}}
+\DeclareMathOperator*{\argmax}{argmax} % no space, limits underneath in displays
+
+\input{frontmatter/glossaries.tex}
 
 \begin{document}
 
@@ -30,9 +49,20 @@ sorting=ynt
 }
 
 \input{frontmatter/frontmatter.tex}
+
+\chapter*{Acknowledgement}
+\input{frontmatter/ack.tex}
+
 \tableofcontents
 \listoffigures
 \listoftables
+
+% \clearpage
+\chapter*{Glossary and Acronyms}
+\printglossary[title={Glossary}, type=main]
+\printglossary[type=\acronymtype, title={Acronyms}]
+% \printglossary
+% \printglossary[type=\acronymtype]
 
 \chapter{Introduction}
 \input{chap1/chap1.tex}
@@ -46,5 +76,8 @@ sorting=ynt
 \input{chap5/chap5.tex}
 
 \input{backmatter/backmatter.tex}
+
+\appendix
+\input{backmatter/appendix.tex}
 
 \end{document}

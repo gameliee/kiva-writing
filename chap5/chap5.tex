@@ -1,8 +1,13 @@
-\section{Conclustions}
+\section{Conclusions}
+\begin{comment}
 
 This community finding is a unsupervised problem.
 Hence, there are different methodology for answer the question
 
+
+SOmething to try
+
+- \lstinline|adjusted_rand_score|
 
 \section{Future works}
 
@@ -13,3 +18,67 @@ Hence, there are different methodology for answer the question
 	      Note that this part is currently in trying phase.
 	      If we have time to make it now, we could move it to the section 4.
 \end{itemize}
+\end{comment}
+
+In this thesis, we have studied the dynamics of crowdfunding, with a focus on the role of community.
+
+We have first reviewed the related works on crowdfunding and on community detection problems.
+We have show studies on community detection on graphs is still an active research field,
+and there are many different approaches to the problem.
+
+If focus on bipartite graphs, two main approaches are \textit{projection} and \textit{non-projection} methods.
+We have show than non-projection methods are more suitable for our problem.
+We have observed that most of the works on community detection is a supervised problem,
+while in our case, it is to apply algorithms on the unsupervised data.
+Therefore we have faced challenges in finding a metric to evaluate the results of community detection algorithms,
+and we solve this problem by looking at the stability of the found communities over time.
+
+We have proposed a methodology for detecting communities of lenders on crowdfunding platforms like following.
+By divide the dataset into time slices or snapshots
+and apply community detection on bipartite graphs techniques on each snapshot,
+we can find groups of lenders at each snapshot.
+Then we study the correlation between the groups of lenders at different snapshots,
+by this way we can find groups of lenders that are stable over time and have similar lending behaviors.
+If the results is better than a random baseline, we can conclude that there are communities of lenders on the platform.
+
+We have applied this methodology to the Kiva.org platform.
+First we describe the platform and how to collect data from it.
+Through API, we have collected data about Lenders, Projects, Sectors, Tags, Countries.
+The data alone should not be undervalued,
+because through literature we do not find any other works that have collected data from Kiva.org.
+With the sheer size of the data and the lack of official documentation about the data schema,
+we have done heavily data exploration and preprocessing,
+which could help other researchers who want to work on this dataset.
+
+After understand those data through statistical analysis,
+we built graph-like databases from the data,
+and applied community detection on bipartite graphs techniques to find communities of lenders in the database.
+We have found some specific groups of lenders that show repeated lending behaviors.
+They are a community related to the \textit{Agriculture} sector,
+or a community contribute repeatedly to the same country - Kenya.
+
+Although the results are not very good in a sense that the methodology yields many false positives,
+and the found communities might need further analysis (via sociality studies for example),
+we confident that the methodology is valid and can be applied to other platforms.
+
+In the future, several improvements can be made for the methodology.
+Take building the random baseline for example,
+we can relax the assumption with a larger number of lenders,
+or do not assume that the groups of lenders are disjoint,
+or change the number of community over time.
+We can also try other methods for finding groups of people who are in same interest,
+like using classical clustering algorithms with input features are Tags or Sectors or Countries or all of them.
+Similarity between timestamp can also be measured in other ways, for example using Rand index.
+
+% contribution to the UMICROWD project
+This master thesis positively contributes to the UMICROWD project.
+The dataset we have collected can be used as a starting point for further research on crowdfunding.
+The methodology we have proposed can be applied to other platforms.
+The challenges we have faced during the thesis can be used as a reference for future works.
+
+
+
+% To better understanding the role of community in crowdfunding, we can also try to find communities of borrowers.
+
+
+
