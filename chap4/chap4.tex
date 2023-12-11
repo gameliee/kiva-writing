@@ -416,17 +416,17 @@ but we found it reasonable and confident to say it fit our hypothesis.
 \begin{table}[H]
 	\centering
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|m{0.1\textwidth}|m{0.4\textwidth}|m{0.2\textwidth}|m{0.1\textwidth}|m{0.1\textwidth}|}
+		\begin{tabular}{|c|m{0.4\textwidth}|m{0.2\textwidth}|m{0.14\textwidth}|m{0.14\textwidth}|}
 			\hline
 			time       & community\_Lender                                                             & community\_Sector & lender similarity to last year & tag similarity to last year \\
 			\hline\hline
-			2019-01-01 & ['helen6472', 'becki2967', 'steohen6319', 'broen4509', 'mark6805', '...']     & {'Agriculture'}   & -                              & -                           \\
+			2019-01-01 & ['helen6472', 'becki2967', 'steohen6319', 'broen4509', 'mark6805', '...']     & ['Agriculture']   & -                              & -                           \\
 			\hline
-			2020-01-01 & ['helen6472', 'steohen6319', 'broen4509', 'mark6805', 'kelsey6209', '...']    & {'Agriculture'}   & 0.318373                       & 1.000000                    \\
+			2020-01-01 & ['helen6472', 'steohen6319', 'broen4509', 'mark6805', 'kelsey6209', '...']    & ['Agriculture']   & 0.318373                       & 1.000000                    \\
 			\hline
-			2021-01-01 & ['becki2967', 'steohen6319', 'fabianfuchs', 'tracy4274', 'mark6805', '...']   & {'Agriculture'}   & 0.323045                       & 1.000000                    \\
+			2021-01-01 & ['becki2967', 'steohen6319', 'fabianfuchs', 'tracy4274', 'mark6805', '...']   & ['Agriculture']   & 0.323045                       & 1.000000                    \\
 			\hline
-			2022-01-01 & ['becki2967', 'holly4656', 'kelsey6209', 'patricia4011', 'gerben5289', '...'] & {'Agriculture'}   & 0.313389                       & 1.000000                    \\
+			2022-01-01 & ['becki2967', 'holly4656', 'kelsey6209', 'patricia4011', 'gerben5289', '...'] & ['Agriculture']   & 0.313389                       & 1.000000                    \\
 			\hline
 		\end{tabular}%/* cSpell:enable */
 	}
@@ -448,19 +448,19 @@ We could not conclude that there is a community of Lenders with regard to those 
 \begin{table}[H]
 	\centering
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|m{0.1\textwidth}|m{0.3\textwidth}|m{0.3\textwidth}|m{0.1\textwidth}|m{0.1\textwidth}|}
+		\begin{tabular}{|c|m{0.3\textwidth}|m{0.3\textwidth}|m{0.14\textwidth}|m{0.14\textwidth}|}
 			\hline
 			time       & community\_Lender                                                                           & community\_Sector                                                                                                                                                                     & lender similarity vs last year & criteria similarity vs last year \\
 			\hline\hline
-			2019-01-01 & ['douglas9849', 'mitchell12131762', 'ivan7169', 'allison5876', 'sebastian7510', '...']      & {'Arts', 'Health', 'Retail', 'Personal Use', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing'}                                                                            & -                              & -                                \\
+			2019-01-01 & ['douglas9849', 'mitchell12131762', 'ivan7169', 'allison5876', 'sebastian7510', '...']      & ['Arts', 'Health', 'Retail', 'Personal Use', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing']                                                                            & -                              & -                                \\
 			\hline
-			2020-01-01 & ['matthew50991422', 'douglas9849', 'mitchell12131762', 'ivan7169', 'sean37149660', '...']   & {'Arts', 'Construction', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing'}                        & 0.445410                       & 0.615385                         \\
+			2020-01-01 & ['matthew50991422', 'douglas9849', 'mitchell12131762', 'ivan7169', 'sean37149660', '...']   & ['Arts', 'Construction', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing']                        & 0.445410                       & 0.615385                         \\
 			\hline
-			2021-01-01 & ['douglas9849', 'mitchell12131762', 'karin1660', 'ivan7169', 'sean37149660', '...']         & {'Retail', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing'}                                                                                                              & 0.404038                       & 0.500000                         \\
+			2021-01-01 & ['douglas9849', 'mitchell12131762', 'karin1660', 'ivan7169', 'sean37149660', '...']         & ['Retail', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing']                                                                                                              & 0.404038                       & 0.500000                         \\
 			\hline
-			2022-01-01 & ['matthew50991422', 'douglas9849', 'pat7979', 'annette84874099', 'mitchell12131762', '...'] & {'Arts', 'Education', 'Construction', 'Health', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing'} & 0.426134                       & 0.428571                         \\
+			2022-01-01 & ['matthew50991422', 'douglas9849', 'pat7979', 'annette84874099', 'mitchell12131762', '...'] & ['Arts', 'Education', 'Construction', 'Health', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing'] & 0.426134                       & 0.428571                         \\
 			\hline
-			2023-01-01 & ['annette84874099', 'pat7979', 'mary3729', 'ivan7169', 'jonathan5059', '...']               & {'Arts', 'Education', 'Construction', 'Health', 'Transportation', 'Personal Use', 'Services', 'Entertainment', 'Agriculture', 'Wholesale', 'Manufacturing'}                           & 0.358718                       & 0.666667                         \\
+			2023-01-01 & ['annette84874099', 'pat7979', 'mary3729', 'ivan7169', 'jonathan5059', '...']               & ['Arts', 'Education', 'Construction', 'Health', 'Transportation', 'Personal Use', 'Services', 'Entertainment', 'Agriculture', 'Wholesale', 'Manufacturing']                           & 0.358718                       & 0.666667                         \\
 			\hline
 		\end{tabular}
 	}
