@@ -380,7 +380,29 @@ its member remain roughly $30\%$ over time, we can be confident that the communi
 \end{itemize}
 \end{comment}
 
-\todo{write this part}
+After create Lender-Criteria graphs, we break each graph into multiple snapshots.
+Each snapshot is a graph at a specific time.
+Here, we use the time that a project is posted into Kiva website as the time of the snapshots.
+We will use the snapshots from 2019 to 2023.
+Figure \ref{fig:testing_method} visualize the timeline of the snapshots.
+In each snapshot, we apply the community detection algorithm to find the community of Lenders.
+One can also find the "community of Criteria" by applying the algorithm to the other partite.
+In this case, we use biLouvian algorithm hence we could find both communities at the same time.
+We also can find the co-cluster relationship between Lenders and Criteria.
+
+Through time, the community of Lenders and Criteria could change.
+Lender could change their interest in Criteria,
+and Criteria could change their interest in Lenders.
+We then measure the similarities between each consecutive snapshots
+using Jaccard index like mentioned in the previous section.
+We then compare the similarities with the number $Q_{synthesis}$ that we found in the previous section.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/testing_method.pdf}
+	\caption{Illustrate the testing configuration}
+	\label{fig:testing_method}
+\end{figure}
 
 % \include{images/tikz/LCountry.tex}
 
