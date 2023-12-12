@@ -270,14 +270,14 @@ E.g., if $Q=1$ then the clusters $\tilde{U}_j$ match exactly the ground-truth cl
 	\label{alg:synthesis_graph_all}
 	\begin{description}
 		\item[Input:] $T$ \Comment{Number of timestep}
-		\item[Input:] $n_1, n_2$ \Comment{Number of nodes for each partite}
-		\item[Input:] $c_1, c_2$ \Comment{Number of community for each partite}
-		\item[Input:] $p_{stay1}, p_{stay2}$ \Comment{Probability of staying in the same community}
-		\item[Input:] $p_{in}$ \Comment{Probability of connecting to a node in the same community}
-		\item[Input:] $p_{out}$ \Comment{Probability of connecting to a node in a different community}
+		\item[\phantom{Input:}] $n_1, n_2$ \Comment{Number of nodes for each partite}
+		\item[\phantom{Input:}] $c_1, c_2$ \Comment{Number of community for each partite}
+		\item[\phantom{Input:}] $p_{stay1}, p_{stay2}$ \Comment{Probability of staying in the same community}
+		\item[\phantom{Input:}] $p_{in}$ \Comment{Probability of connecting to a node in the same community}
+		\item[\phantom{Input:}] $p_{out}$ \Comment{Probability of connecting to a node in a different community}
 		\item[Output:] biadjacency matrixes $B \in \mathbb{R}^{T \times n_1 \times n_2}$
-		\item[Output:] community indexes $C \in \mathbb{N}^{T \times n_1}$
-		\item[Output:] community indexes $D \in \mathbb{N}^{T \times n_2}$
+		\item[\phantom{Output:}] community indexes $C \in \mathbb{N}^{T \times n_1}$
+		\item[\phantom{Output:}] community indexes $D \in \mathbb{N}^{T \times n_2}$
 	\end{description}
 	\begin{algorithmic}[1]
 		\State $B \gets$ \Call{zeros}{$T, n_1, n_2$}
@@ -370,6 +370,7 @@ its member remain roughly $30\%$ over time, we can be confident that the communi
 
 \section{Hypothesis testing on real data}
 
+\begin{comment}
 \begin{itemize}
 	\item
 	\item Filter data to keep Lenders who is active invest from 2019-2023
@@ -377,6 +378,9 @@ its member remain roughly $30\%$ over time, we can be confident that the communi
 	\item Then find quality assessment $Q_{real}$ again and compare with $Q_{synthesis}$.
 	      Decide if there is a clear community for different criteria (Tags, Sectors, Country)
 \end{itemize}
+\end{comment}
+
+\todo{write this part}
 
 % \include{images/tikz/LCountry.tex}
 
