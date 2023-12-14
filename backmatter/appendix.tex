@@ -591,9 +591,9 @@
 	\label{alg:appendix-synthesis_graph_nodes}
 	\begin{description}
 		\item[Input:] number of time step $T$
-		\item[Input:] number of nodes $n$
-		\item[Input:] number of community $c$
-		\item[Input:] probability a node stay in a same community in one step $p_{stay}$
+		\item[\phantom{Input:}] number of nodes $n$
+		\item[\phantom{Input:}] number of community $c$
+		\item[\phantom{Input:}] probability a node stay in a same community in one step $p_{stay}$
 		\item[Output:] community indexes $C \in \mathbb{N}^{T \times n \times c}$
 	\end{description}
 	\begin{algorithmic}[1]
@@ -654,8 +654,8 @@
 	\begin{description}
 		\item[Input/Output: ] biadjacency matrix $B \in \mathbb{R}^{n_1 \times n_2}$
 		\item[Input:] $V_1$ community index $C \in \mathbb{N}^{n_1}$
-		\item[Input:] $V_2$ community index $D \in \mathbb{N}^{n_2}$
-		\item[Input:] $c_1, c_2, p_{in}, p_{out}$
+		\item[\phantom{Input:}] $V_2$ community index $D \in \mathbb{N}^{n_2}$
+		\item[\phantom{Input:}] $c_1, c_2, p_{in}, p_{out}$
 	\end{description}
 	\begin{algorithmic}[1] % line number
 		\Function{generate\_edges}{$B, C, D, c_1, c_2, p_{in}, p_{out}$}

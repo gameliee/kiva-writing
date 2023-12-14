@@ -270,14 +270,14 @@ E.g., if $Q=1$ then the clusters $\tilde{U}_j$ match exactly the ground-truth cl
 	\label{alg:synthesis_graph_all}
 	\begin{description}
 		\item[Input:] $T$ \Comment{Number of timestep}
-		\item[Input:] $n_1, n_2$ \Comment{Number of nodes for each partite}
-		\item[Input:] $c_1, c_2$ \Comment{Number of community for each partite}
-		\item[Input:] $p_{stay1}, p_{stay2}$ \Comment{Probability of staying in the same community}
-		\item[Input:] $p_{in}$ \Comment{Probability of connecting to a node in the same community}
-		\item[Input:] $p_{out}$ \Comment{Probability of connecting to a node in a different community}
+		\item[\phantom{Input:}] $n_1, n_2$ \Comment{Number of nodes for each partite}
+		\item[\phantom{Input:}] $c_1, c_2$ \Comment{Number of community for each partite}
+		\item[\phantom{Input:}] $p_{stay1}, p_{stay2}$ \Comment{Probability of staying in the same community}
+		\item[\phantom{Input:}] $p_{in}$ \Comment{Probability of connecting to a node in the same community}
+		\item[\phantom{Input:}] $p_{out}$ \Comment{Probability of connecting to a node in a different community}
 		\item[Output:] biadjacency matrixes $B \in \mathbb{R}^{T \times n_1 \times n_2}$
-		\item[Output:] community indexes $C \in \mathbb{N}^{T \times n_1}$
-		\item[Output:] community indexes $D \in \mathbb{N}^{T \times n_2}$
+		\item[\phantom{Output:}] community indexes $C \in \mathbb{N}^{T \times n_1}$
+		\item[\phantom{Output:}] community indexes $D \in \mathbb{N}^{T \times n_2}$
 	\end{description}
 	\begin{algorithmic}[1]
 		\State $B \gets$ \Call{zeros}{$T, n_1, n_2$}
@@ -370,6 +370,7 @@ its member remain roughly $30\%$ over time, we can be confident that the communi
 
 \section{Hypothesis testing on real data}
 
+\begin{comment}
 \begin{itemize}
 	\item
 	\item Filter data to keep Lenders who is active invest from 2019-2023
@@ -377,6 +378,31 @@ its member remain roughly $30\%$ over time, we can be confident that the communi
 	\item Then find quality assessment $Q_{real}$ again and compare with $Q_{synthesis}$.
 	      Decide if there is a clear community for different criteria (Tags, Sectors, Country)
 \end{itemize}
+\end{comment}
+
+After create Lender-Criteria graphs, we break each graph into multiple snapshots.
+Each snapshot is a graph at a specific time.
+Here, we use the time that a project is posted into Kiva website as the time of the snapshots.
+We will use the snapshots from 2019 to 2023.
+Figure \ref{fig:testing_method} visualize the timeline of the snapshots.
+In each snapshot, we apply the community detection algorithm to find the community of Lenders.
+One can also find the "community of Criteria" by applying the algorithm to the other partite.
+In this case, we use biLouvian algorithm hence we could find both communities at the same time.
+We also can find the co-cluster relationship between Lenders and Criteria.
+
+Through time, the community of Lenders and Criteria could change.
+Lender could change their interest in Criteria,
+and Criteria could change their interest in Lenders.
+We then measure the similarities between each consecutive snapshots
+using Jaccard index like mentioned in the previous section.
+We then compare the similarities with the number $Q_{synthesis}$ that we found in the previous section.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/testing_method.pdf}
+	\caption{Illustrate the testing configuration}
+	\label{fig:testing_method}
+\end{figure}
 
 % \include{images/tikz/LCountry.tex}
 
@@ -416,17 +442,17 @@ but we found it reasonable and confident to say it fit our hypothesis.
 \begin{table}[H]
 	\centering
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|m{0.1\textwidth}|m{0.4\textwidth}|m{0.2\textwidth}|m{0.1\textwidth}|m{0.1\textwidth}|}
+		\begin{tabular}{|c|m{0.4\textwidth}|m{0.2\textwidth}|m{0.14\textwidth}|m{0.14\textwidth}|}
 			\hline
 			time       & community\_Lender                                                             & community\_Sector & lender similarity to last year & tag similarity to last year \\
 			\hline\hline
-			2019-01-01 & ['helen6472', 'becki2967', 'steohen6319', 'broen4509', 'mark6805', '...']     & {'Agriculture'}   & -                              & -                           \\
+			2019-01-01 & ['helen6472', 'becki2967', 'steohen6319', 'broen4509', 'mark6805', '...']     & ['Agriculture']   & -                              & -                           \\
 			\hline
-			2020-01-01 & ['helen6472', 'steohen6319', 'broen4509', 'mark6805', 'kelsey6209', '...']    & {'Agriculture'}   & 0.318373                       & 1.000000                    \\
+			2020-01-01 & ['helen6472', 'steohen6319', 'broen4509', 'mark6805', 'kelsey6209', '...']    & ['Agriculture']   & 0.318373                       & 1.000000                    \\
 			\hline
-			2021-01-01 & ['becki2967', 'steohen6319', 'fabianfuchs', 'tracy4274', 'mark6805', '...']   & {'Agriculture'}   & 0.323045                       & 1.000000                    \\
+			2021-01-01 & ['becki2967', 'steohen6319', 'fabianfuchs', 'tracy4274', 'mark6805', '...']   & ['Agriculture']   & 0.323045                       & 1.000000                    \\
 			\hline
-			2022-01-01 & ['becki2967', 'holly4656', 'kelsey6209', 'patricia4011', 'gerben5289', '...'] & {'Agriculture'}   & 0.313389                       & 1.000000                    \\
+			2022-01-01 & ['becki2967', 'holly4656', 'kelsey6209', 'patricia4011', 'gerben5289', '...'] & ['Agriculture']   & 0.313389                       & 1.000000                    \\
 			\hline
 		\end{tabular}%/* cSpell:enable */
 	}
@@ -448,19 +474,19 @@ We could not conclude that there is a community of Lenders with regard to those 
 \begin{table}[H]
 	\centering
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|m{0.1\textwidth}|m{0.3\textwidth}|m{0.3\textwidth}|m{0.1\textwidth}|m{0.1\textwidth}|}
+		\begin{tabular}{|c|m{0.3\textwidth}|m{0.3\textwidth}|m{0.14\textwidth}|m{0.14\textwidth}|}
 			\hline
 			time       & community\_Lender                                                                           & community\_Sector                                                                                                                                                                     & lender similarity vs last year & criteria similarity vs last year \\
 			\hline\hline
-			2019-01-01 & ['douglas9849', 'mitchell12131762', 'ivan7169', 'allison5876', 'sebastian7510', '...']      & {'Arts', 'Health', 'Retail', 'Personal Use', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing'}                                                                            & -                              & -                                \\
+			2019-01-01 & ['douglas9849', 'mitchell12131762', 'ivan7169', 'allison5876', 'sebastian7510', '...']      & ['Arts', 'Health', 'Retail', 'Personal Use', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing']                                                                            & -                              & -                                \\
 			\hline
-			2020-01-01 & ['matthew50991422', 'douglas9849', 'mitchell12131762', 'ivan7169', 'sean37149660', '...']   & {'Arts', 'Construction', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing'}                        & 0.445410                       & 0.615385                         \\
+			2020-01-01 & ['matthew50991422', 'douglas9849', 'mitchell12131762', 'ivan7169', 'sean37149660', '...']   & ['Arts', 'Construction', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing']                        & 0.445410                       & 0.615385                         \\
 			\hline
-			2021-01-01 & ['douglas9849', 'mitchell12131762', 'karin1660', 'ivan7169', 'sean37149660', '...']         & {'Retail', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing'}                                                                                                              & 0.404038                       & 0.500000                         \\
+			2021-01-01 & ['douglas9849', 'mitchell12131762', 'karin1660', 'ivan7169', 'sean37149660', '...']         & ['Retail', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Clothing']                                                                                                              & 0.404038                       & 0.500000                         \\
 			\hline
-			2022-01-01 & ['matthew50991422', 'douglas9849', 'pat7979', 'annette84874099', 'mitchell12131762', '...'] & {'Arts', 'Education', 'Construction', 'Health', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing'} & 0.426134                       & 0.428571                         \\
+			2022-01-01 & ['matthew50991422', 'douglas9849', 'pat7979', 'annette84874099', 'mitchell12131762', '...'] & ['Arts', 'Education', 'Construction', 'Health', 'Retail', 'Personal Use', 'Transportation', 'Services', 'Entertainment', 'Food', 'Wholesale', 'Manufacturing', 'Clothing', 'Housing'] & 0.426134                       & 0.428571                         \\
 			\hline
-			2023-01-01 & ['annette84874099', 'pat7979', 'mary3729', 'ivan7169', 'jonathan5059', '...']               & {'Arts', 'Education', 'Construction', 'Health', 'Transportation', 'Personal Use', 'Services', 'Entertainment', 'Agriculture', 'Wholesale', 'Manufacturing'}                           & 0.358718                       & 0.666667                         \\
+			2023-01-01 & ['annette84874099', 'pat7979', 'mary3729', 'ivan7169', 'jonathan5059', '...']               & ['Arts', 'Education', 'Construction', 'Health', 'Transportation', 'Personal Use', 'Services', 'Entertainment', 'Agriculture', 'Wholesale', 'Manufacturing']                           & 0.358718                       & 0.666667                         \\
 			\hline
 		\end{tabular}
 	}
