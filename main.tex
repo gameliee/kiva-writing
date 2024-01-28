@@ -60,7 +60,7 @@ sorting=ynt
 
 % Draw a border on every page
 \AddToShipoutPicture{%x
-	\ifnum\value{page}>1
+	\ifnum\value{page}>0
 	\begin{tikzpicture}[overlay,remember picture]
 		\draw [line width=1pt]
 		($ (current page.north west) + (0.5cm,-0.5cm) $) rectangle
