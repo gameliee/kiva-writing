@@ -6,6 +6,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{caption}
+\usepackage[T1]{fontenc} % For font in the first page
 \usepackage{subcaption} % For subfigures
 \usepackage{setspace} % For line spacing
 \usepackage{booktabs} % For formal tables
@@ -19,6 +20,10 @@
 \usepackage{eso-pic} % Needed for AddToShipoutPicture
 \usepackage{comment} % For multiline comments
 \usepackage{array} % For table formatting
+\usepackage[absolute,overlay]{textpos} % Firstpage: For text positioning with textblock
+\usepackage{colortbl} % Firstpage: For colored tables with arrayrulecolor
+\usepackage{afterpage} % Firstpage: For blank pages with \afterpage{\blankpage}
+
 \usetikzlibrary{calc}
 \usepackage[
 backend=biber,
@@ -30,6 +35,20 @@ sorting=ynt
 \setstretch{1.25}
 \lstset{frame=single}
 
+% For the first page
+\definecolor{bordeau}{rgb}{0.3515625,0,0.234375}
+\definecolor{Prune}{RGB}{99,0,60}
+\newcommand{\PhDTitle}{DETECTING COMMUNITY DYNAMICS ON CROWDFUNDING PLATFORMS} 
+\newcommand{\PhDname}{Tien-Dat NGUYEN}
+\newcommand{\PhdResearchUnit}{Laboratory of Signals and Systems, CNRS-CentraleSupélec-Paris-Saclay University}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+% End for the first page
+
 \newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
 \newcommand{\note}[1]{\textcolor{blue}{NOTE: #1}}
 \newcommand{\densetext}[1]{\scalebox{0.8}[1.0]{\textls[-80]{#1}}}
@@ -40,15 +59,20 @@ sorting=ynt
 \begin{document}
 
 % Draw a border on every page
-\AddToShipoutPicture{%
+\AddToShipoutPicture{%x
+	\ifnum\value{page}>1
 	\begin{tikzpicture}[overlay,remember picture]
 		\draw [line width=1pt]
 		($ (current page.north west) + (0.5cm,-0.5cm) $) rectangle
 		($ (current page.south east) + (-0.5cm,0.5cm) $);
 	\end{tikzpicture}%
+	\fi
 }
 
-\input{frontmatter/frontmatter.tex}
+% \input{frontmatter/frontmatter.tex} % my style
+% VNU's template
+\input{frontmatter/firstpage.tex}
+\newpage
 
 \chapter*{Acknowledgement}
 \input{frontmatter/ack.tex}
